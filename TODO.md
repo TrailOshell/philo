@@ -17,6 +17,8 @@
 - [ ] parsing
 	- [x] no more than 5 arguments
 	- [x] use ft_atoi on each argument
+ - [ ] "must have more than one philosopher"
+ - [ ] "argument must be positive integers"
 	- [ ] catch overflow?
 - [ ] philosophers
 	- [ ] enum states (0-Idle 1-Eating 2-Sleeping 3-Thinking 4-Full 5-Dead)
