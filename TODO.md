@@ -18,13 +18,20 @@
 	- [x] no more than 5 arguments
 	- [x] use ft_atoi on each argument
 	- [ ] catch overflow?
-- [ ] thread
 - [ ] philosophers
 	- [ ] enum states (0-Idle 1-Eating 2-Sleeping 3-Thinking 4-Full 5-Dead)
+	- [ ] philosopher's number start at 1
+	- [ ] "Each philosopher should be a thread"
 	- [ ] check if they can grab forks
 	- [ ] get full if ate enough
+- [ ] forks
+	- [ ] "... protect the forks state with a mutex for each of them"
+	- [ ] enum states (0-Idle 1-Taken)
 - [ ] timestamp
 	- [ ] timestamp_in_ms X philo_state
+	- [ ] "A displayed state message should not be mixed up with another message"
+	- [ ] "... a philosopher died should be displayed no more than 10 ms after
+			the actual death ..."
 - [ ] free
 	- [ ] free data
 
