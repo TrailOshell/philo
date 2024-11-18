@@ -6,7 +6,7 @@
 #    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2024/11/18 17:12:05 by tsomchan         ###   ########.fr        #
+#    Updated: 2024/11/18 19:24:17 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,12 @@ SRCS_DIR			=	srcs/
 
 # === SRCS at root of srcs/ ===
 SRCS_MAIN			=	$(SRCS_DIR)main.c
-SRCS_ROOT			=	thread.c
+SRCS_ROOT			=	thread.c \
+						error.c \
+						free.c \
+						init.c \
+						parse.c \
+						util.c
 
 # === SRCS in subdirectories  ===
 
@@ -39,6 +44,7 @@ CC 					=	cc
 
 # === flags for compiling into object files and program. ===
 CFLAGS				=	-Wall -Wextra -Werror
+CFLAGS				+=	-g
 
 FLAG_HEADERS		=	-Iincludes
 
@@ -47,6 +53,9 @@ FLAG_HEADERS		=	-Iincludes
 ifeq ($(COLOR_MODE), 1)
 CFLAGS += -D COLOR_MODE=1
 endif
+
+#ifeq ($(T))
+#endif
 
 all : $(NAME)
 
@@ -82,16 +91,16 @@ VG_FLAG_ALL		= --leak-check=full --show-leak-kinds=all
 r: run
 
 run: $(NAME)
-	./$(NAME)
+	./$(NAME) $(T)
 
 v: valgrind
 
 valgrind: $(NAME)
-	valgrind $(VG_FLAG) ./$(NAME)
+	valgrind $(VG_FLAG) ./$(NAME) $(T)
 
 va: valgrind_all
 
 valgrind_all: $(NAME)
-	valgrind $(VG_FLAG_ALL) ./$(NAME)
+	valgrind $(VG_FLAG_ALL) ./$(NAME) $(T)
 
 .PHONY: r run v valgrind va valgrind_all no_color

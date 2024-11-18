@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/11/18 16:50:41 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/11/18 19:20:18 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,31 @@
 # ifndef COLOR_MODE
 #  define COLOR_MODE 0
 # endif
+
+
+typedef struct s_data
+{
+	unsigned int	n_philos;
+	unsigned int	t_die;
+	unsigned int	t_eat;
+	unsigned int	t_sleep;
+	unsigned int	n_philos_eat;
+}	t_data;
+
+//	INIT	=== == =
+//void	philo_init(t_data *data);
+void	philo_init(t_data *data, int argc, char **argv);
+
+//	PARSE	=== == =
+int		philo_parse(t_data *data, int argc, char **argv);
+
+//	UTIL	=== == =
+int		ft_atoi(const char *str);
+
+//	ERROR	=== == =
+void	printf_and_exit(int ret, char *text);
+
+//	FREE	=== == =
+
 
 #endif

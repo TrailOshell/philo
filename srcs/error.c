@@ -1,32 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/18 14:41:13 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/11/18 19:34:38 by tsomchan         ###   ########.fr       */
+/*   Created: 2024/11/18 18:38:44 by tsomchan          #+#    #+#             */
+/*   Updated: 2024/11/18 19:18:19 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+void	printf_and_exit(int ret, char *text)
 {
-	t_data	*data;
-
-	data = NULL;
-	philo_init(data, argc, argv);
-	return (0);
+	printf("%s", text);
+	exit(ret);
 }
-
-/*
-	printf("COLOR_MODE = %d\n", COLOR_MODE);
-	if (COLOR_MODE == 0)
-		printf(B_YELLOW "print in main\n" NO_COLOR);
-	else if (COLOR_MODE == 1)
-		printf("print in colorless\n");
-	else
-		printf("print\n");
-*/
