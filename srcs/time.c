@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:14 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/11/20 18:05:31 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/11/20 20:13:52 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,14 @@ unsigned long	get_timestamp(unsigned long start)
 
 	now = get_miliseconds();
 	return (now - start);
+}
+
+void	print_timestamp(unsigned long start, t_philo philo)
+{
+	unsigned long	timestamp;
+	const char		*state[7] = {"is idle", "has taken a fork", "is eating", \
+						"is sleeping", "is thinking", "is full", "died"};
+
+	timestamp = get_timestamp(start);
+	printf("%lu %d %s\n", timestamp, philo.id, state[philo.state]);
 }

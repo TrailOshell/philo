@@ -30,6 +30,7 @@
 enum e_ph_state
 {
 	IDLE,
+	FORKING,
 	EATING,
 	SLEEPING,
 	THINKING,
@@ -68,6 +69,7 @@ int				philo_parse(t_data *data, int argc, char **argv);
 //	TIME	=== == =
 unsigned long	get_miliseconds(void);
 unsigned long	get_timestamp(unsigned long start);
+void			print_timestamp(unsigned long start, t_philo philo);
 
 //	UTIL	=== == =
 int				ft_atoi(const char *str);

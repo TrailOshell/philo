@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:41:13 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/11/20 19:24:55 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/11/20 20:10:22 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@ static void	db_init_philos(t_data *data)
 	int	i;
 
 	i = -1;
-	printf(B_CYAN);
 	while (++i < data->n_philos)
+	{
+		printf(B_CYAN);
 		printf("philos[%d]: id = %d, state = %d\n", i, data->philos[i].id, \
 					data->philos[i].state);
-	printf(NO_COLOR);
+		printf(NO_COLOR);
+		print_timestamp(data->time_start, data->philos[i]);
+	}
 }
 
 int	main(int argc, char **argv)
