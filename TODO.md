@@ -30,6 +30,8 @@
 	- [ ] "... protect the forks state with a mutex for each of them"
 	- [ ] enum states (0-Idle 1-Taken)
 - [ ] timestamp
+	- [x] program has data->time_start
+	- [x] get_timestamp() will compare current time and data->time_start
 	- [ ] timestamp_in_ms X philo_state
 	- [ ] "A displayed state message should not be mixed up with another message"
 	- [ ] "... a philosopher died should be displayed no more than 10 ms after
