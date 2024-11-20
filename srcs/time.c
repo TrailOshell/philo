@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/18 18:41:27 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/11/20 18:05:18 by tsomchan         ###   ########.fr       */
+/*   Created: 2024/11/20 17:22:14 by tsomchan          #+#    #+#             */
+/*   Updated: 2024/11/20 18:05:31 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_data	*philo_init(t_data *data, int argc, char **argv)
+//	gettimeofday() and then set it to miliseconds
+unsigned long	get_miliseconds(void)
 {
-	if (!data)
-		data = malloc(sizeof(t_data));
-	data->time_start = get_miliseconds();
-	philo_parse(data, argc, argv);
-	return (data);
+	struct timeval	tv;
+
+	if (gettimeofday(&tv, NULL))
+		return (0);
+	return ((tv.tv_sec * (unsigned long)1000) + (tv.tv_usec / 1000));
+}
+
+// get timestamp since the program started
+unsigned long	get_timestamp(unsigned long start)
+{
+	unsigned long	now;
+
+	now = get_miliseconds();
+	return (now - start);
 }

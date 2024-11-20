@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:41:13 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/11/18 19:34:38 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/11/20 18:07:59 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ int	main(int argc, char **argv)
 	t_data	*data;
 
 	data = NULL;
-	philo_init(data, argc, argv);
+	data = philo_init(data, argc, argv);
+	printf(B_CYAN"Started "B_WHITE"%lu"B_CYAN" ms ago\n"NO_COLOR, \
+				get_timestamp(data->time_start));
+	free_data(data);
 	return (0);
 }
 

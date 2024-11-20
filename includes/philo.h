@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/11/18 21:14:20 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/11/20 18:03:27 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,26 @@ typedef struct s_data
 	unsigned int	t_eat;
 	unsigned int	t_sleep;
 	unsigned int	n_philos_eat;
+	unsigned long	time_start;
 }	t_data;
 
 //	INIT	=== == =
-//void	philo_init(t_data *data);
-void	philo_init(t_data *data, int argc, char **argv);
+t_data			*philo_init(t_data *data, int argc, char **argv);
 
 //	PARSE	=== == =
-int		philo_parse(t_data *data, int argc, char **argv);
+int				philo_parse(t_data *data, int argc, char **argv);
+
+//	TIME	=== == =
+unsigned long	get_miliseconds(void);
+unsigned long	get_timestamp(unsigned long start);
 
 //	UTIL	=== == =
-int		ft_atoi(const char *str);
+int				ft_atoi(const char *str);
 
 //	ERROR	=== == =
-void	printf_and_exit(t_data *data, int ret, char *text);
+void			printf_and_exit(t_data *data, int ret, char *text);
 
 //	FREE	=== == =
-void	free_data(t_data *data);
+void			free_data(t_data *data);
 
 #endif

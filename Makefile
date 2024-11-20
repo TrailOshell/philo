@@ -6,7 +6,7 @@
 #    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2024/11/18 19:24:17 by tsomchan         ###   ########.fr        #
+#    Updated: 2024/11/20 17:57:31 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS_DIR			=	srcs/
 # === SRCS at root of srcs/ ===
 SRCS_MAIN			=	$(SRCS_DIR)main.c
 SRCS_ROOT			=	thread.c \
+						time.c \
 						error.c \
 						free.c \
 						init.c \
@@ -85,7 +86,13 @@ re : fclean all
 
 # === [DEBUGGING / TEST] ===
 
-VG_FLAG			= --leak-check=full
+ifeq ($(V), 1)
+#VG_FLAG			+= --leak-check=full
+VG_FLAG			+= --leak-check=full --show-leak-kinds=all
+VAL				= valgrind $(VG_FLAG)
+endif
+
+#VG_FLAG			= --leak-check=full
 VG_FLAG_ALL		= --leak-check=full --show-leak-kinds=all
 
 r: run
@@ -104,3 +111,6 @@ valgrind_all: $(NAME)
 	valgrind $(VG_FLAG_ALL) ./$(NAME) $(T)
 
 .PHONY: r run v valgrind va valgrind_all no_color
+
+1: $(NAME)
+	$(VAL) ./$(NAME) 1 1 1 1 1
