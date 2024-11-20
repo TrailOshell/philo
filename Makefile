@@ -6,7 +6,7 @@
 #    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2024/11/20 17:57:31 by tsomchan         ###   ########.fr        #
+#    Updated: 2024/11/20 19:14:14 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,3 +114,6 @@ valgrind_all: $(NAME)
 
 1: $(NAME)
 	$(VAL) ./$(NAME) 1 1 1 1 1
+
+5: $(NAME)
+	$(VAL) ./$(NAME) 5 5 5 5 5

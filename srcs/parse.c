@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:17:03 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/11/18 21:14:59 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/11/20 19:24:03 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ int	time_to_sleep
 void	db_parse_result(t_data *data)
 {
 	printf(B_CYAN "n_philo\tt_die\tt_eat\tt_sleep\tn_philos_eat\n" NO_COLOR);
-	printf(B_WHITE "%u\t%u\t%u\t%u\t%u\n", data->n_philos, data->t_die, \
-		data->t_eat, data->t_sleep, data->n_philos_eat);
+	printf(B_WHITE "%u\t%u\t%u\t%u\t%u\n" NO_COLOR, data->n_philos, \
+			data->t_die, data->t_eat, data->t_sleep, data->n_philos_eat);
 }
 
-int	philo_set_var(unsigned int *var, char *arg)
+int	philo_set_var(int *var, char *arg)
 {
 	int	i;
 
