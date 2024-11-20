@@ -6,9 +6,13 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:45:16 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/11/18 18:45:25 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/11/18 21:13:21 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+void	free_data(t_data *data)
+{
+	free(data);
+}

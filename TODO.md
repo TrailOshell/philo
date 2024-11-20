@@ -35,7 +35,8 @@
 	- [ ] "... a philosopher died should be displayed no more than 10 ms after
 			the actual death ..."
 - [ ] free
-	- [ ] free data
+	- [ ] free data when error then exit
+	- [ ] free data when program is done
 
 ## color
 - [ ] COLOR_MODE (0 has color, 1 no color)

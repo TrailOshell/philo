@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:17:03 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/11/18 19:35:16 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/11/18 21:14:59 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,18 @@ int	philo_set_var(unsigned int *var, char *arg)
 int	philo_parse(t_data *data, int argc, char **argv)
 {
 	if (argc > 6)
-		printf_and_exit(1, B_RED "ERROR! Too many arguments\n" NO_COLOR);
+		printf_and_exit(data, 1, B_RED "ERROR! Too many arguments\n" NO_COLOR);
 	if (philo_set_var(&data->n_philos, argv[1]) == -1)
-		printf_and_exit(1, B_RED "ERROR! Wrong number_of_philosophers\n" \
+		printf_and_exit(data, 1, B_RED "ERROR! Wrong number_of_philosophers\n" \
 			NO_COLOR);
 	if (philo_set_var(&data->t_die, argv[2]) == -1)
-		printf_and_exit(1, B_RED "ERROR! Wrong time_to_die\n" NO_COLOR);
+		printf_and_exit(data, 1, B_RED "ERROR! Wrong time_to_die\n" NO_COLOR);
 	if (philo_set_var(&data->t_eat, argv[3]) == -1)
-		printf_and_exit(1, B_RED "ERROR! Wrong time_to_eat\n" NO_COLOR);
+		printf_and_exit(data, 1, B_RED "ERROR! Wrong time_to_eat\n" NO_COLOR);
 	if (philo_set_var(&data->t_sleep, argv[4]) == -1)
-		printf_and_exit(1, B_RED "ERROR! Wrong time_to_sleep\n" NO_COLOR);
+		printf_and_exit(data, 1, B_RED "ERROR! Wrong time_to_sleep\n" NO_COLOR);
 	if (argv[5] && philo_set_var(&data->n_philos_eat, argv[5]) == -1)
-		printf_and_exit(1, B_RED "ERROR! Wrong number_of_times" \
+		printf_and_exit(data, 1, B_RED "ERROR! Wrong number_of_times" \
 			"_each_philosopher_must_eat\n" NO_COLOR);
 	db_parse_result(data);
 	return (0);
