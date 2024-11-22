@@ -29,35 +29,48 @@
 // enum states for philosophers
 enum e_ph_state
 {
-	IDLE,
+	THINKING,
 	FORKING,
 	EATING,
 	SLEEPING,
-	THINKING,
 	FULL,
 	DEAD
 };
+
+enum e_process_state
+{
+	RUNNING,
+	PHILO_DIED,
+	ALL_FULL
+};
+
+typedef struct s_philo t_philo;
 
 typedef struct s_philo
 {
 	int				id;
 	int				n_eaten;
+	int				is_satisfied;
 	int				state;
 	pthread_mutex_t	*fork_left;
 	pthread_mutex_t	*fork_right;
 	pthread_t		thread;
+	unsigned long	last_meal_time;
+	t_philo			*next;
+	t_philo			*prev;
 }	t_philo;
 
 typedef struct s_data
 {
 	int				n_philos;
-	int				t_die;
-	int				t_eat;
-	int				t_sleep;
+	unsigned long	t_die;
+	unsigned long	t_eat;
+	unsigned long	t_sleep;
 	int				n_philos_eat;
 	unsigned long	time_start;
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
+	int				process_state;
 }	t_data;
 
 //	INIT	=== == =
@@ -70,6 +83,10 @@ int				philo_parse(t_data *data, int argc, char **argv);
 unsigned long	get_miliseconds(void);
 unsigned long	get_timestamp(unsigned long start);
 void			print_timestamp(unsigned long start, t_philo philo);
+
+
+//	THREAD	=== == =
+int				philosophing(t_data *data);
 
 //	UTIL	=== == =
 int				ft_atoi(const char *str);

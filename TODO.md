@@ -21,7 +21,7 @@
  - [ ] "argument must be positive integers"
 	- [ ] catch overflow?
 - [ ] philosophers
-	- [ ] enum states (0-Idle 1-Eating 2-Sleeping 3-Thinking 4-Full 5-Dead)
+	- [ ] enum states (0-Idle 1-Forking 2-Eating 3-Sleeping 4-Thinking 5-Full 6-Dead)
 	- [ ] philosopher's number start at 1
 	- [ ] "Each philosopher should be a thread"
 	- [ ] check if they can grab forks

@@ -6,11 +6,61 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:41:27 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/11/20 19:12:25 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/11/22 15:47:14 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	*ret_mem_or_null(void *mem)
+{
+	if (mem)
+		return (mem);
+	else
+		return (NULL);
+}
+
+int	*set_philo_prev_next(t_data *data)
+{
+	t_philo		*philos;
+	int			i;
+	int			last_ind;
+
+	philos = data->philos;
+	last_ind = data->n_philos;
+	if (data->n_philos == 1)
+	{
+		philos[0].next = NULL;
+		philos[0].prev = NULL;
+		return (0);
+	}
+	else if (data->n_philos == 2)
+	{
+		philos[0].next = &philos[1];
+		philos[0].prev = &philos[1];
+		philos[1].next = &philos[0];
+		philos[1].prev = &philos[0];
+		return (0);
+	}
+	philos[0].next = &data->philos[1];
+	philos[0].prev = &data->philos[last_ind];
+	i = 1;
+	while (i < last_ind)
+	{
+		philos[i].next = &philos[i + 1];
+		philos[i].prev = &philos[i - 1];
+		i++;
+	}
+	philos[last_ind].next = &data->philos[0];
+	philos[last_ind].prev = &data->philos[last_ind];
+	return (0);
+}
+/*
+	philos[0].next = ret_mem_or_null(&data->philos[1]);
+	philos[0].prev = ret_mem_or_null(&data->philos[data->n_philos - 1]);
+*/
+	//philos[0].next = &data->philos[1];
+	//philos[0].prev = &data->philos[data->n_philos - 1];
 
 int	*forks_init(t_data *data)
 {
@@ -44,7 +94,8 @@ t_philo	*philos_init(t_data *data)
 	{
 		philos[i].id = i;
 		philos[i].n_eaten = 0;
-		philos[i].state = IDLE;
+		philos[i].is_satisfied = 0;
+		philos[i].state = THINKING;
 		i++;
 	}
 	return (philos);
@@ -54,6 +105,7 @@ t_data	*data_init(t_data *data, int argc, char **argv)
 {
 	if (!data)
 		data = malloc(sizeof(t_data));
+	data->process_state = RUNNING;
 	data->time_start = get_miliseconds();
 	philo_parse(data, argc, argv);
 	data->philos = malloc(sizeof(t_philo) * data->n_philos);
@@ -64,5 +116,6 @@ t_data	*data_init(t_data *data, int argc, char **argv)
 		printf_and_exit(data, 1, "MALLOC ERROR");
 	philos_init(data);
 	forks_init(data);
+	set_philo_prev_next(data);
 	return (data);
 }

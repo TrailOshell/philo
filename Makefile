@@ -6,7 +6,7 @@
 #    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2024/11/20 19:14:14 by tsomchan         ###   ########.fr        #
+#    Updated: 2024/11/22 15:52:30 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,7 +87,9 @@ re : fclean all
 # === [DEBUGGING / TEST] ===
 
 ifeq ($(V), 1)
-#VG_FLAG			+= --leak-check=full
+VG_FLAG			+= --leak-check=full
+endif
+ifeq ($(V), 2)
 VG_FLAG			+= --leak-check=full --show-leak-kinds=all
 VAL				= valgrind $(VG_FLAG)
 endif
