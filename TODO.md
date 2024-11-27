@@ -17,15 +17,16 @@
 - [ ] parsing
 	- [x] no more than 5 arguments
 	- [x] use ft_atoi on each argument
- - [ ] "must have more than one philosopher"
+ - [x] "must have more than one philosopher" (no, you can still put one to die)
  - [ ] "argument must be positive integers"
 	- [ ] catch overflow?
 - [ ] philosophers
-	- [ ] enum states (0-Idle 1-Forking 2-Eating 3-Sleeping 4-Thinking 5-Full 6-Dead)
+	- [x] enum states (0-Idle 1-Forking 2-Eating 3-Sleeping 4-Thinking 5-Full 6-Dead)
 	- [ ] philosopher's number start at 1
-	- [ ] "Each philosopher should be a thread"
+	- [x] "Each philosopher should be a thread"
 	- [ ] check if they can grab forks
 	- [ ] get full if ate enough
+	- [ ] write function "death_by_sleep" when sleep time is more than die time
 - [ ] forks
 	- [ ] "... protect the forks state with a mutex for each of them"
 	- [ ] enum states (0-Idle 1-Taken)
