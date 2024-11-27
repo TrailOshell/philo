@@ -6,26 +6,62 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:41:13 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/11/22 15:27:25 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/11/27 22:05:32 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	db_init_philos(t_data *data)
+int	join_threads(t_data *data)
 {
-	int	i;
+	t_philo	*philos;
+	int		i;
 
-	i = -1;
-	while (++i < data->n_philos)
+	philos = data->philos;
+	i = 0;
+	while (i < data->n_philos)
 	{
-		print_timestamp(data->time_start, data->philos[i]);
+		if (DEBUG_JOIN_THREADS == 1)
+			printf(PUR "join thread["B_WHT"%d"PUR"]\n" NO_CLR, i);
+		if (pthread_join(philos[i].thread, NULL))
+			return (1);
+		i++;
 	}
+	pthread_join(data->alive_check, NULL);
+	return (0);
 }
-		//printf(B_CYAN);
-		//printf("philos[%d]: id = %d, state = %d\n", i, data->philos[i].id, \
-		//			data->philos[i].state);
-		//printf(NO_COLOR);
+
+int	create_threads(t_data *data)
+{
+	t_philo	*philos;
+	int		i;
+
+	philos = data->philos;
+	i = 0;
+	while (i < data->n_philos)
+	{
+		if (DEBUG_CREATE_THREADS == 1)
+			printf(PUR "create thread["B_WHT"%d"PUR"]\n" NO_CLR, i);
+		if (pthread_create(&philos[i].thread, NULL, &philosophing, &philos[i]))
+			return (1);
+		i++;
+	}
+	pthread_create(&data->alive_check, NULL, &monitor_wellbeing, data);
+	return (0);
+}
+
+int	end_program(t_data *data)
+{
+	printf(PUR"The philosophing has ended\n"NO_CLR);
+	if (data->process_state == ALL_FULL)
+		printf(GRN"Every philosophers has philosophed philosofully🎉\n"NO_CLR);
+	else if (data->process_state == PHILO_DIED)
+		printf(B_WHT"A philosopher has "RED"died"B_WHT
+			" from starvation💀\n"NO_CLR);
+	db_end_result(data);
+	free_data(data);
+	return (0);
+}
 
 int	main(int argc, char **argv)
 {
@@ -34,22 +70,18 @@ int	main(int argc, char **argv)
 	data = NULL;
 	data = data_init(data, argc, argv);
 	db_init_philos(data);
-	printf(B_CYAN"Started "B_WHITE"%lu"B_CYAN" ms ago\n"NO_COLOR, \
+	printf(B_CYN"Started "B_WHT"%lu"B_CYN" ms ago\n"NO_CLR, \
 				get_timestamp(data->time_start));
-	while (data->process_state == RUNNING)
-		philosophing(data);
-	if (data->process_state == ALL_FULL)
-		printf("Every philosophers has philosophed philosofully\n");
-	else if (data->process_state == PHILO_DIED)
-		printf("A philosopher has died from starvation\n");
-	free_data(data);
+	create_threads(data);
+	join_threads(data);
+	end_program(data);
 	return (0);
 }
 
 /*
 	printf("COLOR_MODE = %d\n", COLOR_MODE);
 	if (COLOR_MODE == 0)
-		printf(B_YELLOW "print in main\n" NO_COLOR);
+		printf(B_YLW "print in main\n" NO_CLR);
 	else if (COLOR_MODE == 1)
 		printf("print in colorless\n");
 	else

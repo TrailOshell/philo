@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:41:27 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/11/22 15:47:14 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/11/27 19:35:45 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	*set_philo_prev_next(t_data *data)
 	int			last_ind;
 
 	philos = data->philos;
-	last_ind = data->n_philos;
+	last_ind = data->n_philos - 1;
 	if (data->n_philos == 1)
 	{
 		philos[0].next = NULL;
@@ -94,8 +94,10 @@ t_philo	*philos_init(t_data *data)
 	{
 		philos[i].id = i;
 		philos[i].n_eaten = 0;
+		philos[i].last_meal_time = 0;
 		philos[i].is_satisfied = 0;
 		philos[i].state = THINKING;
+		philos[i].data = data;
 		i++;
 	}
 	return (philos);

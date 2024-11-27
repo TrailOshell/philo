@@ -6,7 +6,7 @@
 #    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2024/11/22 15:52:30 by tsomchan         ###   ########.fr        #
+#    Updated: 2024/11/27 21:07:43 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRCS_ROOT			=	thread.c \
 						free.c \
 						init.c \
 						parse.c \
-						util.c
+						util.c \
+						debug.c
 
 # === SRCS in subdirectories  ===
 
@@ -63,8 +64,8 @@ all : $(NAME)
 $(NAME) : $(OBJS) $(SRCS_MAIN)
 	$(CC) -o $(NAME) $(SRCS_MAIN) $(OBJS) -Iincludes $(CFLAGS)
 
-no_color : CFLAGS+=-D COLOR_MODE=1
-no_color : $(NAME) run
+NO_CLR : CFLAGS+=-D COLOR_MODE=1
+NO_CLR : $(NAME) run
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c Makefile $(HEADERS) | $(OBJS_SUB_DIRS)
 	$(CC) -c $< -o $@ $(FLAG_HEADERS) $(CFLAGS)
@@ -88,6 +89,7 @@ re : fclean all
 
 ifeq ($(V), 1)
 VG_FLAG			+= --leak-check=full
+VAL				= valgrind $(VG_FLAG)
 endif
 ifeq ($(V), 2)
 VG_FLAG			+= --leak-check=full --show-leak-kinds=all
@@ -112,10 +114,16 @@ va: valgrind_all
 valgrind_all: $(NAME)
 	valgrind $(VG_FLAG_ALL) ./$(NAME) $(T)
 
-.PHONY: r run v valgrind va valgrind_all no_color
+.PHONY: r run v valgrind va valgrind_all NO_CLR
 
 1: $(NAME)
 	$(VAL) ./$(NAME) 1 1 1 1 1
 
+2: $(NAME)
+	$(VAL) ./$(NAME) 2 2 2 2 2
+
 5: $(NAME)
 	$(VAL) ./$(NAME) 5 5 5 5 5
+
+all_N: $(NAME)
+	$(VAL) ./$(NAME) $(N) $(N) $(N) $(N) $(N)
