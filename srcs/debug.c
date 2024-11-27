@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:45:54 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/11/27 21:04:22 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/11/27 22:45:35 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	db_check_all_states(t_data *data)
 	{
 		philo = &data->philos[i];
 		printf(CYN "p"YLW"%d"B_WHT"(%d)%s\t"NO_CLR,
-			i, philo->n_eaten, state[philo->state]);
+			i + 1, philo->n_eaten, state[philo->state]);
 	}
 	printf("\n");
 }
@@ -104,3 +104,12 @@ void	db_end_result(t_data *data)
 			i, state[philo->state], philo->n_eaten);
 	}
 */
+
+void	db_thread_locking(t_philo *philo, char *text)
+{
+	if (DEBUG_THREADS_LOCKING == 1)
+	{
+		printf(CYN "threads["B_WHT"%d"CYN"] %s\n" NO_CLR,
+			philo->id, text);
+	}
+}

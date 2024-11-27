@@ -122,5 +122,6 @@ void			db_parse_result(t_data *data);
 void			db_check_prev_next(t_philo *philo_next, t_philo *philo_prev);
 void			db_end_result(t_data *data);
 void			db_check_all_states(t_data *data);
+void			db_thread_locking(t_philo *philo, char *text);
 
 #endif

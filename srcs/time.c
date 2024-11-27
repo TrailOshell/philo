@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:14 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/11/22 15:10:14 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/11/27 22:20:03 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ void	print_timestamp(unsigned long start, t_philo philo)
 						"is eating", "is sleeping", "is full", "died"};
 
 	timestamp = get_timestamp(start);
-	printf("%lu %d %s\n", timestamp, philo.id, state[philo.state]);
+	printf("%lu %d %s\n", timestamp, philo.id + 1, state[philo.state]);
 }
