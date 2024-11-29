@@ -6,7 +6,7 @@
 #    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2024/11/27 21:07:43 by tsomchan         ###   ########.fr        #
+#    Updated: 2024/11/29 14:22:45 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,16 +27,23 @@ SRCS_ROOT			=	thread.c \
 
 # === SRCS in subdirectories  ===
 
+SRCS_STATES_DIR		=	states/
+SRCS_STATES			=	eating.c \
+						sleeping.c
+
+
 # === SRCS in debug directory  ===
 SRCS_DEBUG_DIR		=	debug/
 
 
 # === SRCS to compile main program  ===
-SRCS				=	$(SRCS_ROOT)
+SRCS				=	$(SRCS_ROOT) \
+						$(addprefix $(SRCS_STATES_DIR), $(SRCS_STATES))
+
 
 OBJS_DIR			=	objs/
 OBJS				=	$(SRCS:%.c=$(OBJS_DIR)%.o)
-OBJS_SUB_DIRS		=	$(OBJS_DIR)
+OBJS_SUB_DIRS		=	$(OBJS_DIR) $(addprefix $(OBJS_DIR), $(SRCS_STATES_DIR))
 
 HEADER_DIR			=	./includes/
 HEADER 				=	philo.h color.h

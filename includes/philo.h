@@ -102,10 +102,15 @@ unsigned long	get_miliseconds(void);
 unsigned long	get_timestamp(unsigned long start);
 void			print_timestamp(unsigned long start, t_philo philo);
 
-
 //	THREAD	=== == =
 void			*philosophing(void *philo_arg);
 void			*monitor_wellbeing(void *data_arg);
+int				check_last_eaten(t_data *data, t_philo *philo);
+int				check_philos_finish_must_eat(t_data *data);
+
+//	STATES	=== == =
+int				eating(t_data *data, t_philo *philo);
+int				sleeping(t_data *data, t_philo *philo);
 
 //	UTIL	=== == =
 int				ft_atoi(const char *str);
