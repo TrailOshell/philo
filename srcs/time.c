@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:14 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/11/27 22:20:03 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/07 19:38:41 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,15 @@ unsigned long	get_timestamp(unsigned long start)
 	return (now - start);
 }
 
-void	print_timestamp(unsigned long start, t_philo philo)
+void	print_timestamp(t_data *data, t_philo philo)
 {
 	unsigned long	timestamp;
 	const char		*state[7] = {"is thinking", "has taken a fork", \
 						"is eating", "is sleeping", "is full", "died"};
 
-	timestamp = get_timestamp(start);
-	printf("%lu %d %s\n", timestamp, philo.id + 1, state[philo.state]);
+	timestamp = get_timestamp(data->time_start);
+	pthread_mutex_lock(&data->mute_print);
+	if (DEFAULT_PRINT)
+		printf("%lu %d %s\n", timestamp, philo.id + 1, state[philo.state]);
+	pthread_mutex_unlock(&data->mute_print);
 }

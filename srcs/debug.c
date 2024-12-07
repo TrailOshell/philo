@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:45:54 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/11/27 22:45:35 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/07 19:43:33 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,14 @@ void	db_init_philos(t_data *data)
 
 	i = -1;
 	while (++i < data->n_philos)
-		print_timestamp(data->time_start, data->philos[i]);
+		print_timestamp(data, data->philos[i]);
 }
-		//printf(B_CYN);
-		//printf("philos[%d]: id = %d, state = %d\n", i, data->philos[i].id, \
-		//			data->philos[i].state);
-		//printf(NO_CLR);
+/*
+	printf(B_CYN);
+	printf("philos[%d]: id = %d, state = %d\n", i, data->philos[i].id, \
+				data->philos[i].state);
+	printf(NO_CLR);
+*/
 
 void	db_check_prev_next(t_philo *philo_next, t_philo *philo_prev)
 {
@@ -68,21 +70,31 @@ void	db_check_prev_next(t_philo *philo_next, t_philo *philo_prev)
 		printf("\n");
 }
 
-void	db_check_all_states(t_data *data)
+void	db_check_all_states(t_data *data, int id)
 {
-	const char		*state[7] = {"🤔 ", "1🍴", "🍝 ", "💤 ", "😃 ", "💀 "};
+	const char		*state[7] = {"🤔 ", "🍴 ", "🍝 ", "💤 ", "😃 ", "💀 "};
 	t_philo			*philo;
 	int				i;
 
-	printf(BLU "%lu " NO_CLR, get_timestamp(data->time_start));
+	pthread_mutex_lock(&data->mute_print);
+	printf(BLU "%lu\t" NO_CLR, get_timestamp(data->time_start));
 	i = -1;
 	while (++i < data->n_philos)
 	{
 		philo = &data->philos[i];
-		printf(CYN "p"YLW"%d"B_WHT"(%d)%s\t"NO_CLR,
-			i + 1, philo->n_eaten, state[philo->state]);
+		printf(CYN "p"YLW"%d"CYN"(", i + 1);
+		if (philo->n_eaten < 10 && data->n_philos_eat >= 10)
+			printf(B_WHT" %d"CYN")", philo->n_eaten);
+		else
+			printf(B_WHT"%d"CYN")", philo->n_eaten);
+		printf("%s", state[philo->state]);
+		if (i == id)
+			printf(B_WHT"<-  "NO_CLR);
+		else
+			printf(B_WHT"    "NO_CLR);
 	}
 	printf("\n");
+	pthread_mutex_unlock(&data->mute_print);
 }
 
 void	db_end_result(t_data *data)
@@ -91,7 +103,7 @@ void	db_end_result(t_data *data)
 
 	printf("%s "BLU"start of result"NO_CLR" %s\n", deco, deco);
 	db_parse_result(data);
-	db_check_all_states(data);
+	db_check_all_states(data, 0);
 	printf("%s "BLU" end of result "NO_CLR" %s\n", deco, deco);
 }
 /*
@@ -110,6 +122,6 @@ void	db_thread_locking(t_philo *philo, char *text)
 	if (DEBUG_THREADS_LOCKING == 1)
 	{
 		printf(CYN "threads["B_WHT"%d"CYN"] %s\n" NO_CLR,
-			philo->id, text);
+			philo->id + 1, text);
 	}
 }

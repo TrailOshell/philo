@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sleeping.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 14:19:21 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/11/29 14:23:12 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/07 19:39:18 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int	sleeping(t_data *data, t_philo *philo)
 		return (0);
 	usleep(data->t_sleep);
 	philo->state = THINKING;
-	print_timestamp(data->time_start, *philo);
+	print_timestamp(data, *philo);
 	return (0);
 }

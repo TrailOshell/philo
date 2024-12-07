@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:17:03 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/11/27 21:04:22 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/07 17:57:55 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	philo_parse(t_data *data, int argc, char **argv)
 	data->t_eat = 0;
 	data->t_sleep = 0;
 	data->n_philos_eat = 0;
+	if (argc < 5)
+		printf_and_exit(data, 1, "ERROR! Not enough arguments\n");
 	if (argc > 6)
 		printf_and_exit(data, 1, B_RED "ERROR! Too many arguments\n" NO_CLR);
 	if (philo_set_var(&data->n_philos, argv[1]) == -1)

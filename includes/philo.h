@@ -26,6 +26,14 @@
 #  define COLOR_MODE 0
 # endif
 
+# ifndef DEFAULT_PRINT
+#  define DEFAULT_PRINT 0
+# endif
+
+# ifndef MORE_PRINT
+#  define MORE_PRINT 1
+# endif
+
 # ifndef DEBUG_CREATE_THREADS
 #  define DEBUG_CREATE_THREADS 0
 # endif
@@ -73,8 +81,6 @@ typedef struct s_philo
 	pthread_t		thread;
 	pthread_mutex_t	*fork_left;
 	pthread_mutex_t	*fork_right;
-	t_philo			*next;
-	t_philo			*prev;
 }	t_philo;
 
 typedef struct s_data
@@ -87,6 +93,7 @@ typedef struct s_data
 	unsigned long	time_start;
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
+	pthread_mutex_t	mute_print;
 	pthread_t		alive_check;
 	int				process_state;
 }	t_data;
@@ -100,7 +107,7 @@ int				philo_parse(t_data *data, int argc, char **argv);
 //	TIME	=== == =
 unsigned long	get_miliseconds(void);
 unsigned long	get_timestamp(unsigned long start);
-void			print_timestamp(unsigned long start, t_philo philo);
+void			print_timestamp(t_data *data, t_philo philo);
 
 //	THREAD	=== == =
 void			*philosophing(void *philo_arg);
@@ -109,7 +116,7 @@ int				check_last_eaten(t_data *data, t_philo *philo);
 int				check_philos_finish_must_eat(t_data *data);
 
 //	STATES	=== == =
-int				eating(t_data *data, t_philo *philo);
+// int				eating(t_data *data, t_philo *philo);
 int				sleeping(t_data *data, t_philo *philo);
 
 //	UTIL	=== == =
@@ -126,7 +133,7 @@ void			db_init_philos(t_data *data);
 void			db_parse_result(t_data *data);
 void			db_check_prev_next(t_philo *philo_next, t_philo *philo_prev);
 void			db_end_result(t_data *data);
-void			db_check_all_states(t_data *data);
+void			db_check_all_states(t_data *data, int id);
 void			db_thread_locking(t_philo *philo, char *text);
 
 #endif

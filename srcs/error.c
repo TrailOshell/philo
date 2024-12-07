@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:38:44 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/11/20 15:46:46 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/07 17:58:18 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	printf_and_exit(t_data *data, int ret, char *text)
 {
 	printf("%s", text);
-	free_data(data);
+	if (data)
+		free_data(data);
 	exit(ret);
 }
