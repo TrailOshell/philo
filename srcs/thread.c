@@ -17,6 +17,8 @@ int	check_philos_finish_must_eat(t_data *data)
 	int	i;
 
 	i = 0;
+	if (data->n_philos_eat == 0)
+		return (1);
 	while (i < data->n_philos)
 		if (data->philos[i++].is_satisfied == 0)
 			return (1);
@@ -111,23 +113,23 @@ void	*philosophing(void *philo_arg)
 
 void	*monitor_wellbeing(void *data_arg)
 {
-	// t_data	*data;
-	// int		i;
+	t_data	*data;
+	int		i;
 
-	(void)(data_arg);
-	// data = (t_data *)data_arg;
-	// while (data->process_state == RUNNING)
-	// {
-	// 	i = 0;
-	// 	while (i < data->n_philos)
-	// 	{
-	// 		if (data->philos[i].state != EATING
-	// 			&& check_starvation(data, &data->philos[i]) == 1)
-	// 			break ;
-	// 		i++;
-	// 	}
-	// 	// usleep(1000);
-	// }
+	// (void)(data_arg);
+	data = (t_data *)data_arg;
+	while (data->process_state == RUNNING)
+	{
+		i = 0;
+		while (i < data->n_philos)
+		{
+			if (data->philos[i].state != EATING
+				&& check_starvation(data, &data->philos[i]) == 1)
+				break ;
+			i++;
+		}
+		// usleep(1000);
+	}
 	return (NULL);
 }
 

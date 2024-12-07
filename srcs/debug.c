@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:45:54 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/07 22:46:15 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/07 23:39:37 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,21 @@ void	db_check_all_states(t_data *data, int id)
 	int				len_max;
 	int				len;
 	unsigned long 	timestamp;
+	unsigned long 	die_in_ms;
+	unsigned long 	last_meal_time;
 
+
+	if (MORE_PRINT == 0)
+		return ;
 	pthread_mutex_lock(&data->mute_print);
 	timestamp = get_timestamp(data->time_start);
+	die_in_ms = data->t_die / 1000;
 	printf(BLU "%lu\t" NO_CLR, timestamp);
 	i = -1;
 	while (++i < data->n_philos)
 	{
 		philo = &data->philos[i];
+		last_meal_time = timestamp - philo->last_meal_time;
 		printf(CYN "p"YLW"%d", i + 1);
 		printf("%s", state[philo->state]);
 		printf(CYN"(");
@@ -108,17 +115,17 @@ void	db_check_all_states(t_data *data, int id)
 			printf(B_WHT" %d", philo->n_eaten);
 		else
 			printf(B_WHT"%d", philo->n_eaten);
-		len_max = digit_len(data->t_die / 1000);
+		len_max = digit_len(die_in_ms);
 		len = digit_len(philo->last_meal_time / 1000);
-		if (philo->state != EATING && timestamp - philo->last_meal_time >= data->t_die / 1000)
+		if (philo->state != EATING && last_meal_time >= die_in_ms)
 			printf(RED);
 		while (len++ < len_max)
 			printf(" ");
 		if (philo->state != EATING)
-			printf("%lu", timestamp - philo->last_meal_time);
+			printf("%lu", last_meal_time);
 		else
 			printf("0");
-		printf("/%lu", data->t_die / 1000);
+		printf("/%lu", die_in_ms);
 		printf(CYN")");
 		if (i == id)
 			printf(B_WHT"<-"NO_CLR);
@@ -134,7 +141,9 @@ void	db_end_result(t_data *data)
 {
 	const char		*deco = B_WHT"=="NO_CLR;
 
-	printf("%s "BLU"start of result"NO_CLR" %s\n", deco, deco);
+	if (MORE_PRINT == 0)
+		return ;
+	// printf("%s "BLU"start of result"NO_CLR" %s\n", deco, deco);
 	db_parse_result(data);
 	// db_check_all_states(data, 0);
 	printf("%s "BLU" end of result "NO_CLR" %s\n", deco, deco);

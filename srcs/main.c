@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:41:13 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/07 22:26:48 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/07 23:40:47 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,17 @@ int	create_threads(t_data *data)
 
 int	end_program(t_data *data)
 {
-	printf(PUR"The philosophing has ended\n"NO_CLR);
-	if (data->process_state == ALL_FULL)
-		printf(GRN"Every philosophers has philosophed philosofully🎉\n"NO_CLR);
-	else if (data->process_state == PHILO_DIED)
-		printf(B_WHT"A philosopher has "RED"died"B_WHT
-			" from starvation💀\n"NO_CLR);
-	db_end_result(data);
+	if (MORE_PRINT == 1)
+	{
+		printf(PUR"The philosophing has ended\n"NO_CLR);
+		if (data->process_state == ALL_FULL)
+			printf(GRN"Every philosophers has philosophed philosofully🎉\n"\
+				NO_CLR);
+		else if (data->process_state == PHILO_DIED)
+			printf(B_WHT"A philosopher has "RED"died"B_WHT
+				" from starvation💀\n"NO_CLR);
+		db_end_result(data);
+	}
 	free_data(data);
 	return (0);
 }

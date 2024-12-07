@@ -31,7 +31,7 @@
 # endif
 
 # ifndef MORE_PRINT
-#  define MORE_PRINT 1
+#  define MORE_PRINT 0
 # endif
 
 # ifndef DEBUG_CREATE_THREADS
