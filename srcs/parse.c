@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:17:03 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/07 17:57:55 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/07 22:08:48 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,5 @@ int	philo_parse(t_data *data, int argc, char **argv)
 	data->t_die *= 1000;
 	data->t_eat *= 1000;
 	data->t_sleep *= 1000;
-	db_parse_result(data);
 	return (0);
 }

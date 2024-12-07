@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:47:21 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/07 19:40:33 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/07 20:18:46by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ int	check_philos_finish_must_eat(t_data *data)
 	return (0);
 }
 
-int	check_last_eaten(t_data *data, t_philo *philo)
+int	check_starvation(t_data *data, t_philo *philo)
 {
-	if (get_timestamp(data->time_start) - philo->last_meal_time > data->t_die)
+	if (get_timestamp(data->time_start) - philo->last_meal_time
+		>= data->t_die / 1000)
 	{
 		philo->state = DEAD;
 		print_timestamp(data, *philo);
@@ -44,30 +45,24 @@ int	check_last_eaten(t_data *data, t_philo *philo)
 
 int	grabbing_forks(t_data *data, t_philo *philo)
 {
-	//printf(YLW "run grabbing philo["B_WHT"%d"YLW"]\t" NO_CLR,
-	//	philo->id);
 	// if (philo_prev->state != EATING && philo_next->state != EATING)
-	// if (philo->fork_left->isfree && philo->fork_right->isfree)
-	// {
-		//printf(CYN "philo["B_WHT"%d"CYN"] do "YLW"something\n" NO_CLR,
-		//	philo->id);
 	pthread_mutex_lock(philo->fork_left);
 	philo->state = FORKING;
 	print_timestamp(data, *philo);
 	pthread_mutex_lock(philo->fork_right);
 	print_timestamp(data, *philo);
-	db_thread_locking(philo, "locked");
+	db_thread_locking(data, philo, YLW"locked"NO_CLR);
 	philo->state = EATING;
 	print_timestamp(data, *philo);
 	db_check_all_states(data, philo->id);
 	usleep(data->t_eat);
-	pthread_mutex_unlock(philo->fork_left);
-	pthread_mutex_unlock(philo->fork_right);
-	db_thread_locking(philo, "unlocked");
+	philo->last_meal_time = get_timestamp(data->time_start);
 	philo->state = SLEEPING;
 	print_timestamp(data, *philo);
+	pthread_mutex_unlock(philo->fork_left);
+	pthread_mutex_unlock(philo->fork_right);
+	db_thread_locking(data, philo, GRN"unlocked"NO_CLR);
 	philo->n_eaten += 1;
-	philo->last_meal_time = get_timestamp(data->time_start);
 	if (philo->n_eaten >= data->n_philos_eat)
 		philo->is_satisfied = 1;
 	if (check_philos_finish_must_eat(data) == 0)
@@ -82,7 +77,7 @@ int	die_alone(t_data *data, t_philo *philo)
 	if (data->n_philos == 1)
 	{
 		usleep(data->t_die);
-		check_last_eaten(data, philo);
+		check_starvation(data, philo);
 		return (1);
 	}
 	return (0);
@@ -99,13 +94,15 @@ void	*philosophing(void *philo_arg)
 	data = philo->data;
 	if (die_alone(data, philo) == 1)
 		return (NULL);
+	if (philo->id % 2 == 1)
+		usleep(data->t_eat);
 	while (philo->state != DEAD && data->process_state == RUNNING)
 	{
-		if (philo->state == THINKING)
+		if (philo->state == THINKING || philo->state == FORKING)
 			grabbing_forks(data, philo);
 		else if (philo->state == SLEEPING)
 			sleeping(data, philo);
-		//check_last_eaten(data, philo);
+		//check_starvation(data, philo);
 	}
 	if (DEBUG_THREADS_DONE == 1)
 		printf(YLW "thread[%d] is done\n" NO_CLR, philo->id);
@@ -114,22 +111,23 @@ void	*philosophing(void *philo_arg)
 
 void	*monitor_wellbeing(void *data_arg)
 {
-	t_data	*data;
-	int		i;
+	// t_data	*data;
+	// int		i;
 
-	data = (t_data *)data_arg;
-	while (data->process_state == RUNNING)
-	{
-		i = 0;
-		while (i < data->n_philos)
-		{
-			if (data->philos[i].state != EATING
-				&& check_last_eaten(data, &data->philos[i]) == 1)
-				break ;
-			i++;
-		}
-		usleep(1000);
-	}
+	(void)(data_arg);
+	// data = (t_data *)data_arg;
+	// while (data->process_state == RUNNING)
+	// {
+	// 	i = 0;
+	// 	while (i < data->n_philos)
+	// 	{
+	// 		if (data->philos[i].state != EATING
+	// 			&& check_starvation(data, &data->philos[i]) == 1)
+	// 			break ;
+	// 		i++;
+	// 	}
+	// 	// usleep(1000);
+	// }
 	return (NULL);
 }
 

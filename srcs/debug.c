@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:45:54 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/07 19:43:33 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/07 22:46:15 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	db_parse_result(t_data *data)
 	printf(B_CYN "n_philo\tt_die\tt_eat\tt_sleep\tn_philos_eat\n" NO_CLR);
 	printf(B_WHT);
 	printf("%d\t", data->n_philos);
-	printf("%lu\t", data->t_die);
-	printf("%lu\t", data->t_eat);
-	printf("%lu\t", data->t_sleep);
+	printf("%lu\t", data->t_die / 1000);
+	printf("%lu\t", data->t_eat / 1000);
+	printf("%lu\t", data->t_sleep / 1000);
 	printf("%d", data->n_philos_eat);
 	printf("\n");
 	printf(NO_CLR);
@@ -43,6 +43,8 @@ void	db_init_philos(t_data *data)
 	i = -1;
 	while (++i < data->n_philos)
 		print_timestamp(data, data->philos[i]);
+	printf(B_CYN"Started "B_WHT"%lu"B_CYN" ms ago\n"NO_CLR, \
+				get_timestamp(data->time_start));
 }
 /*
 	printf(B_CYN);
@@ -70,28 +72,59 @@ void	db_check_prev_next(t_philo *philo_next, t_philo *philo_prev)
 		printf("\n");
 }
 
+int	digit_len(int number)
+{
+	int	len;
+
+	len = 0;
+	while (number > 0)
+	{
+		number /= 10;
+		len++;
+	}
+	return (len);
+}
+
 void	db_check_all_states(t_data *data, int id)
 {
 	const char		*state[7] = {"🤔 ", "🍴 ", "🍝 ", "💤 ", "😃 ", "💀 "};
 	t_philo			*philo;
 	int				i;
+	int				len_max;
+	int				len;
+	unsigned long 	timestamp;
 
 	pthread_mutex_lock(&data->mute_print);
-	printf(BLU "%lu\t" NO_CLR, get_timestamp(data->time_start));
+	timestamp = get_timestamp(data->time_start);
+	printf(BLU "%lu\t" NO_CLR, timestamp);
 	i = -1;
 	while (++i < data->n_philos)
 	{
 		philo = &data->philos[i];
-		printf(CYN "p"YLW"%d"CYN"(", i + 1);
-		if (philo->n_eaten < 10 && data->n_philos_eat >= 10)
-			printf(B_WHT" %d"CYN")", philo->n_eaten);
-		else
-			printf(B_WHT"%d"CYN")", philo->n_eaten);
+		printf(CYN "p"YLW"%d", i + 1);
 		printf("%s", state[philo->state]);
-		if (i == id)
-			printf(B_WHT"<-  "NO_CLR);
+		printf(CYN"(");
+		if (philo->n_eaten < 10 && data->n_philos_eat >= 10)
+			printf(B_WHT" %d", philo->n_eaten);
 		else
-			printf(B_WHT"    "NO_CLR);
+			printf(B_WHT"%d", philo->n_eaten);
+		len_max = digit_len(data->t_die / 1000);
+		len = digit_len(philo->last_meal_time / 1000);
+		if (philo->state != EATING && timestamp - philo->last_meal_time >= data->t_die / 1000)
+			printf(RED);
+		while (len++ < len_max)
+			printf(" ");
+		if (philo->state != EATING)
+			printf("%lu", timestamp - philo->last_meal_time);
+		else
+			printf("0");
+		printf("/%lu", data->t_die / 1000);
+		printf(CYN")");
+		if (i == id)
+			printf(B_WHT"<-"NO_CLR);
+		else
+			printf(B_WHT"  "NO_CLR);
+		printf("\t");
 	}
 	printf("\n");
 	pthread_mutex_unlock(&data->mute_print);
@@ -103,7 +136,7 @@ void	db_end_result(t_data *data)
 
 	printf("%s "BLU"start of result"NO_CLR" %s\n", deco, deco);
 	db_parse_result(data);
-	db_check_all_states(data, 0);
+	// db_check_all_states(data, 0);
 	printf("%s "BLU" end of result "NO_CLR" %s\n", deco, deco);
 }
 /*
@@ -117,11 +150,18 @@ void	db_end_result(t_data *data)
 	}
 */
 
-void	db_thread_locking(t_philo *philo, char *text)
+void	db_thread_locking(t_data *data, t_philo *philo, char *text)
 {
+	int	i;
+
+	i = 0;
 	if (DEBUG_THREADS_LOCKING == 1)
 	{
-		printf(CYN "threads["B_WHT"%d"CYN"] %s\n" NO_CLR,
+		pthread_mutex_lock(&data->mute_print);
+		while (i++ < philo->id)
+			printf("\t");
+		printf(CYN "threads["B_WHT"%d"CYN"] ""%s\n" NO_CLR,
 			philo->id + 1, text);
+		pthread_mutex_unlock(&data->mute_print);
 	}
 }

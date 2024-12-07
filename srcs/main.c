@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:41:13 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/11/27 22:05:32 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/07 22:26:48 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	join_threads(t_data *data)
 	t_philo	*philos;
 	int		i;
 
+	pthread_join(data->alive_check, NULL);
 	philos = data->philos;
 	i = 0;
 	while (i < data->n_philos)
@@ -25,9 +26,17 @@ int	join_threads(t_data *data)
 			printf(PUR "join thread["B_WHT"%d"PUR"]\n" NO_CLR, i);
 		if (pthread_join(philos[i].thread, NULL))
 			return (1);
-		i++;
+		i += 2;
 	}
-	pthread_join(data->alive_check, NULL);
+	i = 1;
+	while (i < data->n_philos)
+	{
+		if (DEBUG_JOIN_THREADS == 1)
+			printf(PUR "join thread["B_WHT"%d"PUR"]\n" NO_CLR, i);
+		if (pthread_join(philos[i].thread, NULL))
+			return (1);
+		i += 2;
+	}
 	return (0);
 }
 
@@ -36,6 +45,7 @@ int	create_threads(t_data *data)
 	t_philo	*philos;
 	int		i;
 
+	pthread_create(&data->alive_check, NULL, &monitor_wellbeing, data);
 	philos = data->philos;
 	i = 0;
 	while (i < data->n_philos)
@@ -46,7 +56,6 @@ int	create_threads(t_data *data)
 			return (1);
 		i++;
 	}
-	pthread_create(&data->alive_check, NULL, &monitor_wellbeing, data);
 	return (0);
 }
 
@@ -69,9 +78,6 @@ int	main(int argc, char **argv)
 
 	data = NULL;
 	data = data_init(data, argc, argv);
-	db_init_philos(data);
-	printf(B_CYN"Started "B_WHT"%lu"B_CYN" ms ago\n"NO_CLR, \
-				get_timestamp(data->time_start));
 	create_threads(data);
 	join_threads(data);
 	end_program(data);

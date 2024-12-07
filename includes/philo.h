@@ -27,7 +27,7 @@
 # endif
 
 # ifndef DEFAULT_PRINT
-#  define DEFAULT_PRINT 0
+#  define DEFAULT_PRINT 1
 # endif
 
 # ifndef MORE_PRINT
@@ -112,7 +112,7 @@ void			print_timestamp(t_data *data, t_philo philo);
 //	THREAD	=== == =
 void			*philosophing(void *philo_arg);
 void			*monitor_wellbeing(void *data_arg);
-int				check_last_eaten(t_data *data, t_philo *philo);
+int				check_starvation(t_data *data, t_philo *philo);
 int				check_philos_finish_must_eat(t_data *data);
 
 //	STATES	=== == =
@@ -134,6 +134,6 @@ void			db_parse_result(t_data *data);
 void			db_check_prev_next(t_philo *philo_next, t_philo *philo_prev);
 void			db_end_result(t_data *data);
 void			db_check_all_states(t_data *data, int id);
-void			db_thread_locking(t_philo *philo, char *text);
+void			db_thread_locking(t_data *data, t_philo *philo, char *text);
 
 #endif
