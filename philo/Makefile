@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
+#    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2024/11/29 14:22:45 by tsomchan         ###   ########.fr        #
+#    Updated: 2024/12/08 18:36:58 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS_ROOT			=	thread.c \
 						free.c \
 						init.c \
 						parse.c \
+						monitor.c \
 						util.c \
 						debug.c
 

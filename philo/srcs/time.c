@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:14 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/07 19:38:41 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/08 18:14:59 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,5 @@ void	print_timestamp(t_data *data, t_philo philo)
 	if (DEFAULT_PRINT)
 		printf("%lu %d %s\n", timestamp, philo.id + 1, state[philo.state]);
 	pthread_mutex_unlock(&data->mute_print);
+	db_check_all_states(data, philo.id, get_timestamp(data->time_start));
 }

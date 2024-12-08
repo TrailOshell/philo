@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:36:59 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/11/18 19:15:17 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/08 16:20:33 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,17 @@ int	ft_atoi(const char *str)
 			return (overflow_return(nbr, is_positive));
 	}
 	return (nbr * (is_positive));
+}
+
+int	digit_len(int number)
+{
+	int	len;
+
+	len = 0;
+	while (number > 0)
+	{
+		number /= 10;
+		len++;
+	}
+	return (len);
 }

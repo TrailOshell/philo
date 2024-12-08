@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 12:01:59 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/08 17:54:36 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,11 +116,13 @@ int				check_starvation(t_data *data, t_philo *philo);
 int				check_philos_finish_must_eat(t_data *data);
 
 //	STATES	=== == =
-// int				eating(t_data *data, t_philo *philo);
+int				eating(t_data *data, t_philo *philo);
+void			ate_a_dish(t_data *data, t_philo *philo);
 int				sleeping(t_data *data, t_philo *philo);
 
 //	UTIL	=== == =
 int				ft_atoi(const char *str);
+int				digit_len(int number);
 
 //	ERROR	=== == =
 void			printf_and_exit(t_data *data, int ret, char *text);
@@ -130,10 +132,10 @@ void			free_data(t_data *data);
 
 //	DEBUG	=== == =
 void			db_init_philos(t_data *data);
-void			db_parse_result(t_data *data);
 void			db_check_prev_next(t_philo *philo_next, t_philo *philo_prev);
 void			db_end_result(t_data *data);
-void			db_check_all_states(t_data *data, int id);
+void			db_check_all_states(t_data *data, int id,
+					unsigned long timestamp);
 void			db_thread_locking(t_data *data, t_philo *philo, char *text);
 
 #endif
