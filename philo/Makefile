@@ -6,7 +6,7 @@
 #    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2024/12/08 18:36:58 by tsomchan         ###   ########.fr        #
+#    Updated: 2024/12/08 19:20:43 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,9 +72,6 @@ all : $(NAME)
 $(NAME) : $(OBJS) $(SRCS_MAIN)
 	$(CC) -o $(NAME) $(SRCS_MAIN) $(OBJS) -Iincludes $(CFLAGS)
 
-NO_CLR : CFLAGS+=-D COLOR_MODE=1
-NO_CLR : $(NAME) run
-
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c Makefile $(HEADERS) | $(OBJS_SUB_DIRS)
 	$(CC) -c $< -o $@ $(FLAG_HEADERS) $(CFLAGS)
 
@@ -106,6 +103,19 @@ endif
 
 #VG_FLAG			= --leak-check=full
 VG_FLAG_ALL		= --leak-check=full --show-leak-kinds=all
+
+D_NAME			=	$(addprefix d_, $(NAME))
+D_FLAGS			=	-D MORE_PRINT=1
+
+d: debug
+
+debug: $(D_NAME)
+
+$(D_NAME) : $(OBJS) $(SRCS_MAIN)
+	$(CC) -o $(D_NAME) $(SRCS_MAIN) $(OBJS) -Iincludes $(CFLAGS) $(D_FLAGS)
+
+$(OBJS_DIR)%.o : $(SRCS_DIR)%.c Makefile $(HEADERS) | $(OBJS_SUB_DIRS)
+	$(CC) -c $< -o $@ $(FLAG_HEADERS) $(CFLAGS) $(D_FLAGS)
 
 r: run
 
