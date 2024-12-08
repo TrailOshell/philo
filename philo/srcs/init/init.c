@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:41:27 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 20:09:42 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/08 20:21:16 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ t_data	*data_init(t_data *data, int argc, char **argv)
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->n_philos);
 	if (data->forks == NULL)
 		printf_and_exit(data, 1, "MALLOC ERROR");
+	pthread_mutex_init(&data->mute_print, NULL);
 	philos_init(data);
 	forks_init(data);
 	return (data);
