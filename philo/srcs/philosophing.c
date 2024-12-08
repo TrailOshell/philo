@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:58:05 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 21:42:15 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/08 22:01:27 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ void	*philosophing(void *philo_arg)
 			break ;
 	}
 	if (DEBUG_THREADS_DONE == 1)
-		printf(YLW "thread[%d] is done\n" NO_CLR, philo->id);
+		printf(YLW "thread[%d] is done\n" NO_CLR, philo->id + 1);
 	return (NULL);
 }

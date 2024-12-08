@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 14:19:13 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 21:28:56 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/08 22:00:35 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,13 @@ int	eating(t_data *data, t_philo *philo)
 {
 	philo->state = EATING;
 	print_timestamp(data, *philo);
-	usleep(data->t_eat);
+	micro_sleeping(data, data->t_eat);
+	if (data->process_state != RUNNING)
+	{
+		pthread_mutex_unlock(philo->fork_left);
+		pthread_mutex_unlock(philo->fork_right);
+		return (1);
+	}
 	philo->last_meal_time = get_timestamp(data->time_start);
 	ate_a_dish(data, philo);
 	pthread_mutex_unlock(philo->fork_left);

@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 21:42:15 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/08 22:01:11 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@
 # endif
 
 # ifndef DEBUG_THREADS_DONE
-#  define DEBUG_THREADS_DONE 0
+#  define DEBUG_THREADS_DONE 1
 # endif
 
 // enum states for philosophers
@@ -108,6 +108,7 @@ int				philo_parse(t_data *data, int argc, char **argv);
 unsigned long	get_miliseconds(void);
 unsigned long	get_timestamp(unsigned long start);
 void			print_timestamp(t_data *data, t_philo philo);
+int				micro_sleeping(t_data *data, unsigned long sleep);
 
 //	THREAD			=== == =
 int				create_threads(t_data *data);

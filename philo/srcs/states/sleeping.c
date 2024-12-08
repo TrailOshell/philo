@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 14:19:21 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 21:44:37 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/08 21:57:36 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ int	sleeping(t_data *data, t_philo *philo)
 	print_timestamp(data, *philo);
 	if (death_by_sleep(data->t_sleep, data->t_die) == 1)
 		return (1);
-	usleep(data->t_sleep);
+	micro_sleeping(data, data->t_sleep);
+	if (data->process_state != RUNNING)
+		return (1);
 	philo->state = THINKING;
 	print_timestamp(data, *philo);
 	return (0);
