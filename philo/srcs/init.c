@@ -6,21 +6,13 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:41:27 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 17:16:23 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/08 20:09:42 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*ret_mem_or_null(void *mem)
-{
-	if (mem)
-		return (mem);
-	else
-		return (NULL);
-}
-
-int	*forks_init(t_data *data)
+static int	*forks_init(t_data *data)
 {
 	t_philo		*philos;
 	int			i;
@@ -41,7 +33,7 @@ int	*forks_init(t_data *data)
 	return (0);
 }
 
-t_philo	*philos_init(t_data *data)
+static t_philo	*philos_init(t_data *data)
 {
 	t_philo		*philos;
 	int			i;

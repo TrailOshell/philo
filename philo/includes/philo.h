@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 17:54:36 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/08 20:10:58 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,39 +98,44 @@ typedef struct s_data
 	int				process_state;
 }	t_data;
 
-//	INIT	=== == =
+//	INIT			=== == =
 t_data			*data_init(t_data *data, int argc, char **argv);
 
-//	PARSE	=== == =
+//	PARSE			=== == =
 int				philo_parse(t_data *data, int argc, char **argv);
 
-//	TIME	=== == =
+//	TIME			=== == =
 unsigned long	get_miliseconds(void);
 unsigned long	get_timestamp(unsigned long start);
 void			print_timestamp(t_data *data, t_philo philo);
 
-//	THREAD	=== == =
+//	THREAD			=== == =
+int				create_threads(t_data *data);
+int				join_threads(t_data *data);
+
+//	PHILOSOPHING	=== == =
 void			*philosophing(void *philo_arg);
+
+//	MONITOR			=== == =
 void			*monitor_wellbeing(void *data_arg);
 int				check_starvation(t_data *data, t_philo *philo);
 int				check_philos_finish_must_eat(t_data *data);
 
-//	STATES	=== == =
+//	STATES			=== == =
 int				eating(t_data *data, t_philo *philo);
-void			ate_a_dish(t_data *data, t_philo *philo);
 int				sleeping(t_data *data, t_philo *philo);
 
-//	UTIL	=== == =
+//	UTIL			=== == =
 int				ft_atoi(const char *str);
 int				digit_len(int number);
 
-//	ERROR	=== == =
+//	ERROR			=== == =
 void			printf_and_exit(t_data *data, int ret, char *text);
 
-//	FREE	=== == =
+//	FREE			=== == =
 void			free_data(t_data *data);
 
-//	DEBUG	=== == =
+//	DEBUG			=== == =
 void			db_init_philos(t_data *data);
 void			db_check_prev_next(t_philo *philo_next, t_philo *philo_prev);
 void			db_end_result(t_data *data);

@@ -6,13 +6,13 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 14:19:13 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 18:07:45 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/08 20:08:56 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ate_a_dish(t_data *data, t_philo *philo)
+static void	ate_a_dish(t_data *data, t_philo *philo)
 {
 	philo->n_eaten += 1;
 	if (philo->n_eaten >= data->n_philos_eat)

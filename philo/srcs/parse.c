@@ -6,13 +6,13 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:17:03 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/07 22:08:48 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/08 20:10:00 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	philo_set_var(int *var, char *arg)
+static int	philo_set_var(int *var, char *arg)
 {
 	int	i;
 

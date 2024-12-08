@@ -6,13 +6,13 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 14:19:21 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 18:04:28 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/08 20:09:03 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	death_by_sleep(t_data *data, t_philo *philo)
+static int	death_by_sleep(t_data *data, t_philo *philo)
 {
 	if (data->t_sleep >= data->t_die)
 	{

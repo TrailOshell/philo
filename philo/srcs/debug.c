@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:45:54 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 17:42:35 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/08 20:06:35 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,15 @@ void	db_end_result(t_data *data)
 	printf("%lu\t", data->t_eat / 1000);
 	printf("%lu\t", data->t_sleep / 1000);
 	printf("%d", data->n_philos_eat);
-	printf("\n");
-	printf(NO_CLR);
+	printf("\n"NO_CLR);
 	printf("%s "BLU" end of result "NO_CLR" %s\n", deco, deco);
+	printf(PUR"The philosophing has ended\n"NO_CLR);
+	if (data->process_state == ALL_FULL)
+		printf(GRN"Every philosophers has philosophed philosofully🎉\n"\
+			NO_CLR);
+	else if (data->process_state == PHILO_DIED)
+		printf(B_WHT"A philosopher has "RED"died"B_WHT
+			" from starvation💀\n"NO_CLR);
 }
 
 void	db_thread_locking(t_data *data, t_philo *philo, char *text)
@@ -96,16 +102,3 @@ void	db_thread_locking(t_data *data, t_philo *philo, char *text)
 		pthread_mutex_unlock(&data->mute_print);
 	}
 }
-
-/*
-void	db_init_philos(t_data *data)
-{
-	int	i;
-
-	i = -1;
-	while (++i < data->n_philos)
-		print_timestamp(data, data->philos[i]);
-	printf(B_CYN"Started "B_WHT"%lu"B_CYN" ms ago\n"NO_CLR, \
-				get_timestamp(data->time_start));
-}
-*/

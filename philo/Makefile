@@ -6,7 +6,7 @@
 #    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2024/12/08 19:20:43 by tsomchan         ###   ########.fr        #
+#    Updated: 2024/12/08 20:01:47 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS_DIR			=	srcs/
 # === SRCS at root of srcs/ ===
 SRCS_MAIN			=	$(SRCS_DIR)main.c
 SRCS_ROOT			=	thread.c \
+						philosophing.c \
 						time.c \
 						error.c \
 						free.c \
