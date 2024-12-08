@@ -6,7 +6,7 @@
 #    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2024/12/08 20:17:17 by tsomchan         ###   ########.fr        #
+#    Updated: 2024/12/08 21:41:23 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,11 @@ SRCS_ROOT			=	philosophing.c \
 # === SRCS in subdirectories  ===
 
 SRCS_STATES_DIR		=	states/
-SRCS_STATES			=	eating.c \
-						sleeping.c
+SRCS_STATES			=	thinking.c \
+						forking.c \
+						eating.c \
+						sleeping.c \
+						dying.c
 
 SRCS_INIT_DIR		=	init/
 SRCS_INIT			=	init.c \
@@ -95,11 +98,12 @@ endif
 VG_FLAG_ALL		= --leak-check=full --show-leak-kinds=all
 
 D_NAME			=	$(addprefix d_, $(NAME))
-D_FLAGS			=	-D MORE_PRINT=1
+D_FLAGS			=	-D MORE_PRINT=1 -D DEFAULT_PRINT=0
 
 d: debug
 
 debug: $(D_NAME)
+	./$(D_NAME) 4 100 60 60 4
 
 $(D_NAME) : $(OBJS) $(SRCS_MAIN)
 	$(CC) -o $(D_NAME) $(SRCS_MAIN) $(OBJS) -Iincludes $(CFLAGS) $(D_FLAGS)
@@ -107,22 +111,19 @@ $(D_NAME) : $(OBJS) $(SRCS_MAIN)
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c Makefile $(HEADERS) | $(OBJS_SUB_DIRS)
 	$(CC) -c $< -o $@ $(FLAG_HEADERS) $(CFLAGS) $(D_FLAGS)
 
-r: run
-
-run: $(NAME)
-	./$(NAME)
+.PHONY: d debug
 
 v: valgrind
 
 valgrind: $(NAME)
-	valgrind $(VG_FLAG) ./$(NAME) 2 100 60 60 2
+	valgrind $(VG_FLAG) ./$(NAME) 2 900000 20 20 1
 
 va: valgrind_all
 
 valgrind_all: $(NAME)
 	valgrind $(VG_FLAG_ALL) ./$(NAME)
 
-.PHONY: r run v valgrind va valgrind_all NO_CLR
+.PHONY: r run v valgrind va valgrind_all
 
 1: $(NAME)
 	$(VAL) ./$(NAME) 1 1 1 1 1
@@ -132,3 +133,5 @@ valgrind_all: $(NAME)
 
 5: $(NAME)
 	$(VAL) ./$(NAME) 5 5 5 5 5
+
+.PHONY: 1 2 5

@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:41:27 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 20:21:16 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/08 21:20:42 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,16 @@ t_data	*data_init(t_data *data, int argc, char **argv)
 	philo_parse(data, argc, argv);
 	data->philos = malloc(sizeof(t_philo) * data->n_philos);
 	if (data->philos == NULL)
-		printf_and_exit(data, 1, "MALLOC ERROR");
+	{
+		print_error(1, "MALLOC ERROR");
+		return (NULL);
+	}
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->n_philos);
 	if (data->forks == NULL)
-		printf_and_exit(data, 1, "MALLOC ERROR");
+	{
+		print_error(1, "MALLOC ERROR");
+		return (NULL);
+	}
 	pthread_mutex_init(&data->mute_print, NULL);
 	philos_init(data);
 	forks_init(data);

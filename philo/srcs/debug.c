@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:45:54 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 20:06:35 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/08 20:44:40 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ static void	print_philo_stats(t_data *data, t_philo *philo,
 	print_empty_digit_len(die_in_ms, philo->last_meal_time / 1000);
 	if (philo->state == EATING)
 		last_meal_time = 0;
-	printf("%lu/%lu"CYN")", last_meal_time, die_in_ms);
+	printf("%lu"CYN")", last_meal_time);
 }
+//	printf("%lu/%lu"CYN")", last_meal_time, die_in_ms);
 
 void	db_check_all_states(t_data *data, int id, unsigned long timestamp)
 {

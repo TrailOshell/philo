@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   dying.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/18 14:41:13 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 21:20:30 by tsomchan         ###   ########.fr       */
+/*   Created: 2024/12/08 21:41:47 by tsomchan          #+#    #+#             */
+/*   Updated: 2024/12/08 21:42:19 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+int	dying(t_data *data, t_philo *philo)
 {
-	t_data	*data;
-
-	data = NULL;
-	data = data_init(data, argc, argv);
-	if (data == NULL)
+	if (get_timestamp(data->time_start) - philo->last_meal_time
+		>= data->t_die / 1000)
+	{
+		philo->state = DEAD;
+		print_timestamp(data, *philo);
+		data->process_state = PHILO_DIED;
 		return (1);
-	create_threads(data);
-	join_threads(data);
-	db_end_result(data);
-	free_data(data);
+	}
 	return (0);
 }

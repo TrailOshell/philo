@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 20:10:58 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/08 21:42:15 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,12 @@ void			*philosophing(void *philo_arg);
 
 //	MONITOR			=== == =
 void			*monitor_wellbeing(void *data_arg);
-int				check_starvation(t_data *data, t_philo *philo);
-int				check_philos_finish_must_eat(t_data *data);
+int				dying(t_data *data, t_philo *philo);
+int				check_philos_all_full(t_data *data);
 
 //	STATES			=== == =
+int				thinking(t_data *data, t_philo *philo);
+int				forking(t_data *data, t_philo *philo);
 int				eating(t_data *data, t_philo *philo);
 int				sleeping(t_data *data, t_philo *philo);
 
@@ -130,7 +132,7 @@ int				ft_atoi(const char *str);
 int				digit_len(int number);
 
 //	ERROR			=== == =
-void			printf_and_exit(t_data *data, int ret, char *text);
+int				print_error(int ret, char *text);
 
 //	FREE			=== == =
 void			free_data(t_data *data);
