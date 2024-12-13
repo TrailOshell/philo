@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:45:54 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 20:44:40 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:07:25 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,16 @@ static void	print_philo_stats(t_data *data, t_philo *philo,
 	printf(CYN"(");
 	print_empty_digit_len(data->n_philos_eat, philo->n_eaten);
 	printf(B_WHT"%d", philo->n_eaten);
-	if (philo->state != EATING && last_meal_time >= die_in_ms)
+	if (last_meal_time >= die_in_ms)
 		printf(RED);
 	print_empty_digit_len(die_in_ms, philo->last_meal_time / 1000);
-	if (philo->state == EATING)
-		last_meal_time = 0;
 	printf("%lu"CYN")", last_meal_time);
 }
-//	printf("%lu/%lu"CYN")", last_meal_time, die_in_ms);
+/*
+	if (philo->state != EATING && last_meal_time >= die_in_ms)
+		printf(RED);
+	printf("%lu/%lu"CYN")", last_meal_time, die_in_ms);
+*/
 
 void	db_check_all_states(t_data *data, int id, unsigned long timestamp)
 {

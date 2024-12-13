@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2024/12/08 21:41:23 by tsomchan         ###   ########.fr        #
+#    Updated: 2024/12/13 15:56:24 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,18 +55,20 @@ HEADERS 			=	$(addprefix $(HEADER_DIR), $(HEADER))
 CC 					=	cc
 
 # === flags for compiling into object files and program. ===
-CFLAGS				=	-Wall -Wextra -Werror
-CFLAGS				+=	-g
+C_FLAGS				=	-Wall -Wextra -Werror
+C_FLAGS				+=	-g
+
+D_FLAGS				=	-D DEFAULT_PRINT=1 -D MORE_PRINT=0
 
 FLAG_HEADERS		=	-Iincludes
 
-all : $(NAME)
+all : $(NAME) $(D_NAME)
 
 $(NAME) : $(OBJS) $(SRCS_MAIN)
-	$(CC) -o $(NAME) $(SRCS_MAIN) $(OBJS) -Iincludes $(CFLAGS)
+	$(CC) -o $(NAME) $(SRCS_MAIN) $(OBJS) -Iincludes $(C_FLAGS) $(D_FLAGS)
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c Makefile $(HEADERS) | $(OBJS_SUB_DIRS)
-	$(CC) -c $< -o $@ $(FLAG_HEADERS) $(CFLAGS)
+	$(CC) -c $< -o $@ $(FLAG_HEADERS) $(CFLAGS) $(D_FLAGS)
 
 $(OBJS_SUB_DIRS):
 	mkdir -p $(OBJS_DIR)
@@ -98,10 +100,11 @@ endif
 VG_FLAG_ALL		= --leak-check=full --show-leak-kinds=all
 
 D_NAME			=	$(addprefix d_, $(NAME))
-D_FLAGS			=	-D MORE_PRINT=1 -D DEFAULT_PRINT=0
+#D_FLAGS			=	-D MORE_PRINT=1 -D DEFAULT_PRINT=0
 
 d: debug
 
+debug: D_FLAGS = -D MORE_PRINT=1 -D DEFAULT_PRINT=0
 debug: $(D_NAME)
 	./$(D_NAME) 4 100 60 60 4
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:58:05 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 22:01:27 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:05:15 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	*philosophing(void *philo_arg)
 		if (dying(data, philo) || check_philos_all_full(data))
 			break ;
 		eating(data, philo);
+		if (dying(data, philo) || check_philos_all_full(data))
+			break ;
 		sleeping(data, philo);
 		if (dying(data, philo) || check_philos_all_full(data))
 			break ;

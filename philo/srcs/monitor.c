@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 18:36:22 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 21:42:15 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:11:55 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ void	*monitor_wellbeing(void *data_arg)
 		i = 0;
 		while (i < data->n_philos)
 		{
-			if (data->philos[i].state != EATING
-				&& dying(data, &data->philos[i]) == 1)
+			if (dying(data, &data->philos[i]) == 1)
 				break ;
 			i++;
 		}
+		usleep(1000);
 	}
 	return (NULL);
 }
