@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:45:54 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/13 15:07:25 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/01/20 21:56:26 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	print_empty_digit_len(int digit_max, int digit)
+// static void	print_empty_digit_len(int digit_max, int digit)
+static void	print_empty_digit_len(unsigned long digit_max, unsigned long digit)
 {
 	int				len_max;
 	int				len;
@@ -26,12 +27,16 @@ static void	print_empty_digit_len(int digit_max, int digit)
 static void	print_philo_stats(t_data *data, t_philo *philo,
 			unsigned long last_meal_time, unsigned long die_in_ms)
 {
+	int	len;
+
+	len = digit_len(philo->last_meal_time / 1000);
 	printf(CYN"(");
 	print_empty_digit_len(data->n_philos_eat, philo->n_eaten);
-	printf(B_WHT"%d", philo->n_eaten);
+	printf(B_WHT"%d ", philo->n_eaten);
+	// print_empty_digit_len(die_in_ms, philo->last_meal_time / 1000);
+	print_empty_digit_len(die_in_ms, last_meal_time);
 	if (last_meal_time >= die_in_ms)
 		printf(RED);
-	print_empty_digit_len(die_in_ms, philo->last_meal_time / 1000);
 	printf("%lu"CYN")", last_meal_time);
 }
 /*
@@ -58,9 +63,9 @@ void	db_check_all_states(t_data *data, int id, unsigned long timestamp)
 		print_philo_stats(data, philo, timestamp - philo->last_meal_time,
 			data->t_die / 1000);
 		if (i == id)
-			printf(B_WHT"<-\t"NO_CLR);
+			printf(B_WHT"<- "NO_CLR);
 		else
-			printf(B_WHT"  \t"NO_CLR);
+			printf(B_WHT"   "NO_CLR);
 	}
 	printf("\n");
 	pthread_mutex_unlock(&data->mute_print);

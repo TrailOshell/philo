@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
+#    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2024/12/13 15:56:24 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/01/20 20:52:05 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ CC 					=	cc
 C_FLAGS				=	-Wall -Wextra -Werror
 C_FLAGS				+=	-g
 
-D_FLAGS				=	-D DEFAULT_PRINT=1 -D MORE_PRINT=0
+# D_FLAGS				=	-D DEFAULT_PRINT=1 -D MORE_PRINT=0
 
 FLAG_HEADERS		=	-Iincludes
 
@@ -104,7 +104,7 @@ D_NAME			=	$(addprefix d_, $(NAME))
 
 d: debug
 
-debug: D_FLAGS = -D MORE_PRINT=1 -D DEFAULT_PRINT=0
+# debug: D_FLAGS = -D MORE_PRINT=1 -D DEFAULT_PRINT=0
 debug: $(D_NAME)
 	./$(D_NAME) 4 100 60 60 4
 

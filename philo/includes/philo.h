@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 22:01:11 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/01/20 21:41:33 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@
 # endif
 
 # ifndef DEFAULT_PRINT
-#  define DEFAULT_PRINT 1
+#  define DEFAULT_PRINT 0
 # endif
 
 # ifndef MORE_PRINT
-#  define MORE_PRINT 0
+#  define MORE_PRINT 1
 # endif
 
 # ifndef DEBUG_CREATE_THREADS
@@ -130,7 +130,7 @@ int				sleeping(t_data *data, t_philo *philo);
 
 //	UTIL			=== == =
 int				ft_atoi(const char *str);
-int				digit_len(int number);
+int				digit_len(unsigned long number);
 
 //	ERROR			=== == =
 int				print_error(int ret, char *text);

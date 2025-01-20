@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:36:59 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 16:20:33 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/01/20 21:58:57 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ int	ft_atoi(const char *str)
 	return (nbr * (is_positive));
 }
 
-int	digit_len(int number)
+int	digit_len(unsigned long number)
 {
 	int	len;
 
+	if (number == 0)
+		return (1);
 	len = 0;
 	while (number > 0)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:58:05 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/13 15:05:15 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/01/20 20:43:58 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ void	*philosophing(void *philo_arg)
 		if (dying(data, philo) || check_philos_all_full(data))
 			break ;
 	}
-	if (DEBUG_THREADS_DONE == 1)
-		printf(YLW "thread[%d] is done\n" NO_CLR, philo->id + 1);
 	return (NULL);
 }
+
+/*
+	if (DEBUG_THREADS_DONE == 1)
+		printf(YLW "thread[%d] is done\n" NO_CLR, philo->id + 1);
+*/
