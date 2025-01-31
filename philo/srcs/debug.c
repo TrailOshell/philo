@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:45:54 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/01/20 21:56:26 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:18:03 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	db_check_all_states(t_data *data, int id, unsigned long timestamp)
 		printf(CYN "p"YLW"%d%s", i + 1, state[philo->state]);
 		print_philo_stats(data, philo, timestamp - philo->last_meal_time,
 			data->t_die / 1000);
-		if (i == id)
+		if (i + 1 == id)
 			printf(B_WHT"<- "NO_CLR);
 		else
 			printf(B_WHT"   "NO_CLR);
@@ -103,10 +103,10 @@ void	db_thread_locking(t_data *data, t_philo *philo, char *text)
 	if (DEBUG_THREADS_LOCKING == 1)
 	{
 		pthread_mutex_lock(&data->mute_print);
-		while (i++ < philo->id)
-			printf("\t");
+		// while (i++ < philo->id)
+		// 	printf("\t");
 		printf(CYN "threads["B_WHT"%d"CYN"] ""%s\n" NO_CLR,
-			philo->id + 1, text);
+			philo->id, text);
 		pthread_mutex_unlock(&data->mute_print);
 	}
 }

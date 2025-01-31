@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:58:05 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/01/20 20:43:58 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:28:21 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	*philosophing(void *philo_arg)
 	data = philo->data;
 	if (die_alone(data, philo) == 1)
 		return (NULL);
-	if (philo->id % 2 == 1)
+	if (philo->id % 2 == 0)
 		usleep(data->t_eat);
 	while (philo->state != DEAD && data->process_state == RUNNING)
 	{
@@ -43,11 +43,19 @@ void	*philosophing(void *philo_arg)
 		if (dying(data, philo) || check_philos_all_full(data))
 			break ;
 		eating(data, philo);
+		// printf(GRN"ATE\n"NO_CLR);
 		if (dying(data, philo) || check_philos_all_full(data))
+		// {
+		// 	printf(PUR"BREAK EATING\n"NO_CLR);
 			break ;
+		// }
 		sleeping(data, philo);
+		// printf(GRN"SLEPT\n"NO_CLR);
 		if (dying(data, philo) || check_philos_all_full(data))
+		// {
+		// 	printf(PUR"BREAK SLEEPING\n"NO_CLR);
 			break ;
+		// }
 	}
 	return (NULL);
 }

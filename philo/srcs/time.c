@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:14 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 21:57:49 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/01/31 15:52:49by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,14 @@ int	micro_sleeping(t_data *data, unsigned long sleep)
 	unsigned long sum;
 
 	sum = 0;
-	while (sum < sleep || data->process_state != RUNNING)
+	// printf("micro sleeping for %lu\n", sleep/1000);
+	while (sum < sleep && data->process_state == RUNNING)
 	{
 		usleep(1000);
 		sum += 1000;
+		// printf("sum= %lu\n", sum/1000);
+		// printf("sleep= %lu\n", sleep/1000);
 	}
-	// printf("sum= %lu\n", sum);
+	// printf("sum= %lu\n", sum/1000);
 	return (0);
 }

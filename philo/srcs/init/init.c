@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:41:27 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 21:20:42 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:08:20 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static t_philo	*philos_init(t_data *data)
 	i = 0;
 	while (i < data->n_philos)
 	{
-		philos[i].id = i;
+		philos[i].id = i + 1;
 		philos[i].n_eaten = 0;
 		philos[i].last_meal_time = 0;
 		philos[i].is_satisfied = 0;

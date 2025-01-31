@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 18:36:22 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/13 15:11:55 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:25:31 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ int	check_philos_all_full(t_data *data)
 	return (1);
 }
 
+static void end_philosophing(t_data *data)
+{
+	// while (data->philos)
+}
+
 void	*monitor_wellbeing(void *data_arg)
 {
 	t_data	*data;
@@ -38,10 +43,14 @@ void	*monitor_wellbeing(void *data_arg)
 		while (i < data->n_philos)
 		{
 			if (dying(data, &data->philos[i]) == 1)
+			{
+				printf(PUR"Monitor BREAK philo[%d]\n"NO_CLR, i);
 				break ;
+			}
 			i++;
 		}
 		usleep(1000);
 	}
+	end_philosophing(data);
 	return (NULL);
 }
