@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:45:54 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/01/31 16:18:03 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/14 14:49:09 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,21 @@ static void	print_philo_stats(t_data *data, t_philo *philo,
 	len = digit_len(philo->last_meal_time / 1000);
 	printf(CYN"(");
 	print_empty_digit_len(data->n_philos_eat, philo->n_eaten);
-	printf(B_WHT"%d ", philo->n_eaten);
-	// print_empty_digit_len(die_in_ms, philo->last_meal_time / 1000);
+	if (data->n_philos_eat && philo->n_eaten >= data->n_philos_eat)
+		printf(B_GRN);
+	else
+		printf(B_WHT);
+	printf("%d "B_WHT, philo->n_eaten);
 	print_empty_digit_len(die_in_ms, last_meal_time);
-	if (last_meal_time >= die_in_ms)
+	if (last_meal_time >= die_in_ms + 10)
 		printf(RED);
 	printf("%lu"CYN")", last_meal_time);
 }
-/*
-	if (philo->state != EATING && last_meal_time >= die_in_ms)
-		printf(RED);
-	printf("%lu/%lu"CYN")", last_meal_time, die_in_ms);
-*/
 
 void	db_check_all_states(t_data *data, int id, unsigned long timestamp)
 {
 	const char		*state[7] = {"🤔 ", "🍴 ", "🍝 ", "💤 ", "😃 ", "💀 "};
+	char			*str;
 	t_philo			*philo;
 	int				i;
 
@@ -58,14 +57,16 @@ void	db_check_all_states(t_data *data, int id, unsigned long timestamp)
 	i = -1;
 	while (++i < data->n_philos)
 	{
+		if (i + 1 == id)
+			str = "|";
+		else
+			str = " ";
+		printf(B_YLW "%s" NO_CLR, str);
 		philo = &data->philos[i];
 		printf(CYN "p"YLW"%d%s", i + 1, state[philo->state]);
 		print_philo_stats(data, philo, timestamp - philo->last_meal_time,
 			data->t_die / 1000);
-		if (i + 1 == id)
-			printf(B_WHT"<- "NO_CLR);
-		else
-			printf(B_WHT"   "NO_CLR);
+		printf(B_YLW "%s " NO_CLR, str);
 	}
 	printf("\n");
 	pthread_mutex_unlock(&data->mute_print);
@@ -87,10 +88,10 @@ void	db_end_result(t_data *data)
 	printf("\n"NO_CLR);
 	printf("%s "BLU" end of result "NO_CLR" %s\n", deco, deco);
 	printf(PUR"The philosophing has ended\n"NO_CLR);
-	if (data->process_state == ALL_FULL)
+	if (data->process == ALL_FULL)
 		printf(GRN"Every philosophers has philosophed philosofully🎉\n"\
 			NO_CLR);
-	else if (data->process_state == PHILO_DIED)
+	else if (data->process == PHILO_DIED)
 		printf(B_WHT"A philosopher has "RED"died"B_WHT
 			" from starvation💀\n"NO_CLR);
 }
@@ -103,8 +104,6 @@ void	db_thread_locking(t_data *data, t_philo *philo, char *text)
 	if (DEBUG_THREADS_LOCKING == 1)
 	{
 		pthread_mutex_lock(&data->mute_print);
-		// while (i++ < philo->id)
-		// 	printf("\t");
 		printf(CYN "threads["B_WHT"%d"CYN"] ""%s\n" NO_CLR,
 			philo->id, text);
 		pthread_mutex_unlock(&data->mute_print);

@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:36:59 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/01/20 21:58:57 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/14 01:23:39 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	ft_atoi(const char *str)
 	return (nbr * (is_positive));
 }
 
+//	count the amount of digits in the number
 int	digit_len(unsigned long number)
 {
 	int	len;

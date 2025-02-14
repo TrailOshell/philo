@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:41:27 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/01/31 16:08:20 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/14 02:47:31 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_data	*data_init(t_data *data, int argc, char **argv)
 {
 	if (!data)
 		data = malloc(sizeof(t_data));
-	data->process_state = RUNNING;
+	data->process = RUNNING;
 	data->time_start = get_miliseconds();
 	philo_parse(data, argc, argv);
 	data->philos = malloc(sizeof(t_philo) * data->n_philos);

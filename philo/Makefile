@@ -6,7 +6,7 @@
 #    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/01/20 20:52:05 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/14 03:44:43 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,21 +18,11 @@ SRCS_DIR			=	srcs/
 SRCS_MAIN			=	$(SRCS_DIR)main.c
 SRCS_ROOT			=	philosophing.c \
 						time.c \
-						error.c \
-						free.c \
 						monitor.c \
 						util.c \
 						debug.c
 
 # === SRCS in subdirectories  ===
-
-SRCS_STATES_DIR		=	states/
-SRCS_STATES			=	thinking.c \
-						forking.c \
-						eating.c \
-						sleeping.c \
-						dying.c
-
 SRCS_INIT_DIR		=	init/
 SRCS_INIT			=	init.c \
 						parse.c \
@@ -40,13 +30,13 @@ SRCS_INIT			=	init.c \
 
 # === SRCS to compile main program  ===
 SRCS				=	$(SRCS_ROOT) \
-						$(addprefix $(SRCS_STATES_DIR), $(SRCS_STATES)) \
 						$(addprefix $(SRCS_INIT_DIR), $(SRCS_INIT))
-
 
 OBJS_DIR			=	objs/
 OBJS				=	$(SRCS:%.c=$(OBJS_DIR)%.o)
-OBJS_SUB_DIRS		=	$(OBJS_DIR) $(addprefix $(OBJS_DIR), $(SRCS_STATES_DIR) $(SRCS_INIT_DIR))
+OBJS_SUB_DIRS		=	$(OBJS_DIR) $(addprefix $(OBJS_DIR), $(SRCS_INIT_DIR))
+
+D_OBJS				=	$(SRCS:%.c=$(OBJS_DIR)%_d.o)
 
 HEADER_DIR			=	./includes/
 HEADER 				=	philo.h color.h
@@ -56,19 +46,16 @@ CC 					=	cc
 
 # === flags for compiling into object files and program. ===
 C_FLAGS				=	-Wall -Wextra -Werror
-C_FLAGS				+=	-g
-
-# D_FLAGS				=	-D DEFAULT_PRINT=1 -D MORE_PRINT=0
 
 FLAG_HEADERS		=	-Iincludes
 
 all : $(NAME) $(D_NAME)
 
 $(NAME) : $(OBJS) $(SRCS_MAIN)
-	$(CC) -o $(NAME) $(SRCS_MAIN) $(OBJS) -Iincludes $(C_FLAGS) $(D_FLAGS)
+	$(CC) -o $(NAME) $(SRCS_MAIN) $(OBJS) -Iincludes $(C_FLAGS)
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c Makefile $(HEADERS) | $(OBJS_SUB_DIRS)
-	$(CC) -c $< -o $@ $(FLAG_HEADERS) $(CFLAGS) $(D_FLAGS)
+	$(CC) -c $< -o $@ $(FLAG_HEADERS) $(CFLAGS)
 
 $(OBJS_SUB_DIRS):
 	mkdir -p $(OBJS_DIR)
@@ -100,18 +87,17 @@ endif
 VG_FLAG_ALL		= --leak-check=full --show-leak-kinds=all
 
 D_NAME			=	$(addprefix d_, $(NAME))
-#D_FLAGS			=	-D MORE_PRINT=1 -D DEFAULT_PRINT=0
 
-d: debug
+D_FLAGS		=	-g -D DEFAULT_PRINT=0 -D MORE_PRINT=1
 
-# debug: D_FLAGS = -D MORE_PRINT=1 -D DEFAULT_PRINT=0
+d: debug 
+
 debug: $(D_NAME)
-	./$(D_NAME) 4 100 60 60 4
 
-$(D_NAME) : $(OBJS) $(SRCS_MAIN)
-	$(CC) -o $(D_NAME) $(SRCS_MAIN) $(OBJS) -Iincludes $(CFLAGS) $(D_FLAGS)
+$(D_NAME) : $(D_OBJS) $(SRCS_MAIN)
+	$(CC) -o $(D_NAME) $(SRCS_MAIN) $(D_OBJS) -Iincludes $(CFLAGS) $(D_FLAGS)
 
-$(OBJS_DIR)%.o : $(SRCS_DIR)%.c Makefile $(HEADERS) | $(OBJS_SUB_DIRS)
+$(OBJS_DIR)%_d.o : $(SRCS_DIR)%.c Makefile $(HEADERS) | $(OBJS_SUB_DIRS)
 	$(CC) -c $< -o $@ $(FLAG_HEADERS) $(CFLAGS) $(D_FLAGS)
 
 .PHONY: d debug
@@ -126,15 +112,4 @@ va: valgrind_all
 valgrind_all: $(NAME)
 	valgrind $(VG_FLAG_ALL) ./$(NAME)
 
-.PHONY: r run v valgrind va valgrind_all
-
-1: $(NAME)
-	$(VAL) ./$(NAME) 1 1 1 1 1
-
-2: $(NAME)
-	$(VAL) ./$(NAME) 2 2 2 2 2
-
-5: $(NAME)
-	$(VAL) ./$(NAME) 5 5 5 5 5
-
-.PHONY: 1 2 5
+.PHONY: v valgrind va valgrind_all

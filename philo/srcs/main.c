@@ -6,11 +6,33 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:41:13 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/12/08 21:20:30 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/13 21:41:16 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	print_error(int ret, char *text)
+{
+	printf("%s", text);
+	return (ret);
+}
+
+void	free_data(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->n_philos)
+		pthread_mutex_destroy(&data->forks[i++]);
+	if (data->n_philos)
+	{
+		free(data->forks);
+		free(data->philos);
+		pthread_mutex_destroy(&data->mute_print);
+	}
+	free(data);
+}
 
 int	main(int argc, char **argv)
 {

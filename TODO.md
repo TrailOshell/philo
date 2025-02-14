@@ -36,15 +36,16 @@
 	- [x] "A displayed state message should not be mixed up with another message"
 	- [x] "... a philosopher died should be displayed no more than 10 ms after
 			the actual death ..."
+			- [ ] 
+ - [ ] use write() instead of printf()?
 - [x] free
 	- [x] free data when error then exit
 	- [x] free data when program is done
 
-## color
-- [ ] COLOR_MODE (0 has color, 1 no color)
+# memory leak/error
+- [ ] Check thread with helgrind (from valgrind)
 
 --------------------------------------------------------------------------------
 # Makefile
 - [x] basic compilation
 - [x] make can input arguments (using $(T))
-- [ ] loading bar?
