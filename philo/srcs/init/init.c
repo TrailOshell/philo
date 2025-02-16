@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:41:27 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/16 10:47:10 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/16 12:42:50 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static t_philo	*philos_init(t_data *data)
 		philos[i].state = THINKING;
 		philos[i].data = data;
 		pthread_mutex_init(&philos[i].mute_state, NULL);
+		pthread_mutex_init(&philos[i].mute_n_eaten, NULL);
 		pthread_mutex_init(&philos[i].mute_satisfied, NULL);
 		pthread_mutex_init(&philos[i].mute_last_meal_time, NULL);
 		i++;
@@ -75,8 +76,14 @@ t_data	*data_init(t_data *data, int argc, char **argv)
 		print_error(1, "MALLOC ERROR");
 		return (NULL);
 	}
+	pthread_mutex_init(&data->mute_n_philos, NULL);
+	pthread_mutex_init(&data->mute_t_die, NULL);
+	pthread_mutex_init(&data->mute_t_sleep, NULL);
+	pthread_mutex_init(&data->mute_t_eat, NULL);
+	pthread_mutex_init(&data->mute_n_philos_eat, NULL);
 	pthread_mutex_init(&data->mute_print, NULL);
 	pthread_mutex_init(&data->mute_process, NULL);
+	pthread_mutex_init(&data->mute_timestamp, NULL);
 	philos_init(data);
 	forks_init(data);
 	return (data);

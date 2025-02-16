@@ -6,7 +6,7 @@
 #    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/16 09:48:48 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/16 13:45:23 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRCS_MAIN			=	$(SRCS_DIR)main.c
 SRCS_ROOT			=	philosophing.c \
 						time.c \
 						monitor.c \
-						mutex_set.c \
+						mutex.c \
 						util.c \
 						debug.c
 
@@ -46,7 +46,7 @@ HEADERS 			=	$(addprefix $(HEADER_DIR), $(HEADER))
 CC 					=	cc
 
 # === flags for compiling into object files and program. ===
-C_FLAGS				=	-Wall -Wextra -Werror
+C_FLAGS				=	-Wall -Wextra -Werror -g
 
 FLAG_HEADERS		=	-Iincludes
 

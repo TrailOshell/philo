@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:14 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/16 10:39:53 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/16 13:47:37 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@ unsigned long	get_miliseconds(void)
 }
 
 // get timestamp since the program started
-unsigned long	get_timestamp(unsigned long start)
+unsigned long	get_timestamp(t_data *data)
 {
 	unsigned long	now;
 
+	pthread_mutex_lock(&data->mute_timestamp);
 	now = get_miliseconds();
-	return (now - start);
+	pthread_mutex_unlock(&data->mute_timestamp);
+	return (now - data->time_start);
 }
 
 void	print_timestamp(t_data *data, t_philo philo)
@@ -36,10 +38,10 @@ void	print_timestamp(t_data *data, t_philo philo)
 	const char		*state[7] = {"is thinking", "has taken a fork", \
 						"is eating", "is sleeping", "is full", "died"};
 
-	timestamp = get_timestamp(data->time_start);
+	timestamp = get_timestamp(data);
 	pthread_mutex_lock(&data->mute_print);
 	if (DEFAULT_PRINT)
 		printf("%lu %d %s\n", timestamp, philo.id, state[philo.state]);
 	pthread_mutex_unlock(&data->mute_print);
-	db_check_all_states(data, philo.id, get_timestamp(data->time_start));
+	db_check_all_states(data, philo.id, timestamp);
 }

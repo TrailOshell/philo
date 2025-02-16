@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:58:05 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/16 10:51:10 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/16 13:39:37 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ static int	drop_forks(t_data *data, t_philo *philo)
 
 static int	thinking(t_data *data, t_philo *philo)
 {
-	if (philo->state != THINKING)
+	if (get_state(philo) != THINKING)
+	{
 		set_print_state(data, philo, THINKING);
+		print_timestamp(data, *philo);
+	}
 	return (1);
 }
 
@@ -35,6 +38,7 @@ static int	eating(t_data *data, t_philo *philo)
 		return (0);
 	}
 	set_print_state(data, philo, FORKING);
+	print_timestamp(data, *philo);
 	pthread_mutex_lock(philo->fork_right);
 	if (get_process(data) != RUNNING)
 		return (drop_forks(data, philo));
@@ -43,12 +47,12 @@ static int	eating(t_data *data, t_philo *philo)
 	if (get_process(data) != RUNNING)
 		return (drop_forks(data, philo));
 	set_print_state(data, philo, EATING);
-	usleep(data->t_eat);
+	print_timestamp(data, *philo);
+	usleep(get_t_eat(data));
 	drop_forks(data, philo);
-	set_last_meal_time(philo, get_timestamp(data->time_start));
-	// philo->last_meal_time = get_timestamp(data->time_start);
-	philo->n_eaten += 1;
-	if (philo->n_eaten >= data->n_philos_eat)
+	set_last_meal_time(philo, get_timestamp(data));
+	set_n_eaten(philo, get_n_eaten(philo) + 1);
+	if (get_n_eaten(philo) >= get_n_philos_eat(data))
 		set_satisfied(philo, 1);
 	db_thread_locking(data, philo, GRN"unlocked"NO_CLR);
 	return (1);
@@ -57,12 +61,13 @@ static int	eating(t_data *data, t_philo *philo)
 static int	sleeping(t_data *data, t_philo *philo)
 {
 	set_print_state(data, philo, SLEEPING);
-	if (data->t_sleep >= data->t_die)
+	print_timestamp(data, *philo);
+	if (get_t_sleep(data) >= get_t_die(data))
 	{
-		usleep(data->t_die);
+		usleep(get_t_die(data));
 		return (0);
 	}
-	usleep(data->t_sleep);
+	usleep(get_t_sleep(data));
 	return (1);
 }
 
@@ -75,9 +80,10 @@ void	*philosophing(void *philo_arg)
 	philo = (t_philo *)philo_arg;
 	data = philo->data;
 	print_timestamp(data, *philo);
-	if (data->n_philos == 1)
+	if (get_n_philos(data) == 1)
 	{
 		set_print_state(data, philo, FORKING);
+		print_timestamp(data, *philo);
 		return (NULL);
 	}
 	if (philo->id % 2 == 0)

@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/16 10:50:53 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/16 12:45:51 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_philo
 	pthread_mutex_t	*fork_left;
 	pthread_mutex_t	*fork_right;
 	pthread_mutex_t	mute_state;
+	pthread_mutex_t	mute_n_eaten;
 	pthread_mutex_t	mute_satisfied;
 	pthread_mutex_t	mute_last_meal_time;
 }	t_philo;
@@ -80,8 +81,14 @@ typedef struct s_data
 	unsigned long	time_start;
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
+	pthread_mutex_t	mute_n_philos;
+	pthread_mutex_t	mute_t_die;
+	pthread_mutex_t	mute_t_eat;
+	pthread_mutex_t	mute_t_sleep;
+	pthread_mutex_t	mute_n_philos_eat;
 	pthread_mutex_t	mute_print;
 	pthread_mutex_t	mute_process;
+	pthread_mutex_t	mute_timestamp;
 	pthread_t		alive_check;
 	int				process;
 }	t_data;
@@ -98,7 +105,7 @@ int				philo_parse(t_data *data, int argc, char **argv);
 
 //	TIME			=== == =
 unsigned long	get_miliseconds(void);
-unsigned long	get_timestamp(unsigned long start);
+unsigned long	get_timestamp(t_data *data);
 void			print_timestamp(t_data *data, t_philo philo);
 
 //	THREAD			=== == =
@@ -113,15 +120,23 @@ void			*monitor_wellbeing(void *data_arg);
 int				dying(t_data *data, t_philo *philo);
 
 
-//	MUTEX_SET		=== == =
+//	MUTEX		=== == =
 int				get_state(t_philo *philo);
 void			set_print_state(t_data *data, t_philo *philo, int state);
 int				get_process(t_data *data);
 void			set_process(t_data *data, int process);
 int				get_satisfied(t_philo *philo);
 void			set_satisfied(t_philo *philo, int is_satisfied);
-int				get_last_meal_time(t_philo *philo);
+unsigned long	get_last_meal_time(t_philo *philo);
 void			set_last_meal_time(t_philo *philo, unsigned long meal_time);
+int				get_n_eaten(t_philo *philo);
+int				set_n_eaten(t_philo *philo, int n_eaten);
+
+int				get_n_philos(t_data *data);
+unsigned long	get_t_die(t_data *data);
+unsigned long	get_t_eat(t_data *data);
+unsigned long	get_t_sleep(t_data *data);
+int				get_n_philos_eat(t_data *data);
 
 //	UTIL			=== == =
 int				ft_atoi(const char *str);
