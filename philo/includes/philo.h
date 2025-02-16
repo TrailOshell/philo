@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/14 04:50:06 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/16 10:50:53 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,9 @@ typedef struct s_philo
 	pthread_t		thread;
 	pthread_mutex_t	*fork_left;
 	pthread_mutex_t	*fork_right;
+	pthread_mutex_t	mute_state;
+	pthread_mutex_t	mute_satisfied;
+	pthread_mutex_t	mute_last_meal_time;
 }	t_philo;
 
 typedef struct s_data
@@ -78,6 +81,7 @@ typedef struct s_data
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
 	pthread_mutex_t	mute_print;
+	pthread_mutex_t	mute_process;
 	pthread_t		alive_check;
 	int				process;
 }	t_data;
@@ -107,6 +111,17 @@ void			*philosophing(void *philo_arg);
 //	MONITOR			=== == =
 void			*monitor_wellbeing(void *data_arg);
 int				dying(t_data *data, t_philo *philo);
+
+
+//	MUTEX_SET		=== == =
+int				get_state(t_philo *philo);
+void			set_print_state(t_data *data, t_philo *philo, int state);
+int				get_process(t_data *data);
+void			set_process(t_data *data, int process);
+int				get_satisfied(t_philo *philo);
+void			set_satisfied(t_philo *philo, int is_satisfied);
+int				get_last_meal_time(t_philo *philo);
+void			set_last_meal_time(t_philo *philo, unsigned long meal_time);
 
 //	UTIL			=== == =
 int				ft_atoi(const char *str);

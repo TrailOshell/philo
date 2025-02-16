@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 18:36:22 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/14 14:39:47 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/16 10:17:38 tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,19 @@ int	check_philos_all_full(t_data *data)
 	while (i < data->n_philos)
 		if (data->philos[i++].is_satisfied == 0)
 			return (0);
-	data->process = ALL_FULL;
+	set_process(data, ALL_FULL);
 	return (1);
 }
 
 int	dying(t_data *data, t_philo *philo)
 {
-	if (data->process != RUNNING)
+	if (get_process(data) != RUNNING)
 		return (1);
-	if (get_timestamp(data->time_start) - philo->last_meal_time
+	if (get_timestamp(data->time_start) - get_last_meal_time(philo)
 		>= (data->t_die / 1000) + 10)
 	{
-		philo->state = DEAD;
-		print_timestamp(data, *philo);
-		data->process = PHILO_DIED;
+		set_print_state(data, philo, DEAD);
+		set_process(data, PHILO_DIED);
 		return (1);
 	}
 	return (0);
@@ -49,7 +48,7 @@ void	*monitor_wellbeing(void *data_arg)
 	int		i;
 
 	data = (t_data *)data_arg;
-	while (data->process == RUNNING)
+	while (get_process(data) == RUNNING)
 	{
 		i = 0;
 		while (i < data->n_philos)

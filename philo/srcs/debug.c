@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:45:54 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/14 14:49:09 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/16 10:16:06 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,10 @@ void	db_end_result(t_data *data)
 	printf("\n"NO_CLR);
 	printf("%s "BLU" end of result "NO_CLR" %s\n", deco, deco);
 	printf(PUR"The philosophing has ended\n"NO_CLR);
-	if (data->process == ALL_FULL)
+	if (get_process(data) == ALL_FULL)
 		printf(GRN"Every philosophers has philosophed philosofully🎉\n"\
 			NO_CLR);
-	else if (data->process == PHILO_DIED)
+	else if (get_process(data) == PHILO_DIED)
 		printf(B_WHT"A philosopher has "RED"died"B_WHT
 			" from starvation💀\n"NO_CLR);
 }

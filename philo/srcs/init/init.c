@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:41:27 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/14 02:47:31 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/16 10:47:10 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ static t_philo	*philos_init(t_data *data)
 		philos[i].is_satisfied = 0;
 		philos[i].state = THINKING;
 		philos[i].data = data;
+		pthread_mutex_init(&philos[i].mute_state, NULL);
+		pthread_mutex_init(&philos[i].mute_satisfied, NULL);
+		pthread_mutex_init(&philos[i].mute_last_meal_time, NULL);
 		i++;
 	}
 	return (philos);
@@ -73,6 +76,7 @@ t_data	*data_init(t_data *data, int argc, char **argv)
 		return (NULL);
 	}
 	pthread_mutex_init(&data->mute_print, NULL);
+	pthread_mutex_init(&data->mute_process, NULL);
 	philos_init(data);
 	forks_init(data);
 	return (data);

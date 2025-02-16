@@ -6,7 +6,7 @@
 #    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/14 03:44:43 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/16 09:48:48 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS_MAIN			=	$(SRCS_DIR)main.c
 SRCS_ROOT			=	philosophing.c \
 						time.c \
 						monitor.c \
+						mutex_set.c \
 						util.c \
 						debug.c
 
