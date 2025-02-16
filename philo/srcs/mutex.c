@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mutex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 09:37:00 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/16 12:41:09 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/16 14:50:56 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,59 +90,59 @@ unsigned long 	get_last_meal_time(t_philo *philo)
 	return (meal_time);
 }
 
-void	set_last_meal_time(t_philo *philo, unsigned long meal_time)
+void	set_last_meal_time(t_data *data, t_philo *philo)
 {
 	pthread_mutex_lock(&philo->mute_last_meal_time);
-	philo->last_meal_time = meal_time;
+	philo->last_meal_time = get_timestamp(data);
 	pthread_mutex_unlock(&philo->mute_last_meal_time);
 }
 
-unsigned long	get_t_die(t_data *data)
-{
-	unsigned long	t_die;
+//unsigned long	get_t_die(t_data *data)
+//{
+//	unsigned long	t_die;
 
-	pthread_mutex_lock(&data->mute_t_die);
-	t_die = data->t_die;
-	pthread_mutex_unlock(&data->mute_t_die);
-	return (t_die);
-}
+//	pthread_mutex_lock(&data->mute_t_die);
+//	t_die = data->t_die;
+//	pthread_mutex_unlock(&data->mute_t_die);
+//	return (t_die);
+//}
 
-unsigned long	get_t_eat(t_data *data)
-{
-	unsigned long	t_eat;
+//unsigned long	get_t_eat(t_data *data)
+//{
+//	unsigned long	t_eat;
 
-	pthread_mutex_lock(&data->mute_t_eat);
-	t_eat = data->t_eat;
-	pthread_mutex_unlock(&data->mute_t_eat);
-	return (t_eat);
-}
+//	pthread_mutex_lock(&data->mute_t_eat);
+//	t_eat = data->t_eat;
+//	pthread_mutex_unlock(&data->mute_t_eat);
+//	return (t_eat);
+//}
 
-unsigned long	get_t_sleep(t_data *data)
-{
-	unsigned long	t_sleep;
+//unsigned long	get_t_sleep(t_data *data)
+//{
+//	unsigned long	t_sleep;
 
-	pthread_mutex_lock(&data->mute_t_sleep);
-	t_sleep = data->t_sleep;
-	pthread_mutex_unlock(&data->mute_t_sleep);
-	return (t_sleep);
-}
+//	pthread_mutex_lock(&data->mute_t_sleep);
+//	t_sleep = data->t_sleep;
+//	pthread_mutex_unlock(&data->mute_t_sleep);
+//	return (t_sleep);
+//}
 
-int	get_n_philos(t_data *data)
-{
-	unsigned long	n_philos;
+//int	get_n_philos(t_data *data)
+//{
+//	unsigned long	n_philos;
 
-	pthread_mutex_lock(&data->mute_n_philos);
-	n_philos = data->n_philos;
-	pthread_mutex_unlock(&data->mute_n_philos);
-	return (n_philos);
-}
+//	pthread_mutex_lock(&data->mute_n_philos);
+//	n_philos = data->n_philos;
+//	pthread_mutex_unlock(&data->mute_n_philos);
+//	return (n_philos);
+//}
 
-int	get_n_philos_eat(t_data *data)
-{
-	unsigned long	n_philos_eat;
+//int	get_n_philos_eat(t_data *data)
+//{
+//	unsigned long	n_philos_eat;
 
-	pthread_mutex_lock(&data->mute_n_philos_eat);
-	n_philos_eat = data->n_philos_eat;
-	pthread_mutex_unlock(&data->mute_n_philos_eat);
-	return (n_philos_eat);
-}
+//	pthread_mutex_lock(&data->mute_n_philos_eat);
+//	n_philos_eat = data->n_philos_eat;
+//	pthread_mutex_unlock(&data->mute_n_philos_eat);
+//	return (n_philos_eat);
+//}

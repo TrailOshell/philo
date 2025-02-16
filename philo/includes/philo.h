@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/16 12:45:51 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/16 15:08:50 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_data
 	unsigned long	time_start;
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
+	pthread_mutex_t	mute_philo;
 	pthread_mutex_t	mute_n_philos;
 	pthread_mutex_t	mute_t_die;
 	pthread_mutex_t	mute_t_eat;
@@ -128,15 +129,15 @@ void			set_process(t_data *data, int process);
 int				get_satisfied(t_philo *philo);
 void			set_satisfied(t_philo *philo, int is_satisfied);
 unsigned long	get_last_meal_time(t_philo *philo);
-void			set_last_meal_time(t_philo *philo, unsigned long meal_time);
+void			set_last_meal_time(t_data *data, t_philo *philo);
 int				get_n_eaten(t_philo *philo);
 int				set_n_eaten(t_philo *philo, int n_eaten);
 
-int				get_n_philos(t_data *data);
-unsigned long	get_t_die(t_data *data);
-unsigned long	get_t_eat(t_data *data);
-unsigned long	get_t_sleep(t_data *data);
-int				get_n_philos_eat(t_data *data);
+//int				get_n_philos(t_data *data);
+//unsigned long	get_t_die(t_data *data);
+//unsigned long	get_t_eat(t_data *data);
+//unsigned long	get_t_sleep(t_data *data);
+//int				get_n_philos_eat(t_data *data);
 
 //	UTIL			=== == =
 int				ft_atoi(const char *str);

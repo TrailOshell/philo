@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:45:54 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/16 12:37:10 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/16 14:57:58 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static void	print_philo_stats(t_data *data, t_philo *philo,
 
 	len = digit_len(get_last_meal_time(philo) / 1000);
 	printf(CYN"(");
-	print_empty_digit_len(get_n_philos_eat(data), philo->n_eaten);
-	if (get_n_philos_eat(data) && philo->n_eaten >= get_n_philos_eat(data))
+	print_empty_digit_len(data->n_philos_eat, philo->n_eaten);
+	if (data->n_philos_eat && philo->n_eaten >= data->n_philos_eat)
 		printf(B_GRN);
 	else
 		printf(B_WHT);
@@ -55,7 +55,7 @@ void	db_check_all_states(t_data *data, int id, unsigned long timestamp)
 	pthread_mutex_lock(&data->mute_print);
 	printf(BLU "%lu\t" NO_CLR, timestamp);
 	i = -1;
-	while (++i < get_n_philos(data))
+	while (++i < data->n_philos)
 	{
 		if (i + 1 == id)
 			str = "|";
@@ -63,9 +63,9 @@ void	db_check_all_states(t_data *data, int id, unsigned long timestamp)
 			str = " ";
 		printf(B_YLW "%s" NO_CLR, str);
 		philo = &data->philos[i];
-		printf(CYN "p"YLW"%d%s", i + 1, state[philo->state]);
+		printf(CYN "p"YLW"%d%s", i + 1, state[get_state(philo)]);
 		print_philo_stats(data, philo, timestamp - get_last_meal_time(philo),
-			get_t_die(data) / 1000);
+			data->t_die / 1000);
 		printf(B_YLW "%s " NO_CLR, str);
 	}
 	printf("\n");
@@ -80,11 +80,11 @@ void	db_end_result(t_data *data)
 		return ;
 	printf(B_CYN "n_philo\tt_die\tt_eat\tt_sleep\tn_philos_eat\n" NO_CLR);
 	printf(B_WHT);
-	printf("%d\t", get_n_philos(data));
-	printf("%lu\t", get_t_die(data) / 1000);
-	printf("%lu\t", get_t_eat(data) / 1000);
-	printf("%lu\t", get_t_sleep(data) / 1000);
-	printf("%d", get_n_philos_eat(data));
+	printf("%d\t", data->n_philos);
+	printf("%lu\t", data->t_die / 1000);
+	printf("%lu\t", data->t_eat / 1000);
+	printf("%lu\t", data->t_sleep / 1000);
+	printf("%d", data->n_philos_eat);
 	printf("\n"NO_CLR);
 	printf("%s "BLU" end of result "NO_CLR" %s\n", deco, deco);
 	printf(PUR"The philosophing has ended\n"NO_CLR);

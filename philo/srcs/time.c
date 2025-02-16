@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:14 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/16 13:47:37 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/16 15:24:03 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,11 @@ void	print_timestamp(t_data *data, t_philo philo)
 						"is eating", "is sleeping", "is full", "died"};
 
 	timestamp = get_timestamp(data);
+	pthread_mutex_lock(&data->mute_philo);
 	pthread_mutex_lock(&data->mute_print);
 	if (DEFAULT_PRINT)
 		printf("%lu %d %s\n", timestamp, philo.id, state[philo.state]);
 	pthread_mutex_unlock(&data->mute_print);
 	db_check_all_states(data, philo.id, timestamp);
+	pthread_mutex_unlock(&data->mute_philo);
 }
