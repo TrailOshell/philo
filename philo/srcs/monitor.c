@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 18:36:22 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/18 16:21:39 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:51:35:24somchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	*monitor_wellbeing(void *data_arg)
 			if (dying(data, &philos[i++]) == 1)
 			{
 				set_process(data, PHILO_DIED);
-				pthread_mutex_lock(&data->mute_print); printf(RED"MONITOR: DEAD\n"NO_CLR); pthread_mutex_unlock(&data->mute_print);
 				notify_all_philos(data);
+				pthread_mutex_lock(&data->mute_print); printf(RED"MONITOR: DEAD\n"NO_CLR); pthread_mutex_unlock(&data->mute_print);
 				break ;
 			}
 		}

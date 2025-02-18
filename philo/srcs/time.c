@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:14 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/18 16:21:27 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/18 17:20:28 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,16 @@ void	print_timestamp(t_data *data, int id, int state)
 {
 	unsigned long	timestamp;
 	const char		*txt[7] = {"is thinking", "has taken a fork", \
-						"is eating", "is sleeping", "is full", "died", ""};
+						"is eating", "is sleeping", "is full", "died", "STOP"};
 
-	if (state == STOP)
+	if (get_process(data) != RUNNING)
 		return ;
 	timestamp = get_timestamp(data);
 	pthread_mutex_lock(&data->mute_print);
-	if (DEFAULT_PRINT)
-		printf("%lu %d %s\n", timestamp, id, txt[state]);
+	printf("%lu %d %s\n", timestamp, id, txt[state]);
 	pthread_mutex_unlock(&data->mute_print);
 }
 	// pthread_mutex_lock(&data->mute_philo);
 	// pthread_mutex_unlock(&data->mute_philo);
+	//if (DEFAULT_PRINT)
 	// db_check_all_states(data, id, timestamp);
