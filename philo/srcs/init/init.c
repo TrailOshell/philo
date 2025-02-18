@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:41:27 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/16 15:09:01 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/18 12:28:40 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	*forks_init(t_data *data)
+int	*forks_init(t_data *data)
 {
 	t_philo		*philos;
 	int			i;
@@ -33,7 +33,7 @@ static int	*forks_init(t_data *data)
 	return (0);
 }
 
-static t_philo	*philos_init(t_data *data)
+int	*philos_init(t_data *data)
 {
 	t_philo		*philos;
 	int			i;
@@ -54,7 +54,7 @@ static t_philo	*philos_init(t_data *data)
 		pthread_mutex_init(&philos[i].mute_last_meal_time, NULL);
 		i++;
 	}
-	return (philos);
+	return (0);
 }
 
 t_data	*data_init(t_data *data, int argc, char **argv)
@@ -73,19 +73,19 @@ t_data	*data_init(t_data *data, int argc, char **argv)
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->n_philos);
 	if (data->forks == NULL)
 	{
+		free(data->philos);
 		print_error(1, "MALLOC ERROR");
 		return (NULL);
 	}
 	pthread_mutex_init(&data->mute_philo, NULL);
-	pthread_mutex_init(&data->mute_n_philos, NULL);
-	pthread_mutex_init(&data->mute_t_die, NULL);
-	pthread_mutex_init(&data->mute_t_sleep, NULL);
-	pthread_mutex_init(&data->mute_t_eat, NULL);
-	pthread_mutex_init(&data->mute_n_philos_eat, NULL);
 	pthread_mutex_init(&data->mute_print, NULL);
 	pthread_mutex_init(&data->mute_process, NULL);
 	pthread_mutex_init(&data->mute_timestamp, NULL);
-	philos_init(data);
-	forks_init(data);
 	return (data);
 }
+
+	// pthread_mutex_init(&data->mute_n_philos, NULL);
+	// pthread_mutex_init(&data->mute_t_die, NULL);
+	// pthread_mutex_init(&data->mute_t_sleep, NULL);
+	// pthread_mutex_init(&data->mute_t_eat, NULL);
+	// pthread_mutex_init(&data->mute_n_philos_eat, NULL);

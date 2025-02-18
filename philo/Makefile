@@ -6,7 +6,7 @@
 #    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/16 13:45:23 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/17 20:50:58 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,8 @@ VG_FLAG_ALL		= --leak-check=full --show-leak-kinds=all
 
 D_NAME			=	$(addprefix d_, $(NAME))
 
-D_FLAGS		=	-g -D DEFAULT_PRINT=0 -D MORE_PRINT=1
+# D_FLAGS		=	-g -D DEFAULT_PRINT=0 -D MORE_PRINT=1
+D_FLAGS		=	-g -D DEFAULT_PRINT=1 -D MORE_PRINT=0
 
 d: debug 
 

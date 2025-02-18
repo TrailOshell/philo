@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/16 15:08:50 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/18 12:22:35 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # endif
 
 # ifndef DEBUG_THREADS_LOCKING
-#  define DEBUG_THREADS_LOCKING 0
+#  define DEBUG_THREADS_LOCKING 1
 # endif
 
 // enum states for philosophers
@@ -82,11 +82,11 @@ typedef struct s_data
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
 	pthread_mutex_t	mute_philo;
-	pthread_mutex_t	mute_n_philos;
-	pthread_mutex_t	mute_t_die;
-	pthread_mutex_t	mute_t_eat;
-	pthread_mutex_t	mute_t_sleep;
-	pthread_mutex_t	mute_n_philos_eat;
+	// pthread_mutex_t	mute_n_philos;
+	// pthread_mutex_t	mute_t_die;
+	// pthread_mutex_t	mute_t_eat;
+	// pthread_mutex_t	mute_t_sleep;
+	// pthread_mutex_t	mute_n_philos_eat;
 	pthread_mutex_t	mute_print;
 	pthread_mutex_t	mute_process;
 	pthread_mutex_t	mute_timestamp;
@@ -100,6 +100,8 @@ void			free_data(t_data *data);
 
 //	INIT			=== == =
 t_data			*data_init(t_data *data, int argc, char **argv);
+int				*forks_init(t_data *data);
+int				*philos_init(t_data *data);
 
 //	PARSE			=== == =
 int				philo_parse(t_data *data, int argc, char **argv);
@@ -107,7 +109,7 @@ int				philo_parse(t_data *data, int argc, char **argv);
 //	TIME			=== == =
 unsigned long	get_miliseconds(void);
 unsigned long	get_timestamp(t_data *data);
-void			print_timestamp(t_data *data, t_philo philo);
+void			print_timestamp(t_data *data, int id, int state);
 
 //	THREAD			=== == =
 int				create_threads(t_data *data);

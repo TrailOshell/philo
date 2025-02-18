@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:14 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/16 15:24:03 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/18 11:40:34 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@ unsigned long	get_timestamp(t_data *data)
 	return (now - data->time_start);
 }
 
-void	print_timestamp(t_data *data, t_philo philo)
+void	print_timestamp(t_data *data, int id, int state)
 {
 	unsigned long	timestamp;
-	const char		*state[7] = {"is thinking", "has taken a fork", \
+	const char		*txt[7] = {"is thinking", "has taken a fork", \
 						"is eating", "is sleeping", "is full", "died"};
 
 	timestamp = get_timestamp(data);
-	pthread_mutex_lock(&data->mute_philo);
+	// pthread_mutex_lock(&data->mute_philo);
 	pthread_mutex_lock(&data->mute_print);
 	if (DEFAULT_PRINT)
-		printf("%lu %d %s\n", timestamp, philo.id, state[philo.state]);
+		printf("%lu %d %s\n", timestamp, id, txt[state]);
 	pthread_mutex_unlock(&data->mute_print);
-	db_check_all_states(data, philo.id, timestamp);
-	pthread_mutex_unlock(&data->mute_philo);
+	// db_check_all_states(data, id, timestamp);
+	// pthread_mutex_unlock(&data->mute_philo);
 }

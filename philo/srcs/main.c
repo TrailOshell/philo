@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:41:13 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/13 21:41:16 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/18 12:21:04 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	main(int argc, char **argv)
 
 	data = NULL;
 	data = data_init(data, argc, argv);
+	philos_init(data);
+	forks_init(data);
 	if (data == NULL)
 		return (1);
 	create_threads(data);
