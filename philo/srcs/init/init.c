@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:41:27 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/18 12:28:40 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/18 13:49:17 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,14 @@ int	*philos_init(t_data *data)
 	return (0);
 }
 
+static void	mutex_init(t_data *data)
+{
+	pthread_mutex_init(&data->mute_philo, NULL);
+	pthread_mutex_init(&data->mute_print, NULL);
+	pthread_mutex_init(&data->mute_process, NULL);
+	pthread_mutex_init(&data->mute_timestamp, NULL);
+}
+
 t_data	*data_init(t_data *data, int argc, char **argv)
 {
 	if (!data)
@@ -66,21 +74,21 @@ t_data	*data_init(t_data *data, int argc, char **argv)
 	philo_parse(data, argc, argv);
 	data->philos = malloc(sizeof(t_philo) * data->n_philos);
 	if (data->philos == NULL)
-	{
-		print_error(1, "MALLOC ERROR");
 		return (NULL);
-	}
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->n_philos);
 	if (data->forks == NULL)
 	{
 		free(data->philos);
-		print_error(1, "MALLOC ERROR");
 		return (NULL);
 	}
-	pthread_mutex_init(&data->mute_philo, NULL);
-	pthread_mutex_init(&data->mute_print, NULL);
-	pthread_mutex_init(&data->mute_process, NULL);
-	pthread_mutex_init(&data->mute_timestamp, NULL);
+	data->ph_threads = malloc(sizeof(pthread_t) * data->n_philos);
+	if (data->ph_threads == NULL)
+	{
+		free(data->philos);
+		free(data->forks);
+		return (NULL);
+	}
+	mutex_init(data);
 	return (data);
 }
 

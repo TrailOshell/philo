@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 18:36:22 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/16 10:17:38 tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/18 13:58:30 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,16 @@ int	dying(t_data *data, t_philo *philo)
 {
 	if (get_process(data) != RUNNING)
 		return (1);
-	pthread_mutex_lock(&data->mute_philo);
+	// pthread_mutex_lock(&data->mute_philo);
 	if (get_timestamp(data) - get_last_meal_time(philo)
 		>= (data->t_die / 1000) + 10)
 	{
-		set_print_state(data, philo, DEAD);
+		set_state(data, philo, DEAD);
+		print_timestamp(data, philo->id, get_state(philo));
 		set_process(data, PHILO_DIED);
 		return (1);
 	}
-	pthread_mutex_unlock(&data->mute_philo);
+	// pthread_mutex_unlock(&data->mute_philo);
 	return (0);
 }
 

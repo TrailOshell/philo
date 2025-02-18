@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:41:13 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/18 12:21:04 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/18 13:47:53 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,12 @@ void	free_data(t_data *data)
 	if (data->n_philos)
 	{
 		free(data->forks);
+		free(data->ph_threads);
 		free(data->philos);
+		pthread_mutex_destroy(&data->mute_philo);
 		pthread_mutex_destroy(&data->mute_print);
+		pthread_mutex_destroy(&data->mute_process);
+		pthread_mutex_destroy(&data->mute_timestamp);
 	}
 	free(data);
 }
@@ -40,6 +44,8 @@ int	main(int argc, char **argv)
 
 	data = NULL;
 	data = data_init(data, argc, argv);
+	if (data == NULL)
+		print_error(1, "MALLOC ERROR");
 	philos_init(data);
 	forks_init(data);
 	if (data == NULL)

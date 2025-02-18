@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/18 12:22:35 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/18 13:58:04 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # endif
 
 # ifndef DEBUG_THREADS_LOCKING
-#  define DEBUG_THREADS_LOCKING 1
+#  define DEBUG_THREADS_LOCKING 0
 # endif
 
 // enum states for philosophers
@@ -60,9 +60,8 @@ typedef struct s_philo
 	int				n_eaten;
 	int				is_satisfied;
 	unsigned long	last_meal_time;
-	t_ph_state		state;
 	struct s_data	*data;
-	pthread_t		thread;
+	t_ph_state		state;
 	pthread_mutex_t	*fork_left;
 	pthread_mutex_t	*fork_right;
 	pthread_mutex_t	mute_state;
@@ -79,20 +78,21 @@ typedef struct s_data
 	unsigned long	t_sleep;
 	int				n_philos_eat;
 	unsigned long	time_start;
-	pthread_mutex_t	*forks;
-	t_philo			*philos;
+	int				process;
 	pthread_mutex_t	mute_philo;
+	pthread_mutex_t	mute_print;
+	pthread_mutex_t	mute_process;
+	pthread_mutex_t	mute_timestamp;
+	pthread_t		alive_check;
+	pthread_t		*ph_threads;
+	t_philo			*philos;
+	pthread_mutex_t	*forks;
+}	t_data;
 	// pthread_mutex_t	mute_n_philos;
 	// pthread_mutex_t	mute_t_die;
 	// pthread_mutex_t	mute_t_eat;
 	// pthread_mutex_t	mute_t_sleep;
 	// pthread_mutex_t	mute_n_philos_eat;
-	pthread_mutex_t	mute_print;
-	pthread_mutex_t	mute_process;
-	pthread_mutex_t	mute_timestamp;
-	pthread_t		alive_check;
-	int				process;
-}	t_data;
 
 //	MAIN			=== == =
 int				print_error(int ret, char *text);
@@ -122,10 +122,15 @@ void			*philosophing(void *philo_arg);
 void			*monitor_wellbeing(void *data_arg);
 int				dying(t_data *data, t_philo *philo);
 
+//	FORK
+int				take_first_fork(int process, t_philo *philo);
+int				take_second_fork(int process, t_philo *philo);
+void			drop_first_fork(t_philo *philo);
+int				drop_forks(t_philo *philo);
 
 //	MUTEX		=== == =
 int				get_state(t_philo *philo);
-void			set_print_state(t_data *data, t_philo *philo, int state);
+void			set_state(t_data *data, t_philo *philo, int state);
 int				get_process(t_data *data);
 void			set_process(t_data *data, int process);
 int				get_satisfied(t_philo *philo);

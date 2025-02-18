@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:14 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/18 11:40:34 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/18 13:42:56 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ void	print_timestamp(t_data *data, int id, int state)
 						"is eating", "is sleeping", "is full", "died"};
 
 	timestamp = get_timestamp(data);
-	// pthread_mutex_lock(&data->mute_philo);
 	pthread_mutex_lock(&data->mute_print);
 	if (DEFAULT_PRINT)
 		printf("%lu %d %s\n", timestamp, id, txt[state]);
 	pthread_mutex_unlock(&data->mute_print);
-	// db_check_all_states(data, id, timestamp);
-	// pthread_mutex_unlock(&data->mute_philo);
 }
+	// pthread_mutex_lock(&data->mute_philo);
+	// pthread_mutex_unlock(&data->mute_philo);
+	// db_check_all_states(data, id, timestamp);

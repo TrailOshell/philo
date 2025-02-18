@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mutex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 09:37:00 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/16 14:50:56 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/18 13:58:06 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	get_state(t_philo *philo)
 	return (state);
 }
 
-void	set_print_state(t_data *data, t_philo *philo, int state)
+void	set_state(t_data *data, t_philo *philo, int state)
 {
 	pthread_mutex_lock(&philo->mute_state);
 	philo->state = state;
