@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/18 13:58:04 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/18 15:00:24 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,23 +128,19 @@ int				take_second_fork(int process, t_philo *philo);
 void			drop_first_fork(t_philo *philo);
 int				drop_forks(t_philo *philo);
 
-//	MUTEX		=== == =
-int				get_state(t_philo *philo);
-void			set_state(t_data *data, t_philo *philo, int state);
+//	MUTEX_GET		=== == =
 int				get_process(t_data *data);
-void			set_process(t_data *data, int process);
+int				get_state(t_philo *philo);
 int				get_satisfied(t_philo *philo);
-void			set_satisfied(t_philo *philo, int is_satisfied);
 unsigned long	get_last_meal_time(t_philo *philo);
-void			set_last_meal_time(t_data *data, t_philo *philo);
 int				get_n_eaten(t_philo *philo);
-int				set_n_eaten(t_philo *philo, int n_eaten);
 
-//int				get_n_philos(t_data *data);
-//unsigned long	get_t_die(t_data *data);
-//unsigned long	get_t_eat(t_data *data);
-//unsigned long	get_t_sleep(t_data *data);
-//int				get_n_philos_eat(t_data *data);
+//	MUTEX_SET		=== == =
+void			set_process(t_data *data, int process);
+void			set_state(t_data *data, t_philo *philo, int state);
+void			set_satisfied(t_philo *philo, int is_satisfied);
+void			set_last_meal_time(t_data *data, t_philo *philo);
+int				set_n_eaten(t_philo *philo, int n_eaten);
 
 //	UTIL			=== == =
 int				ft_atoi(const char *str);

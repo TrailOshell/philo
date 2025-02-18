@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/18 13:36:30 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/18 14:59:53 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS_ROOT			=	philosophing.c \
 						time.c \
 						monitor.c \
 						fork.c \
-						mutex.c \
+						mutex_get.c mutex_set.c\
 						util.c \
 						debug.c
 
