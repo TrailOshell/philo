@@ -6,7 +6,7 @@
 #    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/18 14:59:53 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/18 15:17:05 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -115,4 +115,9 @@ va: valgrind_all
 valgrind_all: $(NAME)
 	valgrind $(VG_FLAG_ALL) ./$(NAME)
 
-.PHONY: v valgrind va valgrind_all
+h: hel
+
+hel:
+	make d && valgrind --tool=helgrind ./d_philo 10 10 60 60 2
+
+.PHONY: v valgrind va valgrind_all h hel

@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 18:36:22 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/18 13:58:30 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:21:39 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-//	check if all philosophers have all eaten enough food
-int	check_philos_all_full(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	if (data->n_philos_eat == 0)
-		return (0);
-	while (i < data->n_philos)
-		if (get_satisfied(&data->philos[i++]) == 0)
-			return (0);
-	set_process(data, ALL_FULL);
-	return (1);
-}
 
 int	dying(t_data *data, t_philo *philo)
 {
@@ -37,11 +22,21 @@ int	dying(t_data *data, t_philo *philo)
 	{
 		set_state(data, philo, DEAD);
 		print_timestamp(data, philo->id, get_state(philo));
-		set_process(data, PHILO_DIED);
 		return (1);
 	}
 	// pthread_mutex_unlock(&data->mute_philo);
 	return (0);
+}
+
+void	notify_all_philos(t_data *data)
+{
+	t_philo	*philos;
+	int		i;
+
+	philos = data->philos;
+	i = 0;
+	while (i < data->n_philos)
+		set_state(data, &philos[i++], STOP);
 }
 
 //	monitor each philosopher to check if one died, or all have ate enough food
@@ -59,9 +54,42 @@ void	*monitor_wellbeing(void *data_arg)
 	{
 		i = 0;
 		while (i < n_philos)
+		{
 			if (dying(data, &philos[i++]) == 1)
+			{
+				set_process(data, PHILO_DIED);
+				pthread_mutex_lock(&data->mute_print); printf(RED"MONITOR: DEAD\n"NO_CLR); pthread_mutex_unlock(&data->mute_print);
+				notify_all_philos(data);
 				break ;
-		check_philos_all_full(data);
+			}
+		}
+		usleep(1000);
+	}
+	return (NULL);
+}
+
+
+void	*monitor_all_full(void *data_arg)
+{
+	t_data	*data;
+	t_philo	*philos;
+	int		i;
+	int		n_philos;
+
+	data = (t_data *)data_arg;
+	philos = data->philos;
+	n_philos = data->n_philos;
+	while (get_process(data) == RUNNING)
+	{
+		i = 0;
+		while (i < n_philos)
+		{
+			if (get_satisfied(&philos[i++]) == 0)
+				break ;
+			set_process(data, ALL_FULL);
+			pthread_mutex_lock(&data->mute_print); printf(BLU"MONITOR: FULL\n"NO_CLR); pthread_mutex_unlock(&data->mute_print);
+			//notify_all_philos(data);
+		}
 		usleep(1000);
 	}
 	return (NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:14 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/18 13:42:56 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:21:27 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ void	print_timestamp(t_data *data, int id, int state)
 {
 	unsigned long	timestamp;
 	const char		*txt[7] = {"is thinking", "has taken a fork", \
-						"is eating", "is sleeping", "is full", "died"};
+						"is eating", "is sleeping", "is full", "died", ""};
 
+	if (state == STOP)
+		return ;
 	timestamp = get_timestamp(data);
 	pthread_mutex_lock(&data->mute_print);
 	if (DEFAULT_PRINT)

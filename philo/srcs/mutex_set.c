@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 14:57:55 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/18 15:07:28 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/18 15:50:14 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	set_state(t_data *data, t_philo *philo, int state)
 	pthread_mutex_unlock(&philo->mute_state);
 }
 
-int	set_n_eaten(t_philo *philo, int n_eaten)
+void	set_n_eaten(t_philo *philo, int n_eaten)
 {
 	pthread_mutex_lock(&philo->mute_n_eaten);
 	philo->n_eaten = n_eaten;

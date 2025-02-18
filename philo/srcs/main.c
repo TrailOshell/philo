@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:41:13 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/18 13:47:53 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/18 15:15:03 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,14 @@ void	free_data(t_data *data)
 
 	i = 0;
 	while (i < data->n_philos)
-		pthread_mutex_destroy(&data->forks[i++]);
+	{
+		pthread_mutex_destroy(&data->forks[i]);
+		pthread_mutex_destroy(&data->philos[i].mute_state);
+		pthread_mutex_destroy(&data->philos[i].mute_n_eaten);
+		pthread_mutex_destroy(&data->philos[i].mute_satisfied);
+		pthread_mutex_destroy(&data->philos[i].mute_last_meal_time);
+		i++;
+	}
 	if (data->n_philos)
 	{
 		free(data->forks);

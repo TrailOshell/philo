@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/18 15:00:24 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/18 15:59:44 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ typedef enum e_ph_state
 	EATING,
 	SLEEPING,
 	FULL,
-	DEAD
+	DEAD,
+	STOP
 }	t_ph_state;
 
 typedef enum e_process
@@ -84,15 +85,11 @@ typedef struct s_data
 	pthread_mutex_t	mute_process;
 	pthread_mutex_t	mute_timestamp;
 	pthread_t		alive_check;
+	pthread_t		full_check;
 	pthread_t		*ph_threads;
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
 }	t_data;
-	// pthread_mutex_t	mute_n_philos;
-	// pthread_mutex_t	mute_t_die;
-	// pthread_mutex_t	mute_t_eat;
-	// pthread_mutex_t	mute_t_sleep;
-	// pthread_mutex_t	mute_n_philos_eat;
 
 //	MAIN			=== == =
 int				print_error(int ret, char *text);
@@ -120,6 +117,7 @@ void			*philosophing(void *philo_arg);
 
 //	MONITOR			=== == =
 void			*monitor_wellbeing(void *data_arg);
+void			*monitor_all_full(void *data_arg);
 int				dying(t_data *data, t_philo *philo);
 
 //	FORK
@@ -140,7 +138,7 @@ void			set_process(t_data *data, int process);
 void			set_state(t_data *data, t_philo *philo, int state);
 void			set_satisfied(t_philo *philo, int is_satisfied);
 void			set_last_meal_time(t_data *data, t_philo *philo);
-int				set_n_eaten(t_philo *philo, int n_eaten);
+void			set_n_eaten(t_philo *philo, int n_eaten);
 
 //	UTIL			=== == =
 int				ft_atoi(const char *str);
