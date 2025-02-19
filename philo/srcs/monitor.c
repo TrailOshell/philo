@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 18:36:22 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/19 19:21:27 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:31:18 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int	dying(t_data *data, t_philo *philo)
 	}
 	return (0);
 }
-	// if (get_process(data) != RUNNING)
-	// 	return (1);
 
 void	notify_all_philos(t_data *data)
 {
@@ -43,11 +41,9 @@ void	*monitor_dying(void *data_arg)
 	t_data	*data;
 	t_philo	*philos;
 	int		i;
-	int		n_philos;
 
 	data = (t_data *)data_arg;
 	philos = data->philos;
-	n_philos = data->n_philos;
 	i = 0;
 	while (get_process(data) == RUNNING)
 	{
@@ -57,15 +53,14 @@ void	*monitor_dying(void *data_arg)
 			set_process(data, PHILO_DIED);
 			notify_all_philos(data);
 			pthread_mutex_unlock(&data->mute_philo);
-			pthread_mutex_lock(&data->mute_print);
-			printf(RED"MONITOR: DEAD\n"NO_CLR);
-			pthread_mutex_unlock(&data->mute_print);
 			break ;
 		}
-		if (i == n_philos)
+		if (i == data->n_philos)
 			i = 0;
 		usleep(1000);
 	}
+	if (get_process(data) == PHILO_DIED)
+		db_mute_print(data, RED"MONITOR: DEAD\n"NO_CLR);
 	return (NULL);
 }
 
@@ -94,11 +89,6 @@ void	*monitor_all_full(void *data_arg)
 		pthread_mutex_unlock(&data->mute_philo);
 	}
 	if (get_process(data) == ALL_FULL)
-	{
-		pthread_mutex_lock(&data->mute_print);
-		printf(BLU"MONITOR: FULL\n"NO_CLR);
-		pthread_mutex_unlock(&data->mute_print);
-	}
-	notify_all_philos(data);
+		db_mute_print(data, BLU"MONITOR: FULL\n"NO_CLR);
 	return (NULL);
 }

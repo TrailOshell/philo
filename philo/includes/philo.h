@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/19 19:21:56 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:32:33 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,11 +144,10 @@ int				ft_atoi(const char *str);
 int				digit_len(unsigned long number);
 
 //	DEBUG			=== == =
-void			db_init_philos(t_data *data);
-void			db_check_prev_next(t_philo *philo_next, t_philo *philo_prev);
 void			db_end_result(t_data *data);
-void			db_check_all_states(t_data *data, int id,
-					unsigned long timestamp);
 void			db_thread_locking(t_data *data, t_philo *philo, char *text);
+void			db_mute_print(t_data *data, char *txt);
+// void			db_check_all_states(t_data *data, int id,
+// 					unsigned long timestamp);
 
 #endif
