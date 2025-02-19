@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:14 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/18 17:20:28 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:55:24 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,15 @@ void	print_timestamp(t_data *data, int id, int state)
 	const char		*txt[7] = {"is thinking", "has taken a fork", \
 						"is eating", "is sleeping", "is full", "died", "STOP"};
 
-	if (get_process(data) != RUNNING)
-		return ;
-	timestamp = get_timestamp(data);
+	pthread_mutex_lock(&data->mute_philo);
 	pthread_mutex_lock(&data->mute_print);
-	printf("%lu %d %s\n", timestamp, id, txt[state]);
+	if (get_process(data) == RUNNING && state != STOP)
+	{
+		timestamp = get_timestamp(data);
+		printf("%lu %d %s\n", timestamp, id, txt[state]);
+	}
 	pthread_mutex_unlock(&data->mute_print);
+	pthread_mutex_unlock(&data->mute_philo);
 }
 	// pthread_mutex_lock(&data->mute_philo);
 	// pthread_mutex_unlock(&data->mute_philo);

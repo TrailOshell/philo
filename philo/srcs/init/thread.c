@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thread.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:47:21 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/18 15:59:33 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:28:04 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	create_threads(t_data *data)
 	t_philo	*philos;
 	int		i;
 
-	if (pthread_create(&data->alive_check, NULL, &monitor_wellbeing, data))
+	if (pthread_create(&data->alive_check, NULL, &monitor_dying, data))
 		return (1);
 	if (data->n_philos_eat)
 		if (pthread_create(&data->full_check, NULL, &monitor_all_full, data))
@@ -50,17 +50,3 @@ int	join_threads(t_data *data)
 			return (1);
 	return (0);
 }
-	// i = 0;
-	// while (i < data->n_philos)
-	// {
-	// 	if (pthread_join(data->ph_threads[i], NULL))
-	// 		return (1);
-	// 	i += 2;
-	// }
-	// i = 1;
-	// while (i < data->n_philos
-	// {
-	// 	if (pthread_join(data->ph_threads[i], NULL))
-	// 		return (1);
-	// 	i += 2;
-	// }

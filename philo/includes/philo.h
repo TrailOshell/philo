@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/18 17:03:13 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:19:07 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int				join_threads(t_data *data);
 void			*philosophing(void *philo_arg);
 
 //	MONITOR			=== == =
-void			*monitor_wellbeing(void *data_arg);
+void			*monitor_dying(void *data_arg);
 void			*monitor_all_full(void *data_arg);
 int				dying(t_data *data, t_philo *philo);
 
