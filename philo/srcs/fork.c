@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:32:44 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/19 15:41:21 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:21:23 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	take_first_fork(int process, t_philo *philo)
 {
-	if (process != RUNNING || get_state(philo) == STOP)
+	if (process != RUNNING || get_state(philo) == DEAD)
 		return (0);
 	if (philo->fork_left < philo->fork_right)
 		pthread_mutex_lock(philo->fork_left);
@@ -25,7 +25,7 @@ int	take_first_fork(int process, t_philo *philo)
 
 int	take_second_fork(int process, t_philo *philo)
 {
-	if (process != RUNNING || get_state(philo) == STOP)
+	if (process != RUNNING || get_state(philo) == DEAD)
 		return (0);
 	if (philo->fork_left < philo->fork_right)
 		pthread_mutex_lock(philo->fork_right);

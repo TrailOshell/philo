@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 18:36:22 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/19 17:57:18 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:21:27 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	notify_all_philos(t_data *data)
 	philos = data->philos;
 	i = 0;
 	while (i < data->n_philos)
-		set_state(data, &philos[i++], STOP);
+		set_state(data, &philos[i++], DEAD);
 }
 
 //	monitor each philosopher to check if one died, or all have ate enough food

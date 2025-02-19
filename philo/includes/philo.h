@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/19 17:19:07 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:21:56 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ typedef enum e_ph_state
 	EATING,
 	SLEEPING,
 	FULL,
-	DEAD,
-	STOP
+	DEAD
 }	t_ph_state;
 
 typedef enum e_process

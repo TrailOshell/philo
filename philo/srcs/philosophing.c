@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:58:05 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/19 17:57:08 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:21:38 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ static int	forking(t_data *data, t_philo *philo)
 		drop_first_fork(philo);
 		return (1);
 	}
-	if (get_process(data) != RUNNING || get_state(philo) == STOP)
+	if (get_process(data) != RUNNING || get_state(philo) == DEAD)
 		return (drop_forks(philo));
 	print_timestamp(data, philo->id, get_state(philo));
 	db_thread_locking(data, philo, YLW"locked"NO_CLR);
-	if (get_process(data) != RUNNING || get_state(philo) == STOP)
+	if (get_process(data) != RUNNING || get_state(philo) == DEAD)
 		return (drop_forks(philo));
 	return (0);
 }
@@ -51,7 +51,7 @@ static int	eating(t_data *data, t_philo *philo)
 	db_thread_locking(data, philo, GRN"unlocked"NO_CLR);
 	return (0);
 }
-	//if (get_process(data) != RUNNING && get_state(philo) != STOP)
+	//if (get_process(data) != RUNNING && get_state(philo) != DEAD)
 	//	{ pthread_mutex_lock(&data->mute_print);
 	// printf(YLW"first fork\n"NO_CLR);
 	// pthread_mutex_unlock(&data->mute_print); }
@@ -88,15 +88,15 @@ void	*philosophing(void *philo_arg)
 	{
 		if (forking(data, philo) == 1)
 			break ;
-		if (get_process(data) != RUNNING || get_state(philo) == STOP)
+		if (get_process(data) != RUNNING || get_state(philo) == DEAD)
 			break ;
 		if (eating(data, philo) == 1)
 			break ;
-		if (get_process(data) != RUNNING || get_state(philo) == STOP)
+		if (get_process(data) != RUNNING || get_state(philo) == DEAD)
 			break ;
 		if (sleeping(data, philo) == 1)
 			break ;
-		if (get_process(data) != RUNNING || get_state(philo) == STOP)
+		if (get_process(data) != RUNNING || get_state(philo) == DEAD)
 			break ;
 		if (thinking(data, philo) == 1)
 			break ;
@@ -105,10 +105,10 @@ void	*philosophing(void *philo_arg)
 }
 		//if (get_process(data) != RUNNING)
 		//	break ;
-	// if (get_state(philo) == STOP)
+	// if (get_state(philo) == DEAD)
 	// {
 	// 	pthread_mutex_lock(&data->mute_print);
-	// 	printf(YLW"THREAD: STOP\n"NO_CLR);
+	// 	printf(YLW"THREAD: DEAD\n"NO_CLR);
 	// 	pthread_mutex_unlock(&data->mute_print);
 	// }
 	// printf(YLW"THREAD: STATE = %d\n"NO_CLR, philo->state);
