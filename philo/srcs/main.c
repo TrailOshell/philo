@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:41:13 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/18 15:15:03 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/19 14:45:13 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,12 @@ int	main(int argc, char **argv)
 	data = NULL;
 	data = data_init(data, argc, argv);
 	if (data == NULL)
+	{
 		print_error(1, "MALLOC ERROR");
+		return (1);
+	}
 	philos_init(data);
 	forks_init(data);
-	if (data == NULL)
-		return (1);
 	create_threads(data);
 	join_threads(data);
 	db_end_result(data);
