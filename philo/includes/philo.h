@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 01:34:39 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 01:43:21 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ typedef enum e_process
 	PHILO_DIED,
 	ALL_FULL
 }	t_process;
-
-typedef struct s_philo	t_philo;
 
 typedef struct s_philo
 {
