@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:45:54 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/19 19:33:14 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:33:52 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	db_thread_locking(t_data *data, t_philo *philo, char *text)
 void	db_mute_print(t_data *data, char *txt)
 {
 	pthread_mutex_lock(&data->mute_print);
-	printf("%s\n");
+	printf("%s\n", txt);
 	pthread_mutex_unlock(&data->mute_print);
 }
 
