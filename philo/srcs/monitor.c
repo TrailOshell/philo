@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 18:36:22 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/19 20:40:43 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/19 21:38:32 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	dying(t_data *data, t_philo *philo)
 	{
 		pthread_mutex_lock(&data->mute_philo);
 		set_process(data, PHILO_DIED);
-		set_state(data, philo, DEAD);
+		set_state(philo, DEAD);
 		printf("%lu %d %s\n", get_timestamp(data), philo->id, "died");
 		db_mute_print(data, RED"DIED AND SET\n"NO_CLR);
 		pthread_mutex_unlock(&data->mute_philo);
@@ -36,7 +36,7 @@ void	notify_all_philos(t_data *data)
 	philos = data->philos;
 	i = 0;
 	while (i < data->n_philos)
-		set_state(data, &philos[i++], DEAD);
+		set_state(&philos[i++], DEAD);
 }
 
 //	monitor each philosopher to check if one died, or all have ate enough food

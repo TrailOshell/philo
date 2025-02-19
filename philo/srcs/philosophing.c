@@ -19,7 +19,7 @@ static int	forking(t_data *data, t_philo *philo)
 	print_timestamp(data, philo->id, FORKING);
 	if (take_second_fork(philo) != 1)
 		return (drop_first_fork(philo));
-	print_timestamp(data, philo->id, get_state(philo));
+	print_timestamp(data, philo->id, FORKING);
 	return (0);
 }
 	// db_thread_locking(data, philo, YLW"locked"NO_CLR);

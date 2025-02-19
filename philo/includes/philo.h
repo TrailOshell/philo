@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/19 21:05:02 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/19 21:38:24 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ typedef enum e_ph_state
 	EATING,
 	SLEEPING,
 	FULL,
-	DEAD
+	DEAD,
+	ALIVE
 }	t_ph_state;
 
 typedef enum e_process
@@ -134,7 +135,7 @@ int				get_n_eaten(t_philo *philo);
 
 //	MUTEX_SET		=== == =
 void			set_process(t_data *data, int process);
-void			set_state(t_data *data, t_philo *philo, int state);
+void			set_state(t_philo *philo, int state);
 void			set_satisfied(t_philo *philo, int is_satisfied);
 void			set_last_meal_time(t_philo *philo, unsigned long timestamp);
 void			set_n_eaten(t_philo *philo, int n_eaten);

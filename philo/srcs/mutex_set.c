@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 14:57:55 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/19 21:02:40 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/19 21:38:34 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	set_process(t_data *data, int process)
 	pthread_mutex_unlock(&data->mute_process);
 }
 
-void	set_state(t_data *data, t_philo *philo, int state)
+void	set_state(t_philo *philo, int state)
 {
 	pthread_mutex_lock(&philo->mute_state);
 	philo->state = state;
