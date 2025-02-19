@@ -6,13 +6,13 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:41:27 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/19 21:36:38 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 01:22:19 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	*forks_init(t_data *data)
+int	forks_init(t_data *data)
 {
 	t_philo		*philos;
 	int			i;
@@ -33,7 +33,7 @@ int	*forks_init(t_data *data)
 	return (0);
 }
 
-int	*philos_init(t_data *data)
+int	philos_init(t_data *data)
 {
 	t_philo		*philos;
 	int			i;
@@ -80,13 +80,6 @@ t_data	*data_init(t_data *data, int argc, char **argv)
 	if (data->forks == NULL)
 	{
 		free(data->philos);
-		return (NULL);
-	}
-	data->ph_threads = malloc(sizeof(pthread_t) * data->n_philos);
-	if (data->ph_threads == NULL)
-	{
-		free(data->philos);
-		free(data->forks);
 		return (NULL);
 	}
 	mutex_init(data);

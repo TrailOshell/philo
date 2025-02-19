@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:41:13 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/19 14:45:13 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 01:22:08 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	free_data(t_data *data)
 	if (data->n_philos)
 	{
 		free(data->forks);
-		free(data->ph_threads);
 		free(data->philos);
 		pthread_mutex_destroy(&data->mute_philo);
 		pthread_mutex_destroy(&data->mute_print);

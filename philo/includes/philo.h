@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/19 21:38:24 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 01:34:39 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_philo
 	unsigned long	last_meal_time;
 	struct s_data	*data;
 	t_ph_state		state;
+	pthread_t		thread;
 	pthread_mutex_t	*fork_left;
 	pthread_mutex_t	*fork_right;
 	pthread_mutex_t	mute_state;
@@ -86,7 +87,6 @@ typedef struct s_data
 	pthread_mutex_t	mute_timestamp;
 	pthread_t		alive_check;
 	pthread_t		full_check;
-	pthread_t		*ph_threads;
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
 }	t_data;
@@ -97,8 +97,8 @@ void			free_data(t_data *data);
 
 //	INIT			=== == =
 t_data			*data_init(t_data *data, int argc, char **argv);
-int				*forks_init(t_data *data);
-int				*philos_init(t_data *data);
+int				forks_init(t_data *data);
+int				philos_init(t_data *data);
 
 //	PARSE			=== == =
 int				philo_parse(t_data *data, int argc, char **argv);
