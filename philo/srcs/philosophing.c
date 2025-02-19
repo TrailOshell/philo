@@ -3,36 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   philosophing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:58:05 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/18 16:46:26somchan         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:22:45 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	thinking(t_data *data, t_philo *philo)
-{
-	//if (get_state(philo) != THINKING && get_process(data) == RUNNING && get_state(philo) != STOP)
-	//{
-		set_state(data, philo, THINKING);
-		if (get_process(data) == RUNNING || get_state(philo) != STOP)
-			print_timestamp(data, philo->id, get_state(philo));
-	//}
-	return (1);
-}
-
-static int	eating(t_data *data, t_philo *philo)
+static int	forking(t_data *data, t_philo *philo)
 {
 	if (data->n_philos == 1)
 	{
 		set_state(data, philo, FORKING);
 		print_timestamp(data, philo->id, get_state(philo));
-		return (0);
+		return (1);
 	}
 	if (take_first_fork(get_process(data), philo) != 1)
-		return (0);
+		return (1);
 	set_state(data, philo, FORKING);
 	if (get_process(data) == RUNNING && get_state(philo) != STOP)
 		print_timestamp(data, philo->id, get_state(philo));
@@ -40,16 +29,20 @@ static int	eating(t_data *data, t_philo *philo)
 	if (take_second_fork(get_process(data), philo) != 1)
 	{
 		drop_first_fork(philo);
-		return (0);
+		return (1);
 	}
 	if (get_process(data) != RUNNING || get_state(philo) == STOP)
 		return (drop_forks(philo));
 	if (get_process(data) == RUNNING && get_state(philo) != STOP)
 		print_timestamp(data, philo->id, get_state(philo));
-	print_timestamp(data, philo->id, get_state(philo));
-	//db_thread_locking(data, philo, YLW"locked"NO_CLR);
+	db_thread_locking(data, philo, YLW"locked"NO_CLR);
 	if (get_process(data) != RUNNING || get_state(philo) == STOP)
 		return (drop_forks(philo));
+	return (0);
+}
+
+static int	eating(t_data *data, t_philo *philo)
+{
 	set_state(data, philo, EATING);
 	if (get_process(data) == RUNNING && get_state(philo) != STOP)
 		print_timestamp(data, philo->id, get_state(philo));
@@ -59,11 +52,13 @@ static int	eating(t_data *data, t_philo *philo)
 	if (get_n_eaten(philo) >= data->n_philos_eat)
 		set_satisfied(philo, 1);
 	drop_forks(philo);
-	//db_thread_locking(data, philo, GRN"unlocked"NO_CLR);
-	return (1);
+	db_thread_locking(data, philo, GRN"unlocked"NO_CLR);
+	return (0);
 }
 	//if (get_process(data) != RUNNING && get_state(philo) != STOP)
-	//	{ pthread_mutex_lock(&data->mute_print); printf(YLW"first fork\n"NO_CLR); pthread_mutex_unlock(&data->mute_print); }
+	//	{ pthread_mutex_lock(&data->mute_print);
+	// printf(YLW"first fork\n"NO_CLR);
+	// pthread_mutex_unlock(&data->mute_print); }
 
 static int	sleeping(t_data *data, t_philo *philo)
 {
@@ -78,6 +73,14 @@ static int	sleeping(t_data *data, t_philo *philo)
 	return (1);
 }
 
+static int	thinking(t_data *data, t_philo *philo)
+{
+	set_state(data, philo, THINKING);
+	if (get_process(data) == RUNNING || get_state(philo) != STOP)
+		print_timestamp(data, philo->id, get_state(philo));
+	return (0);
+}
+
 //	The main thread for each philosophers
 void	*philosophing(void *philo_arg)
 {
@@ -86,17 +89,23 @@ void	*philosophing(void *philo_arg)
 
 	philo = (t_philo *)philo_arg;
 	data = philo->data;
-	//if (get_process(data) == RUNNING && get_state(philo != STOP)
-	//	print_timestamp(data, philo->id, get_state(philo));
 	if (philo->id % 2 == 0)
 		usleep(data->t_eat);
 	while (get_state(philo) != DEAD && get_process(data) == RUNNING)
 	{
-		if (eating(data, philo) != 1 || get_process(data) != RUNNING || get_state(philo) == STOP)
+		if (forking(data, philo) == 1)
 			break ;
-		if (sleeping(data, philo) != 1 || get_process(data) != RUNNING || get_state(philo) == STOP)
+		if (get_process(data) != RUNNING || get_state(philo) == STOP)
 			break ;
-		if (thinking(data, philo) != 1 || get_process(data) != RUNNING || get_state(philo) == STOP)
+		if (eating(data, philo) == 1)
+			break ;
+		if (get_process(data) != RUNNING || get_state(philo) == STOP)
+			break ;
+		if (sleeping(data, philo) == 1)
+			break ;
+		if (get_process(data) != RUNNING || get_state(philo) == STOP)
+			break ;
+		if (thinking(data, philo) == 1)
 			break ;
 	}
 	return (NULL);
