@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mutex_set.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 14:57:55 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/18 15:50:14 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/19 21:02:40 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	set_satisfied(t_philo *philo, int is_satisfied)
 	pthread_mutex_unlock(&philo->mute_satisfied);
 }
 
-void	set_last_meal_time(t_data *data, t_philo *philo)
+void	set_last_meal_time(t_philo *philo, unsigned long timestamp)
 {
 	pthread_mutex_lock(&philo->mute_last_meal_time);
-	philo->last_meal_time = get_timestamp(data);
+	philo->last_meal_time = timestamp;
 	pthread_mutex_unlock(&philo->mute_last_meal_time);
 }

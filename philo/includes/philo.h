@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/19 19:32:33 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/19 21:05:02 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,9 @@ void			*monitor_all_full(void *data_arg);
 int				dying(t_data *data, t_philo *philo);
 
 //	FORK
-int				take_first_fork(int process, t_philo *philo);
-int				take_second_fork(int process, t_philo *philo);
-void			drop_first_fork(t_philo *philo);
+int				take_first_fork(t_philo *philo);
+int				take_second_fork(t_philo *philo);
+int				drop_first_fork(t_philo *philo);
 int				drop_forks(t_philo *philo);
 
 //	MUTEX_GET		=== == =
@@ -136,7 +136,7 @@ int				get_n_eaten(t_philo *philo);
 void			set_process(t_data *data, int process);
 void			set_state(t_data *data, t_philo *philo, int state);
 void			set_satisfied(t_philo *philo, int is_satisfied);
-void			set_last_meal_time(t_data *data, t_philo *philo);
+void			set_last_meal_time(t_philo *philo, unsigned long timestamp);
 void			set_n_eaten(t_philo *philo, int n_eaten);
 
 //	UTIL			=== == =

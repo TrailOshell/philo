@@ -6,16 +6,14 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:32:44 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/19 19:21:23 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/19 21:00:05 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	take_first_fork(int process, t_philo *philo)
+int	take_first_fork(t_philo *philo)
 {
-	if (process != RUNNING || get_state(philo) == DEAD)
-		return (0);
 	if (philo->fork_left < philo->fork_right)
 		pthread_mutex_lock(philo->fork_left);
 	else
@@ -23,10 +21,8 @@ int	take_first_fork(int process, t_philo *philo)
 	return (1);
 }
 
-int	take_second_fork(int process, t_philo *philo)
+int	take_second_fork(t_philo *philo)
 {
-	if (process != RUNNING || get_state(philo) == DEAD)
-		return (0);
 	if (philo->fork_left < philo->fork_right)
 		pthread_mutex_lock(philo->fork_right);
 	else
@@ -34,17 +30,18 @@ int	take_second_fork(int process, t_philo *philo)
 	return (1);
 }
 
-void	drop_first_fork(t_philo *philo)
+int	drop_first_fork(t_philo *philo)
 {
 	if (philo->fork_left < philo->fork_right)
 		pthread_mutex_unlock(philo->fork_left);
 	else
 		pthread_mutex_unlock(philo->fork_right);
+	return (1);
 }
 
 int	drop_forks(t_philo *philo)
 {
 	pthread_mutex_unlock(philo->fork_left);
 	pthread_mutex_unlock(philo->fork_right);
-	return (0);
+	return (1);
 }

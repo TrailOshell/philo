@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
+#    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/18 16:34:09 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/19 19:38:41 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,7 +91,7 @@ VG_FLAG_ALL		= --leak-check=full --show-leak-kinds=all
 D_NAME			=	$(addprefix d_, $(NAME))
 
 # D_FLAGS		=	-g -D DEFAULT_PRINT=0 -D MORE_PRINT=1
-D_FLAGS		=	-g -D DEFAULT_PRINT=1 -D MORE_PRINT=0
+D_FLAGS		=	-g -D DEFAULT_PRINT=1 -D MORE_PRINT=1
 
 d: debug 
 
