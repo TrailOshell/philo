@@ -6,7 +6,7 @@
 #    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/20 15:13:01 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/20 15:34:03 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -123,3 +123,14 @@ hel:
 	make d && valgrind --tool=helgrind ./d_philo 10 400 60 60 2
 
 .PHONY: v valgrind va valgrind_all h hel
+
+#	test 200 philosophers
+200: $(NAME)
+	./philo 200 120 60 60 1 > philo.txt
+	cat philo.txt
+
+#	test 200 philosophers in debug mode
+200_d: d
+	./d_philo 200 500 60 60 1 > d_philo.txt
+	@echo "d_philo.txt"
+.PHONY: 200
