@@ -6,7 +6,7 @@
 #    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/20 18:17:24 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/20 18:24:23 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,6 +72,7 @@ clean :
 
 fclean : clean
 	rm -f $(NAME)
+	rm -f $(TXT) $(D_TXT)
 
 re : fclean all
 
@@ -79,9 +80,11 @@ re : fclean all
 
 # === [DEBUG PROGRAM] ===
 
-D_NAME			=	$(addprefix d_, $(NAME))
-
+D_NAME		=	$(addprefix d_, $(NAME))
 D_FLAGS		=	-g -D DEFAULT_PRINT=0 -D DB_PRINT=1
+
+TXT			=	philo.txt
+D_TXT		=	d_philo.txt
 
 d: debug 
 
@@ -139,11 +142,11 @@ d_hel: d
 
 #	test 200 philosophers
 200: $(NAME)
-	./$(NAME) 200 120 60 60 1 > philo.txt
+	./$(NAME) 200 120 60 60 1 > $(TXT)
 	cat philo.txt
 
 #	test 200 philosophers in debug mode
 d_200: d
-	./$(D_NAME) 200 500 60 60 1 > d_philo.txt
+	./$(D_NAME) 200 500 60 60 1 > $(D_TXT)
 	@echo "d_philo.txt"
 .PHONY: 200 d_200
