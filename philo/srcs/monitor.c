@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 18:36:22 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 12:55:22 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:06:19 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	dying(t_data *data, t_philo *philo)
 {
+	if (get_state(philo) == DEAD || get_process(data) != RUNNING)
+		return (0);
 	if (get_timestamp(data) - get_last_meal_time(philo)
 		>= (data->t_die / 1000) + 10)
 	{
@@ -44,7 +46,7 @@ void	*monitor_dying(void *data_arg)
 	{
 		if (dying(data, &philos[i++]) == 1)
 			break ;
-		if (i == data->n_philos)
+		if (i == data->n_ph)
 			i = 0;
 		usleep(1000);
 	}
@@ -59,16 +61,16 @@ void	*monitor_all_full(void *data_arg)
 
 	data = (t_data *)data_arg;
 	philos = data->philos;
-	if (data->n_philos_eat == 0)
+	if (data->n_ph_eat == 0)
 		return (NULL);
 	i = 0;
-	while (i < data->n_philos && get_process(data) == RUNNING)
+	while (i < data->n_ph && get_process(data) == RUNNING)
 	{
 		if (get_satisfied(&philos[i]) == 1)
 			i++;
 		usleep(1000);
 	}
-	if (i == data->n_philos)
+	if (i == data->n_ph)
 	{
 		set_process(data, ALL_FULL);
 		db_mute_print(data, BLU"MONITOR: FULL\n"NO_CLR);

@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 15:13:22 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:06:30 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ typedef struct s_philo
 
 typedef struct s_data
 {
-	int				n_philos;
+	int				n_ph;
 	unsigned long	t_die;
 	unsigned long	t_eat;
 	unsigned long	t_sleep;
-	int				n_philos_eat;
+	int				n_ph_eat;
 	unsigned long	time_start;
 	int				process;
 	pthread_mutex_t	mute_philo;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:17:03 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/19 21:45:54 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:06:19 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ static int	philo_set_var(int *var, char *arg)
 
 static void	init_parse(t_data *data)
 {
-	data->n_philos = 0;
+	data->n_ph = 0;
 	data->t_die = 0;
 	data->t_eat = 0;
 	data->t_sleep = 0;
-	data->n_philos_eat = 0;
+	data->n_ph_eat = 0;
 }
 
 static void	set_parse_value(t_data *data)
@@ -54,7 +54,7 @@ int	philo_parse(t_data *data, int argc, char **argv)
 		return (print_error(1, B_RED "ERROR! Not enough arguments\n" NO_CLR));
 	if (argc > 6)
 		return (print_error(1, B_RED "ERROR! Too many arguments\n" NO_CLR));
-	if (philo_set_var(&data->n_philos, argv[1]) == -1)
+	if (philo_set_var(&data->n_ph, argv[1]) == -1)
 		return (print_error(1, B_RED "ERROR! Wrong number_of_philosophers\n"\
 			NO_CLR));
 	if (philo_set_var((int *)&data->t_die, argv[2]) == -1)
@@ -63,7 +63,7 @@ int	philo_parse(t_data *data, int argc, char **argv)
 		return (print_error(1, B_RED "ERROR! Wrong time_to_eat\n" NO_CLR));
 	if (philo_set_var((int *)&data->t_sleep, argv[4]) == -1)
 		return (print_error(1, B_RED "ERROR! Wrong time_to_sleep\n" NO_CLR));
-	if (argv[5] && philo_set_var(&data->n_philos_eat, argv[5]) == -1)
+	if (argv[5] && philo_set_var(&data->n_ph_eat, argv[5]) == -1)
 		return (print_error(1, B_RED "ERROR! Wrong number_of_times" \
 			"_each_philosopher_must_eat\n" NO_CLR));
 	set_parse_value(data);

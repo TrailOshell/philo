@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:45:54 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 13:22:44 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:06:19 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void	db_end_result(t_data *data)
 		return ;
 	printf(B_CYN "n_philo\tt_die\tt_eat\tt_sleep\tn_philos_eat\n" NO_CLR);
 	printf(B_WHT);
-	printf("%d\t", data->n_philos);
+	printf("%d\t", data->n_ph);
 	printf("%lu\t", data->t_die / 1000);
 	printf("%lu\t", data->t_eat / 1000);
 	printf("%lu\t", data->t_sleep / 1000);
-	printf("%d", data->n_philos_eat);
+	printf("%d", data->n_ph_eat);
 	printf("\n"NO_CLR);
 	printf("%s "PUR" The philosophing has ended "NO_CLR" %s\n", deco1, deco2);
 	if (get_process(data) == ALL_FULL)

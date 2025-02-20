@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:22:23 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 16:22:33 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:06:19 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ static void	print_philo_stats(t_data *data, t_philo *philo,
 	len = digit_len(get_last_meal_time(philo) / 1000);
 	n_eaten = get_n_eaten(philo);
 	printf(CYN"(");
-	print_empty_digit_len(data->n_philos_eat, n_eaten);
-	if (data->n_philos_eat && n_eaten >= data->n_philos_eat)
+	print_empty_digit_len(data->n_ph_eat, n_eaten);
+	if (data->n_ph_eat && n_eaten >= data->n_ph_eat)
 		printf(B_GRN);
 	else
 		printf(B_YLW);
@@ -61,7 +61,7 @@ void	db_check_all_ph(t_data *data, int id, unsigned long timestamp)
 		return ;
 	printf(CYN "%lu\t" NO_CLR, timestamp);
 	i = -1;
-	while (++i < data->n_philos)
+	while (++i < data->n_ph)
 	{
 		if (i + 1 == id)
 			str = "||";

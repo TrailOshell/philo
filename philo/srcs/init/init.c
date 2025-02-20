@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:41:27 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 12:22:10 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:05:53 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	forks_init(t_data *data)
 
 	philos = data->philos;
 	i = 0;
-	while (i < data->n_philos)
+	while (i < data->n_ph)
 		pthread_mutex_init(&data->forks[i++], NULL);
 	philos[0].fork_left = &data->forks[0];
-	philos[0].fork_right = &data->forks[data->n_philos - 1];
+	philos[0].fork_right = &data->forks[data->n_ph - 1];
 	i = 1;
-	while (i < data->n_philos)
+	while (i < data->n_ph)
 	{
 		philos[i].fork_left = &data->forks[i];
 		philos[i].fork_right = &data->forks[i - 1];
@@ -40,7 +40,7 @@ int	philos_init(t_data *data)
 
 	philos = data->philos;
 	i = 0;
-	while (i < data->n_philos)
+	while (i < data->n_ph)
 	{
 		philos[i].id = i + 1;
 		philos[i].n_eaten = 0;
@@ -73,10 +73,10 @@ t_data	*data_init(t_data *data, int argc, char **argv)
 	data->time_start = get_miliseconds();
 	if (philo_parse(data, argc, argv) == 1)
 		return (NULL);
-	data->philos = malloc(sizeof(t_philo) * data->n_philos);
+	data->philos = malloc(sizeof(t_philo) * data->n_ph);
 	if (data->philos == NULL)
 		return (NULL);
-	data->forks = malloc(sizeof(pthread_mutex_t) * data->n_philos);
+	data->forks = malloc(sizeof(pthread_mutex_t) * data->n_ph);
 	if (data->forks == NULL)
 	{
 		free(data->philos);
