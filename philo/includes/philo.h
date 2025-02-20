@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 12:46:54 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:05:58 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ typedef enum e_ph_state
 	EATING,
 	SLEEPING,
 	FULL,
-	DEAD,
-	STOP	
+	DEAD
 }	t_ph_state;
 
 typedef enum e_process
@@ -147,7 +146,6 @@ int				digit_len(unsigned long number);
 void			db_end_result(t_data *data);
 void			db_thread_locking(t_data *data, t_philo *philo, char *text);
 void			db_mute_print(t_data *data, char *txt);
-void			db_check_all_states(t_data *data, int id,
-					unsigned long timestamp);
+void			db_check_all_ph(t_data *data, int id, unsigned long timestamp);
 
 #endif

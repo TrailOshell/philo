@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:58:05 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 13:28:59 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:01:59 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,32 @@ static int	forking(t_data *data, t_philo *philo)
 		return (1);
 	set_state(philo, FORKING);
 	print_running_timestamp(data, philo->id, FORKING);
+	db_thread_locking(data, philo, YLW"lock first fork"NO_CLR);
 	if (take_second_fork(philo) != 1)
+	{
+		db_thread_locking(data, philo, GRN"unlock 1 fork"NO_CLR);
 		return (drop_first_fork(philo));
+	}
 	print_running_timestamp(data, philo->id, FORKING);
+	db_thread_locking(data, philo, YLW"lock second fork"NO_CLR);
 	return (0);
 }
-	// db_thread_locking(data, philo, YLW"locked"NO_CLR);
 
 static int	eating(t_data *data, t_philo *philo)
 {
 	int	n_eaten;
 
 	if (get_process(data) != RUNNING)
+	{
+		db_thread_locking(data, philo, GRN"unlock 2 forks"NO_CLR);
 		return (drop_forks(philo));
+	}
 	set_state(philo, EATING);
 	print_running_timestamp(data, philo->id, EATING);
 	if (data->t_eat >= data->t_die)
 	{
 		usleep(data->t_die);
+		db_thread_locking(data, philo, GRN"unlock 2 forks"NO_CLR);
 		return (drop_forks(philo));
 	}
 	usleep(data->t_eat);
@@ -46,13 +54,13 @@ static int	eating(t_data *data, t_philo *philo)
 		set_satisfied(philo, 1);
 	return (0);
 }
-	// db_thread_locking(data, philo, GRN"unlocked"NO_CLR);
 
 static int	sleeping(t_data *data, t_philo *philo)
 {
 	set_state(philo, SLEEPING);
 	print_running_timestamp(data, philo->id, SLEEPING);
 	drop_forks(philo);
+	db_thread_locking(data, philo, GRN"unlock 2 forks"NO_CLR);
 	if (data->t_sleep >= data->t_die)
 		return (1);
 	usleep(data->t_sleep);

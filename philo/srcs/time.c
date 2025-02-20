@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:14 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 13:22:02 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:05:58 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	print_timestamp(t_data *data, int id, int state)
 	if (DEFAULT_PRINT == 1)
 		printf("%lu %d %s\n", get_timestamp(data), id, txt[state]);
 	if (DEBUG_PRINT == 1)
-		db_check_all_states(data, id, get_timestamp(data));
+		db_check_all_ph(data, id, get_timestamp(data));
 	pthread_mutex_unlock(&data->mute_print);
 }
 
