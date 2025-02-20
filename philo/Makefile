@@ -6,7 +6,7 @@
 #    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/20 23:01:42 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/21 02:28:53 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -164,3 +164,17 @@ d_200: d
 	./$(D_NAME) 200 500 60 60 1 > $(D_TXT)
 	@echo "d_philo.txt"
 .PHONY: 200 d_200
+
+# === [TESTER] ===
+
+TESTER_DIR	= ../philosophers_tester/
+
+tester_install:
+	git clone https://github.com/kichkiro/philosophers_tester.git $(TESTER_DIR)
+	pip3 install -r $(TESTER_DIR)requirements.txt
+	make tester
+
+tester:
+	python3 $(TESTER_DIR)/src/__main__.py ../philo 
+
+.PHONY: tester_install tester
