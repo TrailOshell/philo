@@ -3,6 +3,9 @@ philo/*philo
 philo/*d_philo
 philo/*philo.txt
 
+# Tester
+philosophers_tester*
+
 # Prerequisites
 *.d
 
