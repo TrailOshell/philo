@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 18:18:57 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 20:28:40 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void			*philosophing(void *philo_arg);
 //	MONITOR			=== == =
 void			*monitor_dying(void *data_arg);
 void			*monitor_all_full(void *data_arg);
+int				set_dead(t_data *data, t_philo *philo);
 int				dying(t_data *data, t_philo *philo);
 
 //	FORK

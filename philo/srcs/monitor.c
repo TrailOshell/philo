@@ -6,11 +6,24 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 18:36:22 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 18:06:19 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 20:27:48 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	set_dead(t_data *data, t_philo *philo)
+{
+	if (get_state(philo) == DEAD || get_process(data) != RUNNING)
+		return (0);
+	pthread_mutex_lock(&data->mute_philo);
+	set_process(data, PHILO_DIED);
+	set_state(philo, DEAD);
+	print_timestamp(data, philo->id, DEAD);
+	db_mute_print(data, RED"MONITOR: DEAD\n"NO_CLR);
+	pthread_mutex_unlock(&data->mute_philo);
+	return (1);
+}
 
 int	dying(t_data *data, t_philo *philo)
 {
@@ -18,16 +31,7 @@ int	dying(t_data *data, t_philo *philo)
 		return (0);
 	if (get_timestamp(data) - get_last_meal_time(philo)
 		>= (data->t_die / 1000) + 10)
-	{
-		pthread_mutex_lock(&data->mute_philo);
-		set_process(data, PHILO_DIED);
-		set_state(philo, DEAD);
-		print_timestamp(data, philo->id, DEAD);
-		db_mute_print(data, RED"DIED AND SET\n"NO_CLR);
-		db_mute_print(data, RED"MONITOR: DEAD\n"NO_CLR);
-		pthread_mutex_unlock(&data->mute_philo);
-		return (1);
-	}
+		return (set_dead(data, philo));
 	return (0);
 }
 		// printf("%lu %d %s\n", get_timestamp(data), philo->id, "died");

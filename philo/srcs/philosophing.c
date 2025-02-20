@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:58:05 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 18:19:00 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 20:20:21 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	eating(t_data *data, t_philo *philo)
 	{
 		usleep(data->t_die);
 		drop_forks(data, philo);
-		return (dying(data, philo));
+		return (set_dead(data, philo));
 	}
 	usleep(data->t_eat);
 	set_last_meal_time(philo, get_timestamp(data));
@@ -54,9 +54,10 @@ static int	sleeping(t_data *data, t_philo *philo)
 	set_state(philo, SLEEPING);
 	print_run_timestamp(data, philo->id, SLEEPING);
 	drop_forks(data, philo);
-	if ((data->t_sleep + data->t_eat) > data->t_die)
-		return (dying(data, philo));
-	usleep(data->t_sleep);
+	if (data->t_sleep > data->t_die)
+		usleep(data->t_die);
+	else
+		usleep(data->t_sleep);
 	return (0);
 }
 
@@ -66,8 +67,15 @@ static int	thinking(t_data *data, t_philo *philo)
 		return (1);
 	set_state(philo, THINKING);
 	print_run_timestamp(data, philo->id, THINKING);
+	if ((data->t_sleep + data->t_eat) > data->t_die)
+	{
+		usleep(data->t_die - data->t_eat);
+		return (set_dead(data, philo));
+	}
 	if (data->t_sleep < data->t_eat && data->n_ph % 2 == 1)
 		usleep(data->t_eat);
+	if (data->t_sleep == data->t_eat)
+		usleep(1000);
 	return (0);
 }
 

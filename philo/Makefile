@@ -6,7 +6,7 @@
 #    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/20 18:24:23 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/20 20:28:31 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ HEADERS 			=	$(addprefix $(HEADER_DIR), $(HEADER))
 CC 					=	cc
 
 # === flags for compiling into object files and program. ===
-C_FLAGS				=	-Wall -Wextra -Werror -g
+C_FLAGS				=	-Wall -Wextra -Werror
 
 FLAG_HEADERS		=	-Iincludes
 

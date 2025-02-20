@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:41:13 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 18:05:53 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 19:21:50 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,7 @@ int	main(int argc, char **argv)
 	data = NULL;
 	data = data_init(data, argc, argv);
 	if (data == NULL)
-	{
-		print_error(1, "MALLOC ERROR");
 		return (1);
-	}
 	philos_init(data);
 	forks_init(data);
 	create_threads(data);
