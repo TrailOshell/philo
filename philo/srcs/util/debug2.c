@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:22:23 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 13:23:40 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:07:58 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	print_philo_stats(t_data *data, t_philo *philo,
 	printf("%lu"CYN")", last_meal_time);
 }
 
-void	db_check_all_states(t_data *data, int id, unsigned long timestamp)
+void	db_check_all_ph(t_data *data, int id, unsigned long timestamp)
 {
 	const char		*txt[7] = {"🤔 ", "🍴 ", "🍝 ", "💤 ", "😃 ", "💀 "};
 	char			*str;
