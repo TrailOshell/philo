@@ -6,7 +6,7 @@
 #    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/20 16:37:32 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/20 16:41:22 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -143,7 +143,7 @@ d_hel: d
 	cat philo.txt
 
 #	test 200 philosophers in debug mode
-200_d: d
+d_200: d
 	./$(D_NAME) 200 500 60 60 1 > d_philo.txt
 	@echo "d_philo.txt"
-.PHONY: 200 200_d
+.PHONY: 200 d_200
