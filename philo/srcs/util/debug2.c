@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:22:23 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 16:18:41 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 16:22:33 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	db_check_all_ph(t_data *data, int id, unsigned long timestamp)
 
 	if (DEBUG_PRINT == 0)
 		return ;
-	printf(BLU "%lu\t" NO_CLR, timestamp);
+	printf(CYN "%lu\t" NO_CLR, timestamp);
 	i = -1;
 	while (++i < data->n_philos)
 	{
@@ -76,5 +76,5 @@ void	db_check_all_ph(t_data *data, int id, unsigned long timestamp)
 				timestamp - get_last_meal_time(philo), data->t_die / 1000);
 		printf(B_YLW "%s " NO_CLR, str);
 	}
-	printf(BLU "\t%lu\n" NO_CLR, timestamp);
+	printf(CYN "\t%lu\n" NO_CLR, timestamp);
 }
