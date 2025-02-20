@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:22:23 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 15:07:58 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 16:18:41 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,14 @@ static void	print_empty_digit_len(unsigned long digit_max,
 static void	print_philo_stats(t_data *data, t_philo *philo,
 			unsigned long last_meal_time, unsigned long die_in_ms)
 {
+	const char		*state[7] = {"🤔 ", "🍴 ", "🍝 ", "💤 ", "😃 ", "💀 "};
 	const char		*txt[7] = {WHT, WHT, YLW, BLU, GRN, RED};
+	int				i;
 	int				len;
 	int				n_eaten;
 
+	i = philo->id - 1;
+	printf(CYN "p"YLW"%d%s", i + 1, state[get_state(&data->philos[i])]);
 	len = digit_len(get_last_meal_time(philo) / 1000);
 	n_eaten = get_n_eaten(philo);
 	printf(CYN"(");
@@ -43,14 +47,12 @@ static void	print_philo_stats(t_data *data, t_philo *philo,
 	print_empty_digit_len(die_in_ms, last_meal_time);
 	if (last_meal_time >= die_in_ms + 10)
 		printf(RED);
-	else
-		printf("%s", txt[get_state(philo)]);
+	printf("%s", txt[get_state(philo)]);
 	printf("%lu"CYN")", last_meal_time);
 }
 
 void	db_check_all_ph(t_data *data, int id, unsigned long timestamp)
 {
-	const char		*txt[7] = {"🤔 ", "🍴 ", "🍝 ", "💤 ", "😃 ", "💀 "};
 	char			*str;
 	t_philo			*philo;
 	int				i;
@@ -67,10 +69,12 @@ void	db_check_all_ph(t_data *data, int id, unsigned long timestamp)
 			str = "  ";
 		printf(B_YLW "%s" NO_CLR, str);
 		philo = &data->philos[i];
-		printf(CYN "p"YLW"%d%s", i + 1, txt[get_state(&data->philos[i])]);
-		print_philo_stats(data, philo, timestamp - get_last_meal_time(philo),
-			data->t_die / 1000);
+		if (timestamp < get_last_meal_time(philo))
+			print_philo_stats(data, philo, 0, data->t_die / 1000);
+		else
+			print_philo_stats(data, philo,
+				timestamp - get_last_meal_time(philo), data->t_die / 1000);
 		printf(B_YLW "%s " NO_CLR, str);
 	}
-	printf("\n");
+	printf(BLU "\t%lu\n" NO_CLR, timestamp);
 }
