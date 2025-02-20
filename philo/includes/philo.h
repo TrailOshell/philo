@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 15:05:58 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:13:22 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,10 +119,10 @@ void			*monitor_all_full(void *data_arg);
 int				dying(t_data *data, t_philo *philo);
 
 //	FORK
-int				take_first_fork(t_philo *philo);
-int				take_second_fork(t_philo *philo);
-int				drop_first_fork(t_philo *philo);
-int				drop_forks(t_philo *philo);
+int				take_first_fork(t_data *data, t_philo *philo);
+int				take_second_fork(t_data *data, t_philo *philo);
+int				drop_first_fork(t_data *data, t_philo *philo);
+int				drop_forks(t_data *data, t_philo *philo);
 
 //	MUTEX_GET		=== == =
 int				get_process(t_data *data);
