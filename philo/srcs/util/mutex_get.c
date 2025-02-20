@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mutex_get.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 09:37:00 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/18 14:59:36 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 12:07:30 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int	get_state(t_philo *philo)
-{
-	int	state;
-
-	pthread_mutex_lock(&philo->mute_state);
-	state = philo->state;
-	pthread_mutex_unlock(&philo->mute_state);
-	return (state);
-}
 
 int	get_process(t_data *data)
 {
@@ -30,6 +20,16 @@ int	get_process(t_data *data)
 	process = data->process;
 	pthread_mutex_unlock(&data->mute_process);
 	return (process);
+}
+
+int	get_state(t_philo *philo)
+{
+	int	state;
+
+	pthread_mutex_lock(&philo->mute_state);
+	state = philo->state;
+	pthread_mutex_unlock(&philo->mute_state);
+	return (state);
 }
 
 int	get_n_eaten(t_philo *philo)

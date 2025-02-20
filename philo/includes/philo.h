@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 01:43:21 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 12:46:54 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 #  define DEFAULT_PRINT 1
 # endif
 
-# ifndef MORE_PRINT
-#  define MORE_PRINT 0
+# ifndef DEBUG_PRINT
+#  define DEBUG_PRINT 0
 # endif
 
 # ifndef DEBUG_THREADS_LOCKING
@@ -43,7 +43,7 @@ typedef enum e_ph_state
 	SLEEPING,
 	FULL,
 	DEAD,
-	ALIVE
+	STOP	
 }	t_ph_state;
 
 typedef enum e_process
@@ -105,6 +105,7 @@ int				philo_parse(t_data *data, int argc, char **argv);
 unsigned long	get_miliseconds(void);
 unsigned long	get_timestamp(t_data *data);
 void			print_timestamp(t_data *data, int id, int state);
+void			print_running_timestamp(t_data *data, int id, int state);
 
 //	THREAD			=== == =
 int				create_threads(t_data *data);
@@ -146,7 +147,7 @@ int				digit_len(unsigned long number);
 void			db_end_result(t_data *data);
 void			db_thread_locking(t_data *data, t_philo *philo, char *text);
 void			db_mute_print(t_data *data, char *txt);
-// void			db_check_all_states(t_data *data, int id,
-// 					unsigned long timestamp);
+void			db_check_all_states(t_data *data, int id,
+					unsigned long timestamp);
 
 #endif

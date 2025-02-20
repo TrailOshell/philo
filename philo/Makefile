@@ -6,7 +6,7 @@
 #    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/19 19:38:41 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/20 13:24:28 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,12 +17,9 @@ SRCS_DIR			=	srcs/
 # === SRCS at root of srcs/ ===
 SRCS_MAIN			=	$(SRCS_DIR)main.c
 SRCS_ROOT			=	philosophing.c \
-						time.c \
 						monitor.c \
+						time.c \
 						fork.c \
-						mutex_get.c mutex_set.c\
-						util.c \
-						debug.c
 
 # === SRCS in subdirectories  ===
 SRCS_INIT_DIR		=	init/
@@ -30,13 +27,19 @@ SRCS_INIT			=	init.c \
 						parse.c \
 						thread.c
 
+SRCS_UTIL_DIR		=	util/
+SRCS_UTIL			=	util.c \
+						mutex_get.c mutex_set.c\
+						debug.c debug2.c
+
 # === SRCS to compile main program  ===
 SRCS				=	$(SRCS_ROOT) \
-						$(addprefix $(SRCS_INIT_DIR), $(SRCS_INIT))
+						$(addprefix $(SRCS_INIT_DIR), $(SRCS_INIT)) \
+						$(addprefix $(SRCS_UTIL_DIR), $(SRCS_UTIL))
 
 OBJS_DIR			=	objs/
 OBJS				=	$(SRCS:%.c=$(OBJS_DIR)%.o)
-OBJS_SUB_DIRS		=	$(OBJS_DIR) $(addprefix $(OBJS_DIR), $(SRCS_INIT_DIR))
+OBJS_SUB_DIRS		=	$(OBJS_DIR) $(addprefix $(OBJS_DIR), $(SRCS_INIT_DIR) $(SRCS_UTIL_DIR))
 
 D_OBJS				=	$(SRCS:%.c=$(OBJS_DIR)%_d.o)
 
@@ -90,8 +93,7 @@ VG_FLAG_ALL		= --leak-check=full --show-leak-kinds=all
 
 D_NAME			=	$(addprefix d_, $(NAME))
 
-# D_FLAGS		=	-g -D DEFAULT_PRINT=0 -D MORE_PRINT=1
-D_FLAGS		=	-g -D DEFAULT_PRINT=1 -D MORE_PRINT=1
+D_FLAGS		=	-g -D DEFAULT_PRINT=0 -D DEBUG_PRINT=1
 
 d: debug 
 
@@ -118,6 +120,6 @@ valgrind_all: $(NAME)
 h: hel
 
 hel:
-	make d && valgrind --tool=helgrind ./d_philo 10 120 100 100 2
+	make d && valgrind --tool=helgrind ./d_philo 10 400 60 60 2
 
 .PHONY: v valgrind va valgrind_all h hel

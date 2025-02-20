@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:14 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/19 21:09:11 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 13:22:02 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,25 @@ unsigned long	get_timestamp(t_data *data)
 	return (now - data->time_start);
 }
 
+//	print the timestamp
 void	print_timestamp(t_data *data, int id, int state)
 {
 	const char		*txt[7] = {"is thinking", "has taken a fork", \
 						"is eating", "is sleeping", "is full", "died"};
 
+	pthread_mutex_lock(&data->mute_print);
+	if (DEFAULT_PRINT == 1)
+		printf("%lu %d %s\n", get_timestamp(data), id, txt[state]);
+	if (DEBUG_PRINT == 1)
+		db_check_all_states(data, id, get_timestamp(data));
+	pthread_mutex_unlock(&data->mute_print);
+}
+
+//	only print timestamp when main process is RUNNING
+void	print_running_timestamp(t_data *data, int id, int state)
+{
 	pthread_mutex_lock(&data->mute_philo);
 	if (get_process(data) == RUNNING)
-	{
-		pthread_mutex_lock(&data->mute_print);
-		printf("%lu %d %s\n", get_timestamp(data), id, txt[state]);
-		pthread_mutex_unlock(&data->mute_print);
-	}
+		print_timestamp(data, id, state);
 	pthread_mutex_unlock(&data->mute_philo);
 }
-	//if (MORE_PRINT == 1)
-	// db_check_all_states(data, id, timestamp);

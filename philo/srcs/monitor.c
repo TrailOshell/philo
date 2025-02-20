@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 18:36:22 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/19 21:38:32 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 12:55:22 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,15 @@ int	dying(t_data *data, t_philo *philo)
 		pthread_mutex_lock(&data->mute_philo);
 		set_process(data, PHILO_DIED);
 		set_state(philo, DEAD);
-		printf("%lu %d %s\n", get_timestamp(data), philo->id, "died");
+		print_timestamp(data, philo->id, DEAD);
 		db_mute_print(data, RED"DIED AND SET\n"NO_CLR);
+		db_mute_print(data, RED"MONITOR: DEAD\n"NO_CLR);
 		pthread_mutex_unlock(&data->mute_philo);
 		return (1);
 	}
 	return (0);
 }
-
-void	notify_all_philos(t_data *data)
-{
-	t_philo	*philos;
-	int		i;
-
-	philos = data->philos;
-	i = 0;
-	while (i < data->n_philos)
-		set_state(&philos[i++], DEAD);
-}
+		// printf("%lu %d %s\n", get_timestamp(data), philo->id, "died");
 
 //	monitor each philosopher to check if one died, or all have ate enough food
 void	*monitor_dying(void *data_arg)
@@ -52,13 +43,7 @@ void	*monitor_dying(void *data_arg)
 	while (get_process(data) == RUNNING)
 	{
 		if (dying(data, &philos[i++]) == 1)
-		{
-			pthread_mutex_lock(&data->mute_philo);
-			db_mute_print(data, RED"MONITOR: DEAD\n"NO_CLR);
-			notify_all_philos(data);
-			pthread_mutex_unlock(&data->mute_philo);
 			break ;
-		}
 		if (i == data->n_philos)
 			i = 0;
 		usleep(1000);
@@ -79,17 +64,14 @@ void	*monitor_all_full(void *data_arg)
 	i = 0;
 	while (i < data->n_philos && get_process(data) == RUNNING)
 	{
-		if (get_satisfied(&philos[i++]) == 0)
-			i = 0;
+		if (get_satisfied(&philos[i]) == 1)
+			i++;
 		usleep(1000);
 	}
-	if (get_process(data) == RUNNING)
+	if (i == data->n_philos)
 	{
-		pthread_mutex_lock(&data->mute_philo);
-		db_mute_print(data, BLU"MONITOR: FULL\n"NO_CLR);
 		set_process(data, ALL_FULL);
-		notify_all_philos(data);
-		pthread_mutex_unlock(&data->mute_philo);
+		db_mute_print(data, BLU"MONITOR: FULL\n"NO_CLR);
 	}
 	return (NULL);
 }

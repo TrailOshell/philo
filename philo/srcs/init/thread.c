@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:47:21 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 01:17:30 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 11:51:20 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int	create_threads(t_data *data)
 	}
 	return (0);
 }
-		// if (pthread_create(&philos[i].threads, NULL,
-		// 	&philosophing, &philos[i]))
 
 int	join_threads(t_data *data)
 {

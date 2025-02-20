@@ -1,5 +1,6 @@
 # Project's Files
 philo/*philo
+philo/*d_philo
 
 # Prerequisites
 *.d

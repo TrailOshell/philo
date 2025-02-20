@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:41:27 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 01:22:19 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 12:22:10 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	philos_init(t_data *data)
 		philos[i].n_eaten = 0;
 		philos[i].last_meal_time = 0;
 		philos[i].is_satisfied = 0;
-		philos[i].state = ALIVE;
+		philos[i].state = THINKING;
 		philos[i].data = data;
 		pthread_mutex_init(&philos[i].mute_state, NULL);
 		pthread_mutex_init(&philos[i].mute_n_eaten, NULL);
