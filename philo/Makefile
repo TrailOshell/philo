@@ -6,7 +6,7 @@
 #    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/20 15:46:43 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/20 16:37:32 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,19 +77,7 @@ re : fclean all
 
 .PHONY : all clean fclean re
 
-# === [DEBUGGING / TEST] ===
-
-ifeq ($(V), 1)
-VG_FLAG			+= --leak-check=full
-VAL				= valgrind $(VG_FLAG)
-endif
-ifeq ($(V), 2)
-VG_FLAG			+= --leak-check=full --show-leak-kinds=all
-VAL				= valgrind $(VG_FLAG)
-endif
-
-#VG_FLAG			= --leak-check=full
-VG_FLAG_ALL		= --leak-check=full --show-leak-kinds=all
+# === [DEBUG PROGRAM] ===
 
 D_NAME			=	$(addprefix d_, $(NAME))
 
@@ -107,30 +95,55 @@ $(OBJS_DIR)%_d.o : $(SRCS_DIR)%.c Makefile $(HEADERS) | $(OBJS_SUB_DIRS)
 
 .PHONY: d debug
 
-v: valgrind
+# === [VALGRIND] ===
 
+ifeq ($(V), 1)
+VG_FLAG			+= --leak-check=full
+VAL				= valgrind $(VG_FLAG)
+endif
+ifeq ($(V), 2)
+VG_FLAG			+= --leak-check=full --show-leak-kinds=all
+VAL				= valgrind $(VG_FLAG)
+endif
+
+VG_FLAG			= --leak-check=full
+VG_FLAG_ALL		= --leak-check=full --show-leak-kinds=all
+
+v: valgrind
 valgrind: $(NAME)
-	valgrind $(VG_FLAG) ./$(NAME) 2 900000 20 20 1
+	valgrind $(VG_FLAG) ./$(NAME) 2 900000 60 60 1
 
 va: valgrind_all
-
 valgrind_all: $(NAME)
-	valgrind $(VG_FLAG_ALL) ./$(NAME)
+	valgrind $(VG_FLAG_ALL) ./$(NAME) 2 900000 60 60 1
+
+dv: d_valgrind
+d_valgrind: d
+	valgrind $(VG_FLAG) ./$(D_NAME) 2 900000 60 60 1
+
+dva: d_valgrind_all
+d_valgrind_all: d
+	valgrind $(VG_FLAG_ALL) ./$(D_NAME) 2 900000 60 60 1
 
 h: hel
+hel: $(NAME)
+	valgrind --tool=helgrind ./$(NAME) 10 400 60 60 2
 
-hel:
-	make d && valgrind --tool=helgrind ./d_philo 10 400 60 60 2
+dh: d_hel
+d_hel: d
+	valgrind --tool=helgrind ./$(D_NAME) 10 400 60 60 2
 
-.PHONY: v valgrind va valgrind_all h hel
+.PHONY: v valgrind va valgrind_all dv d_valgrind dva d_valgrind_all h hel dh d_hel
+
+# === [TEST] ===
 
 #	test 200 philosophers
 200: $(NAME)
-	./philo 200 120 60 60 1 > philo.txt
+	./$(NAME) 200 120 60 60 1 > philo.txt
 	cat philo.txt
 
 #	test 200 philosophers in debug mode
 200_d: d
-	./d_philo 200 500 60 60 1 > d_philo.txt
+	./$(D_NAME) 200 500 60 60 1 > d_philo.txt
 	@echo "d_philo.txt"
-.PHONY: 200
+.PHONY: 200 200_d
