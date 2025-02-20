@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 20:28:40 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 20:38:10 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,5 +148,6 @@ void			db_end_result(t_data *data);
 void			db_thread_locking(t_data *data, t_philo *philo, char *text);
 void			db_mute_print(t_data *data, char *txt);
 void			db_check_all_ph(t_data *data, int id, unsigned long timestamp);
+void			db_check_all_ph_ex(void);
 
 #endif

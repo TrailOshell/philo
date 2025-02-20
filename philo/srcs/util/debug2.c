@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:22:23 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 18:17:41 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 20:54:38 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,29 @@ static void	print_philo_stats(t_data *data, t_philo *philo,
 		printf(RED);
 	printf("%s", txt[get_state(philo)]);
 	printf("%lu"CYN")", last_meal_time);
+}
+
+void	db_check_all_ph_ex(void)
+{
+	const char	*state[7] = {"🤔 ", "🍴 ", "🍝 ", "💤 ", "😃 ", "💀 "};
+	const char	*symbol = YLW"||"NO_CLR;
+
+	printf("\n");
+	printf(PUR"     v %s"PUR"the philo that print this timestamp%s"PUR" v"
+		NO_CLR, symbol, symbol);
+	printf(PUR"     v other philo v"NO_CLR);
+	printf("\n");
+	printf(CYN"XXms      "NO_CLR);
+	printf(YLW"||"NO_CLR);
+	printf(CYN"p" YLW"1" "%s ", state[0]);
+	printf(CYN"(" YLW"n_eaten" WHT" last"YLW"_meal_"BLU"time" CYN")");
+	printf(YLW"||"NO_CLR);
+	printf("        ");
+	printf(CYN"p" YLW"2" "%s ", state[0]);
+	printf(CYN"(" GRN"full" RED" dead" CYN")");
+	printf(CYN"      XXms"NO_CLR);
+	printf("\n");
+	printf("\n");
 }
 
 void	db_check_all_ph(t_data *data, int id, unsigned long timestamp)

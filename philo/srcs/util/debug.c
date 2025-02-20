@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:45:54 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 18:18:10 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 20:39:32 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	db_end_result(t_data *data)
 
 	if (DB_PRINT == 0)
 		return ;
+	db_check_all_ph_ex();
 	printf(B_CYN "n_philo\tt_die\tt_eat\tt_sleep\tn_philos_eat\n" NO_CLR);
 	printf(B_WHT);
 	printf("%d\t", data->n_ph);
