@@ -6,7 +6,7 @@
 #    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/20 16:41:22 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/20 18:17:24 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,7 @@ re : fclean all
 
 D_NAME			=	$(addprefix d_, $(NAME))
 
-D_FLAGS		=	-g -D DEFAULT_PRINT=0 -D DEBUG_PRINT=1
+D_FLAGS		=	-g -D DEFAULT_PRINT=0 -D DB_PRINT=1
 
 d: debug 
 

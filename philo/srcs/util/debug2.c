@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:22:23 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 18:06:19 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:17:41 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	db_check_all_ph(t_data *data, int id, unsigned long timestamp)
 	t_philo			*philo;
 	int				i;
 
-	if (DEBUG_PRINT == 0)
+	if (DB_PRINT == 0)
 		return ;
 	printf(CYN "%lu\t" NO_CLR, timestamp);
 	i = -1;

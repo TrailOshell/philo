@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:45:54 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 18:06:19 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:18:10 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	db_end_result(t_data *data)
 	const char		*deco1 = B_WHT"<=="NO_CLR;
 	const char		*deco2 = B_WHT"==>"NO_CLR;
 
-	if (DEBUG_PRINT == 0)
+	if (DB_PRINT == 0)
 		return ;
 	printf(B_CYN "n_philo\tt_die\tt_eat\tt_sleep\tn_philos_eat\n" NO_CLR);
 	printf(B_WHT);
@@ -39,7 +39,7 @@ void	db_end_result(t_data *data)
 
 void	db_mute_print(t_data *data, char *txt)
 {
-	if (DEBUG_PRINT == 0)
+	if (DB_PRINT == 0)
 		return ;
 	pthread_mutex_lock(&data->mute_print);
 	printf("%s", txt);
@@ -48,7 +48,7 @@ void	db_mute_print(t_data *data, char *txt)
 
 void	db_thread_locking(t_data *data, t_philo *philo, char *text)
 {
-	if (DEBUG_THREADS_LOCKING == 0)
+	if (DB_THREADS_LOCKING == 0)
 		return ;
 	pthread_mutex_lock(&data->mute_print);
 	printf(CYN "threads["B_WHT"%d"CYN"] ""%s\n" NO_CLR,
