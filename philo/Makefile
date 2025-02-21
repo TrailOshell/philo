@@ -6,7 +6,7 @@
 #    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/21 18:33:37 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/21 18:47:09 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,8 @@ SRCS_ROOT			=	philosophing.c \
 						fork.c \
 
 # === SRCS in subdirectories  ===
+SRCS_SUB_DIRS	=	$(SRCS_INIT_DIR) $(SRCS_UTIL_DIR) $(SRCS_DEBUG_DIR)
+
 SRCS_INIT_DIR		=	init/
 SRCS_INIT			=	init.c \
 						parse.c \
@@ -29,17 +31,20 @@ SRCS_INIT			=	init.c \
 
 SRCS_UTIL_DIR		=	util/
 SRCS_UTIL			=	util.c \
-						mutex_get.c mutex_set.c\
-						debug.c debug2.c
+						mutex_get.c mutex_set.c
+
+SRCS_DEBUG_DIR		=	debug/
+SRCS_DEBUG			=	debug.c debug2.c
 
 # === SRCS to compile main program  ===
 SRCS				=	$(SRCS_ROOT) \
 						$(addprefix $(SRCS_INIT_DIR), $(SRCS_INIT)) \
-						$(addprefix $(SRCS_UTIL_DIR), $(SRCS_UTIL))
+						$(addprefix $(SRCS_UTIL_DIR), $(SRCS_UTIL)) \
+						$(addprefix $(SRCS_DEBUG_DIR), $(SRCS_DEBUG))
 
 OBJS_DIR			=	objs/
 OBJS				=	$(SRCS:%.c=$(OBJS_DIR)%.o)
-OBJS_SUB_DIRS		=	$(OBJS_DIR) $(addprefix $(OBJS_DIR), $(SRCS_INIT_DIR) $(SRCS_UTIL_DIR))
+OBJS_SUB_DIRS		=	$(OBJS_DIR) $(addprefix $(OBJS_DIR), $(SRCS_SUB_DIRS))
 
 
 HEADER_DIR			=	./includes/
@@ -84,11 +89,9 @@ D_NAME		=	$(addprefix d_, $(NAME))
 D_OBJS		=	$(SRCS:%.c=$(OBJS_DIR)%_d.o)
 D_FLAGS		=	-g -D DEFAULT_PRINT=0 -D DB_PRINT=1
 
-TXT_DIR		=	txt/
-
-TXT			=	$(TXT_DIR)philo.txt
-D_TXT		=	$(TXT_DIR)d_philo.txt
-T_TXT		=	$(TXT_DIR)t_philo.txt
+TXT			=	philo.txt
+D_TXT		=	d_philo.txt
+T_TXT		=	t_philo.txt
 
 $(TXT_DIR):
 	mkdir -p $(TXT_DIR)
@@ -246,14 +249,13 @@ alive:
 
 #	test 200 philosophers
 200: $(NAME)
-	./$(NAME) 200 120 60 60 1 > $(TXT)
-	cat philo.txt
+	$(call run_test, 200 120 60 60 1)
 
-#	test 200 philosophers in debug mode
+#	test 200 philosophers for debug mode
 d_200: d
 	./$(D_NAME) 200 500 60 60 1 > $(D_TXT)
 	@echo "d_philo.txt"
-.PHONY: 200 d_200
+.PHONY: 200
 
 # === [TESTER] ===
 

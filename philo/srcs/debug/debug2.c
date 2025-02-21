@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:22:23 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 20:54:38 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/21 18:49:49 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,5 @@ void	db_check_all_ph(t_data *data, int id, unsigned long timestamp)
 				timestamp - get_last_meal_time(philo), data->t_die / 1000);
 		printf(B_YLW "%s " NO_CLR, str);
 	}
-	printf(CYN "\t%lu\n" NO_CLR, timestamp);
+	printf(CYN "\t%lu"NO_CLR "\n", timestamp);
 }
