@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:22:23 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/21 20:54:32 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/21 21:10:56 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	print_empty_digit_len(unsigned long digit_max,
 static void	print_philo_stats(t_data *data, t_philo *philo,
 			unsigned long last_meal_time, unsigned long die_in_ms)
 {
-	const char		*state[7] = {"🤔 ", "🍴 ", "🍝 ", "💤 ", "😃 ", "💀 "};
+	const char		*state[7] = {"🤔", "🍴", "🍝", "💤", "😃", "💀"};
 	const char		*txt[7] = {WHT, WHT, YLW, BLU, GRN, RED};
 	char			*color;
 	int				i;
@@ -46,12 +46,12 @@ static void	print_philo_stats(t_data *data, t_philo *philo,
 		printf(B_GRN);
 	else
 		printf(B_YLW);
-	printf("%d "B_WHT, n_eaten);
+	printf("%d🍽️  "B_WHT, n_eaten);
 	print_empty_digit_len(die_in_ms, last_meal_time);
 	if (last_meal_time >= die_in_ms + 10)
 		printf(RED);
 	printf("%s", txt[get_state(philo)]);
-	printf("%lu%s)", last_meal_time, color);
+	printf("%lu⏳%s)", last_meal_time, color);
 }
 
 void	db_check_all_ph_ex(void)
@@ -66,11 +66,11 @@ void	db_check_all_ph_ex(void)
 	printf("\n");
 	printf(CYN"XXms      "NO_CLR);
 	printf(YLW"||"NO_CLR);
-	printf(CYN"p" YLW"1" "%s ", state[0]);
-	printf(CYN"(" YLW"n_eaten" WHT" last"YLW"_meal_"BLU"time" CYN")");
+	printf(CYN"p" YLW"1" "%s", state[0]);
+	printf(CYN"(" YLW"n_eaten🍽️ " WHT" last"YLW"_meal_"BLU"time⏳" CYN")");
 	printf(YLW"||"NO_CLR);
 	printf("        ");
-	printf(CYN"p" YLW"2" "%s " CYN"(" GRN"full" RED" dead" CYN")", state[0]);
+	printf(CYN"p" YLW"2" "%s" CYN"(" GRN"full🍽️ " RED" dead⏳" CYN")", state[0]);
 	printf(CYN"      XXms\n\t"NO_CLR"(");
 	printf("%s"WHT"is thinking ", state[0]);
 	printf("%s"WHT"has taken a fork ", state[1]);
@@ -105,5 +105,5 @@ void	db_check_all_ph(t_data *data, int id, unsigned long timestamp)
 				timestamp - get_last_meal_time(philo), data->t_die / 1000);
 		printf(B_YLW "%s " NO_CLR, str);
 	}
-	printf(CYN "\t%lu"NO_CLR "\n", timestamp);
+	printf(CYN "    %lu"NO_CLR "\n", timestamp);
 }
