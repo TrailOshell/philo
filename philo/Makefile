@@ -6,7 +6,7 @@
 #    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/21 18:55:17 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/21 18:59:54 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -228,13 +228,13 @@ endef
 
 # === dead
 
-dead:
+dead: all d t
 	$(call run_test, 2 120 61 60 5)
 	$(call run_test, 3 180 61 60 5)
 
 # === no death
 
-alive:
+alive: all d t
 	$(call run_test, 2 120 60 60 5)
 	$(call run_test, 2 120 60 60 5)
 	$(call run_test, 3 180 60 60 5)
