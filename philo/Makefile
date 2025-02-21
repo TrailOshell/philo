@@ -6,7 +6,7 @@
 #    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/21 16:16:23 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/21 17:11:22 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ C_FLAGS				=	-Wall -Wextra -Werror
 
 FLAG_HEADERS		=	-Iincludes
 
-all : $(NAME) $(D_NAME) run
+all : $(NAME) $(D_NAME) $(T_NAME) run
 
 $(NAME) : $(OBJS) $(SRCS_MAIN)
 	$(CC) -o $(NAME) $(SRCS_MAIN) $(OBJS) -Iincludes $(C_FLAGS)
@@ -119,6 +119,13 @@ ifdef T
 else
 endif
 
+t_run: | $(TXT_DIR)
+ifdef T
+	./$(T_NAME) $(T) > $(T_TXT)
+	cat $(T_TXT) 
+else
+endif
+
 # === [VALGRIND] ===
 
 ifeq ($(V), 1)
@@ -175,24 +182,37 @@ $(T_NAME) : $(T_OBJS) $(SRCS_MAIN)
 $(OBJS_DIR)%_t.o : $(SRCS_DIR)%.c Makefile $(HEADERS) | $(OBJS_SUB_DIRS)
 	$(CC) -c $< -o $@ $(FLAG_HEADERS) $(CFLAGS) $(T_FLAGS)
 
-t_run: | $(TXT_DIR)
-ifdef T
-	./$(T_NAME) $(T) > $(T_TXT)
-	cat $(T_TXT) 
-	cat $(T_TXT) | grep -e "has|is|died" > $(TXT)
-	cat $(T_TXT) | grep "\033" > $(D_TXT)
-	cat $(D_TXT)
-else
-endif
-
 .PHONY: t test t_run 
 
 # === [TEST CASES] ===
 
 define run_test
+	$(call run_test_P, $1)
+	$(call run_test_D, $1)
+	$(call run_test_T, $1)
+endef
+
+ifeq ($(D), 1)
+define run_test_D
+	./$(D_NAME) $1 > $(D_TXT)
+	cat $(D_TXT)
+endef
+endif
+ifeq ($(D), 2)
+define run_test_T
 	./$(T_NAME) $1 > $(T_TXT)
 	cat $(T_TXT)
 endef
+endif
+ifeq ($(D), 0)
+define run_test_P
+	./$(NAME) $1 > $(TXT)
+	cat $(TXT)
+endef
+endif
+#	grep -e "has|is|died" $(T_TXT) > $(TXT)
+#	grep "||" $(T_TXT) > $(D_TXT)
+#	cat $(TXT)
 
 # === test all
 
@@ -200,12 +220,24 @@ endef
 
 # === one philo
 
-1:
+1: all d t
 	$(call run_test, 1 120 60 60 2)
 
-# === one dead
+# === dead
+
+dead:
+	$(call run_test, 2 120 61 60 5)
+	$(call run_test, 2 120 60 61 5)
+	$(call run_test, 3 180 61 60 5)
+	$(call run_test, 3 180 60 61 5)
 
 # === no death
+
+alive:
+	$(call run_test, 2 120 60 60 5)
+	$(call run_test, 2 120 60 60 5)
+	$(call run_test, 3 180 60 60 5)
+	$(call run_test, 3 180 60 60 5)
 
 # === 200
 
