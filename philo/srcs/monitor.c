@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 18:36:22 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 20:27:48 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/21 19:52:33 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ int	set_dead(t_data *data, t_philo *philo)
 	print_timestamp(data, philo->id, DEAD);
 	db_mute_print(data, RED"MONITOR: DEAD\n"NO_CLR);
 	pthread_mutex_unlock(&data->mute_philo);
+	return (1);
+}
+
+//	set the time for the philo to die
+int	momento_mori(t_data *data, t_philo *philo, unsigned long time)
+{
+	usleep(time);
+	set_dead(data, philo);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:58:05 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/21 19:29:23 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/21 20:44:10 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 
 static int	forking(t_data *data, t_philo *philo)
 {
+	if (data->n_ph == 1)
+	{
+		set_state(philo, FORKING);
+		print_run_timestamp(data, philo->id, FORKING);
+		return (momento_mori(data, philo, data->t_die));
+	}
 	if (take_first_fork(data, philo) != 1)
 		return (1);
 	set_state(philo, FORKING);
@@ -33,13 +39,10 @@ static int	eating(t_data *data, t_philo *philo)
 	set_last_meal_time(philo, get_timestamp(data));
 	set_state(philo, EATING);
 	print_run_timestamp(data, philo->id, EATING);
-	if (data->t_eat > data->t_die || (get_n_eaten(philo) != 0
-			&& ((data->n_ph % 2 == 0 && (data->t_eat * 2) > data->t_die)
-				|| (data->n_ph % 2 == 1 && (data->t_eat * 3) > data->t_die))))
+	if (data->t_eat > data->t_die)
 	{
-		usleep(data->t_die);
 		drop_forks(data, philo);
-		return (set_dead(data, philo));
+		return (momento_mori(data, philo, data->t_die));
 	}
 	usleep(data->t_eat);
 	n_eaten = get_n_eaten(philo) + 1;
@@ -55,7 +58,9 @@ static int	sleeping(t_data *data, t_philo *philo)
 	print_run_timestamp(data, philo->id, SLEEPING);
 	drop_forks(data, philo);
 	if (data->t_sleep > data->t_die)
-		usleep(data->t_die);
+		momento_mori(data, philo, data->t_die - data->t_eat);
+	else if (data->t_sleep + data->t_eat > data->t_die)
+		momento_mori(data, philo, data->t_die - data->t_eat);
 	else
 		usleep(data->t_sleep);
 	return (0);
@@ -67,14 +72,13 @@ static int	thinking(t_data *data, t_philo *philo)
 		return (1);
 	set_state(philo, THINKING);
 	print_run_timestamp(data, philo->id, THINKING);
-	if ((data->t_sleep + data->t_eat) > data->t_die)
-	{
-		usleep(data->t_die - data->t_eat);
-		return (set_dead(data, philo));
-	}
+	if (data->n_ph % 2 == 0 && data->t_eat * 2 > data->t_die
+		|| data->n_ph % 2 == 1 && (data->t_eat * 3) > data->t_die)
+		return (momento_mori(data, philo,
+				data->t_die - data->t_eat - data->t_sleep));
 	if (data->t_sleep < data->t_eat && data->n_ph % 2 == 1)
 		usleep(data->t_eat);
-	if (data->t_sleep == data->t_eat)
+	else if (data->t_sleep == data->t_eat)
 		usleep(1000);
 	return (0);
 }
@@ -87,12 +91,6 @@ void	*philosophing(void *philo_arg)
 
 	philo = (t_philo *)philo_arg;
 	data = philo->data;
-	if (data->n_ph == 1)
-	{
-		set_state(philo, FORKING);
-		print_run_timestamp(data, philo->id, FORKING);
-		return (NULL);
-	}
 	if (philo->id % 2 == 0)
 		usleep(data->t_eat);
 	while (get_process(data) == RUNNING)
