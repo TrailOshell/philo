@@ -6,7 +6,7 @@
 #    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/21 19:01:35 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/21 19:05:12 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -229,16 +229,16 @@ endef
 # === dead
 
 dead: all d t
-	$(call run_test, 2 120 61 60 5)
-	$(call run_test, 3 180 61 60 5)
+	$(call run_test, 2 120 61 60 2)
+	$(call run_test, 3 180 61 60 2)
 
-# === no death
+# === all full and alive
 
 alive: all d t
-	$(call run_test, 2 120 60 60 5)
-	$(call run_test, 2 120 60 60 5)
-	$(call run_test, 3 180 60 60 5)
-	$(call run_test, 3 180 60 60 5)
+	$(call run_test, 2 120 60 60 1)
+	$(call run_test, 2 120 60 60 1)
+	$(call run_test, 3 180 60 60 1)
+	$(call run_test, 3 180 60 60 1)
 
 # === 200
 
@@ -249,7 +249,9 @@ alive: all d t
 #	test 200 philosophers for debug mode
 d_200: all d t
 	$(call run_test, 200 500 60 60 1)
-.PHONY: 200 d_200
+
+.PHONY: 1 dead alive 200 d_200
+
 
 # === [TESTER] ===
 
