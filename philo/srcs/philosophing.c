@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:58:05 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/21 15:54:39 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/21 19:29:23 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static int	eating(t_data *data, t_philo *philo)
 
 	if (get_process(data) != RUNNING)
 		return (drop_forks(data, philo));
+	set_last_meal_time(philo, get_timestamp(data));
 	set_state(philo, EATING);
 	print_run_timestamp(data, philo->id, EATING);
 	if (data->t_eat > data->t_die || (get_n_eaten(philo) != 0
@@ -41,7 +42,6 @@ static int	eating(t_data *data, t_philo *philo)
 		return (set_dead(data, philo));
 	}
 	usleep(data->t_eat);
-	set_last_meal_time(philo, get_timestamp(data));
 	n_eaten = get_n_eaten(philo) + 1;
 	set_n_eaten(philo, n_eaten);
 	if (n_eaten >= data->n_ph_eat)
