@@ -6,7 +6,7 @@
 #    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/21 18:47:09 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/21 18:55:17 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,27 +108,6 @@ $(OBJS_DIR)%_d.o : $(SRCS_DIR)%.c Makefile $(HEADERS) | $(OBJS_SUB_DIRS)
 
 .PHONY: d debug
 
-run: | $(TXT_DIR)
-ifdef T
-	./$(NAME) $(T) > $(TXT)
-	cat $(TXT)
-else
-endif
-
-d_run: | $(TXT_DIR)
-ifdef T
-	./$(D_NAME) $(T) > $(D_TXT)
-	cat $(D_TXT)
-else
-endif
-
-t_run: | $(TXT_DIR)
-ifdef T
-	./$(T_NAME) $(T) > $(T_TXT)
-	cat $(T_TXT) 
-else
-endif
-
 # === [VALGRIND] ===
 
 ifeq ($(V), 1)
@@ -185,7 +164,32 @@ $(T_NAME) : $(T_OBJS) $(SRCS_MAIN)
 $(OBJS_DIR)%_t.o : $(SRCS_DIR)%.c Makefile $(HEADERS) | $(OBJS_SUB_DIRS)
 	$(CC) -c $< -o $@ $(FLAG_HEADERS) $(CFLAGS) $(T_FLAGS)
 
-.PHONY: t test t_run 
+.PHONY: t test
+
+# === [RUN] ===
+
+run:
+ifdef T
+	./$(NAME) $(T) > $(TXT)
+	cat $(TXT)
+else
+endif
+
+d_run:
+ifdef T
+	./$(D_NAME) $(T) > $(D_TXT)
+	cat $(D_TXT)
+else
+endif
+
+t_run:
+ifdef T
+	./$(T_NAME) $(T) > $(T_TXT)
+	cat $(T_TXT) 
+else
+endif
+
+.PHONY: run d_run t_run
 
 # === [TEST CASES] ===
 
@@ -216,13 +220,6 @@ define run_test_P
 	./$(NAME) $1 > $(TXT)
 	cat $(TXT)
 endef
-#	grep -e "has|is|died" $(T_TXT) > $(TXT)
-#	grep "||" $(T_TXT) > $(D_TXT)
-#	cat $(TXT)
-
-# === test all
-
-
 
 # === one philo
 
@@ -233,9 +230,7 @@ endef
 
 dead:
 	$(call run_test, 2 120 61 60 5)
-	$(call run_test, 2 120 60 61 5)
 	$(call run_test, 3 180 61 60 5)
-	$(call run_test, 3 180 60 61 5)
 
 # === no death
 
