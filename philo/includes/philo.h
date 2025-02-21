@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:42:36 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/21 19:48:52 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/22 02:33:49 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef enum e_ph_state
 	FORKING,
 	EATING,
 	SLEEPING,
-	FULL,
 	DEAD
 }	t_ph_state;
 

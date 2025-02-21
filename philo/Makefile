@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
+#    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/21 20:29:16 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/22 02:50:59 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -118,6 +118,10 @@ ifeq ($(V), 2)
 VG_FLAG			+= --leak-check=full --show-leak-kinds=all
 VAL				= valgrind $(VG_FLAG)
 endif
+ifeq ($(V), h)
+VG_FLAG			+= --tool=helgrind
+VAL				= valgrind $(VG_FLAG)
+endif
 
 VG_FLAG			= --leak-check=full
 VG_FLAG_ALL		= --leak-check=full --show-leak-kinds=all
@@ -170,21 +174,21 @@ $(OBJS_DIR)%_t.o : $(SRCS_DIR)%.c Makefile $(HEADERS) | $(OBJS_SUB_DIRS)
 
 run:
 ifdef T
-	./$(NAME) $(T) > $(TXT)
+	$(VAL) ./$(NAME) $(T) > $(TXT)
 	cat $(TXT)
 else
 endif
 
 d_run:
 ifdef T
-	./$(D_NAME) $(T) > $(D_TXT)
+	$(VAL) ./$(D_NAME) $(T) > $(D_TXT)
 	cat $(D_TXT)
 else
 endif
 
 t_run:
 ifdef T
-	./$(T_NAME) $(T) > $(T_TXT)
+	$(VAL) ./$(T_NAME) $(T) > $(T_TXT)
 	cat $(T_TXT) 
 else
 endif
@@ -206,20 +210,22 @@ endif
 
 ifeq ($(D), 1)
 define run_test_D
-	./$(D_NAME) $1 > $(D_TXT)
+	$(VAL) ./$(D_NAME) $1 > $(D_TXT)
 	cat $(D_TXT)
 endef
 endif
 ifeq ($(D), 2)
 define run_test_T
-	./$(T_NAME) $1 > $(T_TXT)
+	$(VAL) ./$(T_NAME) $1 > $(T_TXT)
 	cat $(T_TXT)
 endef
 endif
 define run_test_P
-	./$(NAME) $1 > $(TXT)
+	$(VAL) ./$(NAME) $1 > $(TXT)
 	cat $(TXT)
 endef
+
+test_all: 1 dead alive
 
 # === one philo
 
@@ -237,10 +243,17 @@ dead: all d t
 # === all full and alive
 
 alive: all d t
+ifdef V
+	$(call run_test, 2 1200 60 60 1)
+	$(call run_test, 2 1200 60 60 1)
+	$(call run_test, 3 1800 60 60 1)
+	$(call run_test, 3 1800 60 60 1)
+else
 	$(call run_test, 2 120 60 60 1)
 	$(call run_test, 2 120 60 60 1)
 	$(call run_test, 3 180 60 60 1)
 	$(call run_test, 3 180 60 60 1)
+endif
 
 # === 200
 

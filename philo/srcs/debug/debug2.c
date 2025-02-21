@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:22:23 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/22 00:40:41 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/22 02:35:09 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	print_empty_digit_len(unsigned long digit_max,
 static void	print_philo_stats(t_data *data, t_philo *philo,
 			unsigned long last_meal_time, unsigned long die_in_ms)
 {
-	const char		*state[7] = {"🤔", "🍴", "🍝", "💤", "😃", "💀"};
+	const char		*state[6] = {"🤔", "🍴", "🍝", "💤", "💀"};
 	const char		*txt[7] = {WHT, WHT, YLW, BLU, GRN, RED};
 	char			*color;
 	int				i;
@@ -56,7 +56,7 @@ static void	print_philo_stats(t_data *data, t_philo *philo,
 
 void	db_check_all_ph_ex(void)
 {
-	const char	*state[7] = {"🤔 ", "🍴 ", "🍝 ", "💤 ", "😃 ", "💀 "};
+	const char	*state[6] = {"🤔 ", "🍴 ", "🍝 ", "💤 ", "💀 "};
 	const char	*symbol = YLW"||"NO_CLR;
 
 	printf("\n");
@@ -72,11 +72,11 @@ void	db_check_all_ph_ex(void)
 	printf("        ");
 	printf(CYN"p" YLW"2" "%s" CYN"(" GRN"full🍽️ " RED" dead⏳" CYN")", state[0]);
 	printf(CYN"      XXms\n"NO_CLR"(");
-	printf("%s"WHT"is thinking ", state[0]);
-	printf("%s"WHT"has taken a fork ", state[1]);
-	printf("%s"YLW"is eating ", state[2]);
-	printf("%s"BLU"is sleeping ", state[3]);
-	printf("%s"RED"died", state[5]);
+	printf("%s"WHT"is thinking ", state[THINKING]);
+	printf("%s"WHT"has taken a fork ", state[FORKING]);
+	printf("%s"YLW"is eating ", state[EATING]);
+	printf("%s"BLU"is sleeping ", state[SLEEPING]);
+	printf("%s"RED"died", state[DEAD]);
 	printf(NO_CLR")\n");
 }
 
