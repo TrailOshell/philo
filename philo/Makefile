@@ -6,7 +6,7 @@
 #    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/21 16:00:39 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/21 16:16:23 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -161,23 +161,9 @@ d_hel: d
 
 # === [TEST] ===
 
-#	test 200 philosophers
-200: $(NAME)
-	./$(NAME) 200 120 60 60 1 > $(TXT)
-	cat philo.txt
-
-#	test 200 philosophers in debug mode
-d_200: d
-	./$(D_NAME) 200 500 60 60 1 > $(D_TXT)
-	@echo "d_philo.txt"
-.PHONY: 200 d_200
-
-# === [TESTER] ===
-
 T_NAME		=	$(addprefix t_, $(NAME))
 T_OBJS		=	$(SRCS:%.c=$(OBJS_DIR)%_t.o)
 T_FLAGS		=	-g -D DEFAULT_PRINT=1 -D DB_PRINT=1
-
 
 t: test 
 
@@ -192,11 +178,49 @@ $(OBJS_DIR)%_t.o : $(SRCS_DIR)%.c Makefile $(HEADERS) | $(OBJS_SUB_DIRS)
 t_run: | $(TXT_DIR)
 ifdef T
 	./$(T_NAME) $(T) > $(T_TXT)
-	cat $(T_TXT)
+	cat $(T_TXT) 
+	cat $(T_TXT) | grep -e "has|is|died" > $(TXT)
+	cat $(T_TXT) | grep "\033" > $(D_TXT)
+	cat $(D_TXT)
 else
 endif
 
-.PHONY: d debug
+.PHONY: t test t_run 
+
+# === [TEST CASES] ===
+
+define run_test
+	./$(T_NAME) $1 > $(T_TXT)
+	cat $(T_TXT)
+endef
+
+# === test all
+
+
+
+# === one philo
+
+1:
+	$(call run_test, 1 120 60 60 2)
+
+# === one dead
+
+# === no death
+
+# === 200
+
+#	test 200 philosophers
+200: $(NAME)
+	./$(NAME) 200 120 60 60 1 > $(TXT)
+	cat philo.txt
+
+#	test 200 philosophers in debug mode
+d_200: d
+	./$(D_NAME) 200 500 60 60 1 > $(D_TXT)
+	@echo "d_philo.txt"
+.PHONY: 200 d_200
+
+# === [TESTER] ===
 
 TESTER_DIR	= ../philosophers_tester/
 

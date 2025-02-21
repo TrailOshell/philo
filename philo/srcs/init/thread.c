@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:47:21 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 18:06:19 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/21 16:23:04 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ int	join_threads(t_data *data)
 
 	if (pthread_join(data->alive_check, NULL))
 		return (1);
-	if (pthread_join(data->full_check, NULL))
-		return (1);
+	if (data->n_ph_eat)
+		if (pthread_join(data->full_check, NULL))
+			return (1);
 	i = 0;
 	while (i < data->n_ph)
 		if (pthread_join(data->philos[i++].thread, NULL))
