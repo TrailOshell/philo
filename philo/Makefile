@@ -6,7 +6,7 @@
 #    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/22 02:50:59 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/22 03:19:19 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,13 +89,6 @@ D_NAME		=	$(addprefix d_, $(NAME))
 D_OBJS		=	$(SRCS:%.c=$(OBJS_DIR)%_d.o)
 D_FLAGS		=	-g -D DEFAULT_PRINT=0 -D DB_PRINT=1
 
-TXT			=	philo.txt
-D_TXT		=	d_philo.txt
-T_TXT		=	t_philo.txt
-
-$(TXT_DIR):
-	mkdir -p $(TXT_DIR)
-
 d: debug 
 
 debug: $(D_NAME) d_run
@@ -169,6 +162,15 @@ $(OBJS_DIR)%_t.o : $(SRCS_DIR)%.c Makefile $(HEADERS) | $(OBJS_SUB_DIRS)
 	$(CC) -c $< -o $@ $(FLAG_HEADERS) $(CFLAGS) $(T_FLAGS)
 
 .PHONY: t test
+
+# === [TXT] ===
+
+TXT			=	out.txt
+D_TXT		=	d_out.txt
+T_TXT		=	t_out.txt
+
+$(TXT_DIR):
+	mkdir -p $(TXT_DIR)
 
 # === [RUN] ===
 

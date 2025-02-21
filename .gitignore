@@ -2,7 +2,7 @@
 philo/*philo
 philo/*d_philo
 philo/*philo.txt
-philo/*txt/
+philo/*txt
 
 # Tester
 philosophers_tester*
