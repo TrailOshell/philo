@@ -6,7 +6,7 @@
 #    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/21 02:28:53 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/21 14:32:27 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,6 @@ OBJS_DIR			=	objs/
 OBJS				=	$(SRCS:%.c=$(OBJS_DIR)%.o)
 OBJS_SUB_DIRS		=	$(OBJS_DIR) $(addprefix $(OBJS_DIR), $(SRCS_INIT_DIR) $(SRCS_UTIL_DIR))
 
-D_OBJS				=	$(SRCS:%.c=$(OBJS_DIR)%_d.o)
 
 HEADER_DIR			=	./includes/
 HEADER 				=	philo.h color.h
@@ -81,6 +80,7 @@ re : fclean all
 # === [DEBUG PROGRAM] ===
 
 D_NAME		=	$(addprefix d_, $(NAME))
+D_OBJS		=	$(SRCS:%.c=$(OBJS_DIR)%_d.o)
 D_FLAGS		=	-g -D DEFAULT_PRINT=0 -D DB_PRINT=1
 
 TXT			=	philo.txt
@@ -166,6 +166,31 @@ d_200: d
 .PHONY: 200 d_200
 
 # === [TESTER] ===
+
+T_NAME		=	$(addprefix t_, $(NAME))
+T_OBJS		=	$(SRCS:%.c=$(OBJS_DIR)%_t.o)
+T_FLAGS		=	-g -D DEFAULT_PRINT=1 -D DB_PRINT=1
+
+T_TXT		=	t_philo.txt
+
+t: test 
+
+test: $(T_NAME) t_run
+
+$(T_NAME) : $(T_OBJS) $(SRCS_MAIN)
+	$(CC) -o $(T_NAME) $(SRCS_MAIN) $(T_OBJS) -Iincludes $(CFLAGS) $(T_FLAGS)
+
+$(OBJS_DIR)%_t.o : $(SRCS_DIR)%.c Makefile $(HEADERS) | $(OBJS_SUB_DIRS)
+	$(CC) -c $< -o $@ $(FLAG_HEADERS) $(CFLAGS) $(T_FLAGS)
+
+t_run:
+ifdef T
+	./$(T_NAME) $(T) > $(T_TXT)
+	cat $(T_TXT)
+else
+endif
+
+.PHONY: d debug
 
 TESTER_DIR	= ../philosophers_tester/
 
