@@ -6,7 +6,7 @@
 #    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/21 18:59:54 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/21 19:01:35 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -243,14 +243,13 @@ alive: all d t
 # === 200
 
 #	test 200 philosophers
-200: $(NAME)
+200: all d t
 	$(call run_test, 200 120 60 60 1)
 
 #	test 200 philosophers for debug mode
-d_200: d
-	./$(D_NAME) 200 500 60 60 1 > $(D_TXT)
-	@echo "d_philo.txt"
-.PHONY: 200
+d_200: all d t
+	$(call run_test, 200 500 60 60 1)
+.PHONY: 200 d_200
 
 # === [TESTER] ===
 
