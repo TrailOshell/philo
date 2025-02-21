@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:58:05 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 20:20:21 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/21 15:54:39 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	*philosophing(void *philo_arg)
 	data = philo->data;
 	if (data->n_ph == 1)
 	{
+		set_state(philo, FORKING);
 		print_run_timestamp(data, philo->id, FORKING);
 		return (NULL);
 	}

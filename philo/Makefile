@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/21 14:32:27 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/21 16:00:39 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,8 @@ clean :
 
 fclean : clean
 	rm -f $(NAME)
-	rm -f $(TXT) $(D_TXT)
+	rm -f $(D_NAME) $(T_NAME)
+	rm -rf $(TXT_DIR)
 
 re : fclean all
 
@@ -83,8 +84,14 @@ D_NAME		=	$(addprefix d_, $(NAME))
 D_OBJS		=	$(SRCS:%.c=$(OBJS_DIR)%_d.o)
 D_FLAGS		=	-g -D DEFAULT_PRINT=0 -D DB_PRINT=1
 
-TXT			=	philo.txt
-D_TXT		=	d_philo.txt
+TXT_DIR		=	txt/
+
+TXT			=	$(TXT_DIR)philo.txt
+D_TXT		=	$(TXT_DIR)d_philo.txt
+T_TXT		=	$(TXT_DIR)t_philo.txt
+
+$(TXT_DIR):
+	mkdir -p $(TXT_DIR)
 
 d: debug 
 
@@ -98,14 +105,14 @@ $(OBJS_DIR)%_d.o : $(SRCS_DIR)%.c Makefile $(HEADERS) | $(OBJS_SUB_DIRS)
 
 .PHONY: d debug
 
-run:
+run: | $(TXT_DIR)
 ifdef T
 	./$(NAME) $(T) > $(TXT)
 	cat $(TXT)
 else
 endif
 
-d_run:
+d_run: | $(TXT_DIR)
 ifdef T
 	./$(D_NAME) $(T) > $(D_TXT)
 	cat $(D_TXT)
@@ -171,7 +178,6 @@ T_NAME		=	$(addprefix t_, $(NAME))
 T_OBJS		=	$(SRCS:%.c=$(OBJS_DIR)%_t.o)
 T_FLAGS		=	-g -D DEFAULT_PRINT=1 -D DB_PRINT=1
 
-T_TXT		=	t_philo.txt
 
 t: test 
 
@@ -183,7 +189,7 @@ $(T_NAME) : $(T_OBJS) $(SRCS_MAIN)
 $(OBJS_DIR)%_t.o : $(SRCS_DIR)%.c Makefile $(HEADERS) | $(OBJS_SUB_DIRS)
 	$(CC) -c $< -o $@ $(FLAG_HEADERS) $(CFLAGS) $(T_FLAGS)
 
-t_run:
+t_run: | $(TXT_DIR)
 ifdef T
 	./$(T_NAME) $(T) > $(T_TXT)
 	cat $(T_TXT)
