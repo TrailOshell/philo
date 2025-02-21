@@ -6,7 +6,7 @@
 #    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/21 17:11:22 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/21 18:33:37 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ C_FLAGS				=	-Wall -Wextra -Werror
 
 FLAG_HEADERS		=	-Iincludes
 
-all : $(NAME) $(D_NAME) $(T_NAME) run
+all : $(NAME) run
 
 $(NAME) : $(OBJS) $(SRCS_MAIN)
 	$(CC) -o $(NAME) $(SRCS_MAIN) $(OBJS) -Iincludes $(C_FLAGS)
@@ -186,11 +186,16 @@ $(OBJS_DIR)%_t.o : $(SRCS_DIR)%.c Makefile $(HEADERS) | $(OBJS_SUB_DIRS)
 
 # === [TEST CASES] ===
 
+ifdef D
 define run_test
-	$(call run_test_P, $1)
 	$(call run_test_D, $1)
 	$(call run_test_T, $1)
 endef
+else
+define run_test
+	$(call run_test_P, $1)
+endef
+endif
 
 ifeq ($(D), 1)
 define run_test_D
@@ -204,12 +209,10 @@ define run_test_T
 	cat $(T_TXT)
 endef
 endif
-ifeq ($(D), 0)
 define run_test_P
 	./$(NAME) $1 > $(TXT)
 	cat $(TXT)
 endef
-endif
 #	grep -e "has|is|died" $(T_TXT) > $(TXT)
 #	grep "||" $(T_TXT) > $(D_TXT)
 #	cat $(TXT)
