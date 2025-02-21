@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:22:23 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/21 18:49:49 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/21 19:11:46 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,14 @@ void	db_check_all_ph_ex(void)
 	printf(CYN"(" YLW"n_eaten" WHT" last"YLW"_meal_"BLU"time" CYN")");
 	printf(YLW"||"NO_CLR);
 	printf("        ");
-	printf(CYN"p" YLW"2" "%s ", state[0]);
-	printf(CYN"(" GRN"full" RED" dead" CYN")");
-	printf(CYN"      XXms"NO_CLR);
-	printf("\n");
-	printf("\n");
+	printf(CYN"p" YLW"2" "%s " CYN"(" GRN"full" RED" dead" CYN")", state[0]);
+	printf(CYN"      XXms\n\t"NO_CLR"(");
+	printf("%s"WHT"is thinking ", state[0]);
+	printf("%s"WHT"has taken a fork ", state[1]);
+	printf("%s"YLW"is eating ", state[2]);
+	printf("%s"BLU"is sleeping ", state[3]);
+	printf("%s"RED"died", state[5]);
+	printf(NO_CLR")\n");
 }
 
 void	db_check_all_ph(t_data *data, int id, unsigned long timestamp)
