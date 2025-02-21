@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:22:23 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/21 21:10:56 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/22 00:40:41 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	db_check_all_ph_ex(void)
 	printf(YLW"||"NO_CLR);
 	printf("        ");
 	printf(CYN"p" YLW"2" "%s" CYN"(" GRN"full🍽️ " RED" dead⏳" CYN")", state[0]);
-	printf(CYN"      XXms\n\t"NO_CLR"(");
+	printf(CYN"      XXms\n"NO_CLR"(");
 	printf("%s"WHT"is thinking ", state[0]);
 	printf("%s"WHT"has taken a fork ", state[1]);
 	printf("%s"YLW"is eating ", state[2]);
