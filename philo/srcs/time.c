@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:14 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/20 18:18:57 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/22 14:27:01 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ unsigned long	get_timestamp(t_data *data)
 void	print_timestamp(t_data *data, int id, int state)
 {
 	const char		*txt[7] = {"is thinking", "has taken a fork", \
-						"is eating", "is sleeping", "is full", "died"};
+						"is eating", "is sleeping", "died"};
 
 	pthread_mutex_lock(&data->mute_print);
 	if (DEFAULT_PRINT == 1)
