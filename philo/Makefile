@@ -6,7 +6,7 @@
 #    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/22 15:53:41 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/22 16:07:42 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -271,12 +271,12 @@ d_200: all d t
 
 TESTER_DIR	= ../philosophers_tester/
 
-tester_install:
+$(TESTER_DIR):
 	git clone https://github.com/kichkiro/philosophers_tester.git $(TESTER_DIR)
 	pip3 install -r $(TESTER_DIR)requirements.txt
 	make tester
 
-tester:
+tester: | $(TESTER_DIR)
 	python3 $(TESTER_DIR)/src/__main__.py ../philo 
 
 .PHONY: tester_install tester
