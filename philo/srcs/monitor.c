@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 18:36:22 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/22 15:38:23 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/22 15:50:49 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	dying(t_data *data, t_philo *philo)
 		return (set_dead(data, philo));
 	return (0);
 }
-		// printf("%lu %d %s\n", get_timestamp(data), philo->id, "died");
 
 //	monitor each philosopher to check if one died, or all have ate enough food
 void	*monitor_dying(void *data_arg)

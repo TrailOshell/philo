@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 14:24:33 by tsomchan          #+#    #+#              #
-#    Updated: 2025/02/22 03:19:19 by tsomchan         ###   ########.fr        #
+#    Updated: 2025/02/22 15:53:41 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,7 +77,7 @@ clean :
 fclean : clean
 	rm -f $(NAME)
 	rm -f $(D_NAME) $(T_NAME)
-	rm -rf $(TXT_DIR)
+	rm -rf $(TXT) $(D_TXT) $(T_TXT)
 
 re : fclean all
 
@@ -168,9 +168,6 @@ $(OBJS_DIR)%_t.o : $(SRCS_DIR)%.c Makefile $(HEADERS) | $(OBJS_SUB_DIRS)
 TXT			=	out.txt
 D_TXT		=	d_out.txt
 T_TXT		=	t_out.txt
-
-$(TXT_DIR):
-	mkdir -p $(TXT_DIR)
 
 # === [RUN] ===
 

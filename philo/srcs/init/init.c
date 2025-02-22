@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:41:27 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/21 19:42:39 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/22 15:51:45 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,3 @@ t_data	*data_init(t_data *data, int argc, char **argv)
 	mutex_init(data);
 	return (data);
 }
-
-	// pthread_mutex_init(&data->mute_n_philos, NULL);
-	// pthread_mutex_init(&data->mute_t_die, NULL);
-	// pthread_mutex_init(&data->mute_t_sleep, NULL);
-	// pthread_mutex_init(&data->mute_t_eat, NULL);
-	// pthread_mutex_init(&data->mute_n_philos_eat, NULL);
