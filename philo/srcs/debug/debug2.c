@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:22:23 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/22 02:35:09 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/22 07:23:03 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	db_check_all_ph_ex(void)
 	const char	*symbol = YLW"||"NO_CLR;
 
 	printf("\n");
-	printf(PUR"     v %s"PUR"the philo that print this timestamp%s"PUR" v"
+	printf(PUR"       v %s"PUR"the philo that print this timestamp%s"PUR" v"
 		NO_CLR, symbol, symbol);
-	printf(PUR"     v other philo v"NO_CLR);
+	printf(PUR"        v other philo v"NO_CLR);
 	printf("\n");
 	printf(CYN"XXms      "NO_CLR);
 	printf(YLW"||"NO_CLR);
@@ -73,11 +73,11 @@ void	db_check_all_ph_ex(void)
 	printf(CYN"p" YLW"2" "%s" CYN"(" GRN"full🍽️ " RED" dead⏳" CYN")", state[0]);
 	printf(CYN"      XXms\n"NO_CLR"(");
 	printf("%s"WHT"is thinking ", state[THINKING]);
-	printf("%s"WHT"has taken a fork ", state[FORKING]);
-	printf("%s"YLW"is eating ", state[EATING]);
-	printf("%s"BLU"is sleeping ", state[SLEEPING]);
-	printf("%s"RED"died", state[DEAD]);
-	printf(NO_CLR")\n");
+	printf("| %s"WHT"has taken a fork "NO_CLR, state[FORKING]);
+	printf("| %s"YLW"is eating "NO_CLR, state[EATING]);
+	printf("| %s"BLU"is sleeping "NO_CLR, state[SLEEPING]);
+	printf("| %s"RED"died"NO_CLR, state[DEAD]);
+	printf(")\n");
 }
 
 void	db_check_all_ph(t_data *data, int id, unsigned long timestamp)
