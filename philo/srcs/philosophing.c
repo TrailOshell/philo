@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:58:05 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/21 20:44:10 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/22 14:59:22 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ static int	sleeping(t_data *data, t_philo *philo)
 	set_state(philo, SLEEPING);
 	print_run_timestamp(data, philo->id, SLEEPING);
 	drop_forks(data, philo);
-	if (data->t_sleep > data->t_die)
-		momento_mori(data, philo, data->t_die - data->t_eat);
-	else if (data->t_sleep + data->t_eat > data->t_die)
+	if (data->t_sleep + data->t_eat > data->t_die)
 		momento_mori(data, philo, data->t_die - data->t_eat);
 	else
 		usleep(data->t_sleep);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:22:23 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/22 07:23:03 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/22 14:38:47 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	print_philo_stats(t_data *data, t_philo *philo,
 			unsigned long last_meal_time, unsigned long die_in_ms)
 {
 	const char		*state[6] = {"🤔", "🍴", "🍝", "💤", "💀"};
-	const char		*txt[7] = {WHT, WHT, YLW, BLU, GRN, RED};
+	const char		*txt[6] = {WHT, WHT, YLW, BLU, RED};
 	char			*color;
 	int				i;
 	int				n_eaten;
