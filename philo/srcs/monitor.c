@@ -6,7 +6,7 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 18:36:22 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/21 19:52:33 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/22 15:38:23 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ void	*monitor_all_full(void *data_arg)
 
 	data = (t_data *)data_arg;
 	philos = data->philos;
-	if (data->n_ph_eat == 0)
-		return (NULL);
 	i = 0;
 	while (i < data->n_ph && get_process(data) == RUNNING)
 	{

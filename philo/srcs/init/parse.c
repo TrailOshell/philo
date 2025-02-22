@@ -6,18 +6,16 @@
 /*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:17:03 by tsomchan          #+#    #+#             */
-/*   Updated: 2025/02/21 19:42:39 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/02/22 15:44:42 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	philo_set_var(int *var, char *arg)
+static int	check_digit(char *arg)
 {
 	int	i;
 
-	if (!arg)
-		return (-1);
 	i = 0;
 	while (arg[i])
 	{
@@ -25,6 +23,17 @@ static int	philo_set_var(int *var, char *arg)
 			return (-1);
 		i++;
 	}
+	return (0);
+}
+
+static int	philo_set_var(int *var, char *arg)
+{
+	int	i;
+
+	if (!arg)
+		return (-1);
+	if (check_digit(arg) == -1)
+		return (-1);
 	*var = ft_atoi(arg);
 	if (*var <= 0)
 		return (-1);
@@ -63,7 +72,9 @@ int	philo_parse(t_data *data, int argc, char **argv)
 		return (print_error(1, B_RED "ERROR! Wrong time_to_eat\n" NO_CLR));
 	if (philo_set_var((int *)&data->t_sleep, argv[4]) == -1)
 		return (print_error(1, B_RED "ERROR! Wrong time_to_sleep\n" NO_CLR));
-	if (argv[5] && philo_set_var(&data->n_ph_eat, argv[5]) == -1)
+	if (argc == 6 && check_digit(argv[5]) == 0 && ft_atoi(argv[5]) == 0)
+		set_process(data, ALL_FULL);
+	else if (argv[5] && philo_set_var(&data->n_ph_eat, argv[5]) == -1)
 		return (print_error(1, B_RED "ERROR! Wrong number_of_times" \
 			"_each_philosopher_must_eat\n" NO_CLR));
 	set_parse_value(data);
